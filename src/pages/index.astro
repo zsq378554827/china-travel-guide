@@ -18,7 +18,7 @@ import FAQList from "@components/FAQList.astro";
 import GuideMockup from "@components/GuideMockup.astro";
 import { cities } from "@data/cities";
 import { setupGuides } from "@data/setupGuides";
-import { checkoutUrl, site } from "@data/site";
+import { checkoutUrl, resolvedSiteUrl, site } from "@data/site";
 
 const homeFaq = [
   {
@@ -44,7 +44,7 @@ const jsonLd = {
   "@type": "WebSite",
   name: site.name,
   description: site.description,
-  url: import.meta.env.PUBLIC_SITE_URL || "https://china-travel-guide.example.com",
+  url: resolvedSiteUrl,
 };
 
 const setupIcons = {

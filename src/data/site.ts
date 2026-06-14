@@ -6,6 +6,9 @@ export const site = {
   updatedLabel: "Last updated: June 14, 2026",
 };
 
+export const defaultSiteUrl = "https://china-travel-guide-bq8.pages.dev";
+export const resolvedSiteUrl = (import.meta.env.PUBLIC_SITE_URL || defaultSiteUrl).replace(/\/$/, "");
+
 export const checkoutUrl = import.meta.env.PUBLIC_CHECKOUT_URL || "/unlock/#checkout-note";
 
 export const navLinks = [

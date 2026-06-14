@@ -13,7 +13,7 @@ npm run dev
 
 Copy `.env.example` to `.env` when configuring integrations.
 
-- `PUBLIC_SITE_URL`: production site URL used for sitemap and canonical links.
+- `PUBLIC_SITE_URL`: production site URL used for canonical links, `robots.txt`, and sitemap files.
 - `PUBLIC_TIANDITU_KEY`: Tianditu Web API key. Without it, the homepage map shows a transparent Spike status and keeps HTML city links available.
 - `PUBLIC_CHECKOUT_URL`: Lemon Squeezy or Gumroad checkout URL. Without it, purchase CTAs point to `/unlock/#checkout-note`.
 - `PUBLIC_GA_MEASUREMENT_ID`: optional GA4 measurement ID. When set, the layout loads Google Analytics.
@@ -35,7 +35,7 @@ Recommended first-public-URL sequence:
 4. Use output directory `dist`.
 5. Do not set `PUBLIC_TIANDITU_KEY`, `PUBLIC_CHECKOUT_URL`, or analytics variables for the first deploy.
 6. After Cloudflare returns the `https://*.pages.dev` URL, set `PUBLIC_SITE_URL` to that URL and redeploy.
-7. Verify `/`, `/unlock/`, `/china-travel-checklist/`, one city page, one attraction page, one setup guide, `/sitemap-index.xml`, and canonical URLs.
+7. Verify `/`, `/unlock/`, `/china-travel-checklist/`, one city page, one attraction page, one setup guide, `/robots.txt`, `/sitemap.xml`, `/sitemap-index.xml`, and canonical URLs.
 
 Optional CLI deploy after `wrangler login`:
 
