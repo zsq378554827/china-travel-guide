@@ -1,0 +1,21 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The requested China Travel Guide page could not be found."
+>
+  <section class="subpage-hero">
+    <div class="container subpage-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>404</span></nav>
+      <p class="eyebrow">404</p>
+      <h1>Page not found</h1>
+      <p class="lead">This page does not exist yet. Start with the free checklist or browse the current city guides.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/china-travel-checklist/">Open the free checklist</a>
+        <a class="button button-secondary" href="/#cities">Browse city guides</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
