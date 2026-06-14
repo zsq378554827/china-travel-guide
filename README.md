@@ -25,6 +25,27 @@ The site emits three lightweight analytics events when GA4 or Plausible is confi
 - `unlock_click`
 - `checkout_click`
 
+## Cloudflare Pages deployment
+
+Recommended first-public-URL sequence:
+
+1. Push this repository to GitHub.
+2. In Cloudflare Pages, connect the GitHub repository.
+3. Use build command `npm run build`.
+4. Use output directory `dist`.
+5. Do not set `PUBLIC_TIANDITU_KEY`, `PUBLIC_CHECKOUT_URL`, or analytics variables for the first deploy.
+6. After Cloudflare returns the `https://*.pages.dev` URL, set `PUBLIC_SITE_URL` to that URL and redeploy.
+7. Verify `/`, `/unlock/`, `/china-travel-checklist/`, one city page, one attraction page, one setup guide, `/sitemap-index.xml`, and canonical URLs.
+
+Optional CLI deploy after `wrangler login`:
+
+```bash
+npm run build
+npx wrangler pages deploy ./dist --project-name=china-travel-guide
+```
+
+Keep real API keys, checkout URLs, and analytics IDs in Cloudflare Pages environment variables or local `.env`; do not commit them.
+
 ## Current scope
 
 - Homepage `/`
