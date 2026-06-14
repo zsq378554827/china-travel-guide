@@ -1,0 +1,28 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import type { City } from "@data/cities";
+
+type Props = {
+  city: City;
+};
+
+const { city } = Astro.props;
+---
+
+<article class="city-card" style={`--city-color: ${city.color}`}>
+  <a class="city-card__media" href={city.href} aria-label={`${city.name} city guide`}>
+    <span>{city.region}</span>
+  </a>
+  <div class="city-card__body">
+    <div>
+      <h3>{city.name}</h3>
+      <p class="muted">{city.tagline}</p>
+    </div>
+    <div class="tag-list" aria-label={`${city.name} highlights`}>
+      {city.bestFor.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+    <a class="text-link" href={city.freeGuideHref}>
+      View free guide <ArrowRight size={17} />
+    </a>
+  </div>
+</article>

@@ -1,0 +1,92 @@
+---
+import { ArrowRight, LockKeyhole, MapPinned } from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getAttractionsByCity } from "@data/attractions";
+import { cities, type City } from "@data/cities";
+
+export function getStaticPaths() {
+  return cities.map((city) => ({
+    params: { city: city.id },
+    props: { city },
+  }));
+}
+
+type Props = {
+  city: City;
+};
+
+const { city } = Astro.props;
+const cityAttractions = getAttractionsByCity(city.id);
+---
+
+<BaseLayout
+  title={`${city.name} Travel Guide for First-Time Visitors`}
+  description={`${city.name} first-time visitor overview with free 1-day guide, must-see spots, practical tips, and full pack preview.`}
+>
+  <section class="subpage-hero">
+    <div class="container subpage-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>Cities</span><span>/</span><span>{city.name}</span></nav>
+      <p class="eyebrow">{city.region}</p>
+      <h1>{city.name}</h1>
+      <p class="lead">{city.tagline}</p>
+      <div class="trust-row">
+        <span class="pill">Recommended: {city.recommendedDays}</span>
+        <span class="pill">Must-see: {city.mustSee}</span>
+      </div>
+      <div class="inline-actions">
+        <a class="button button-primary" href={city.freeGuideHref}>Read the free 1-day guide</a>
+        <a class="button button-secondary" href={city.twoDayHref}>Preview 2-day / 3-day</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-grid">
+      <article class="content-card">
+        <MapPinned size={32} />
+        <h2>Must-see spots</h2>
+        <ul class="clean-list">
+          {cityAttractions.slice(0, 4).map((attraction) => (
+            <li><a class="text-link" href={`/attractions/${attraction.slug}/`}>{attraction.name} <ArrowRight size={16} /></a></li>
+          ))}
+        </ul>
+      </article>
+      <article class="content-card">
+        <ArrowRight size={32} />
+        <h2>Free 1-Day Guide</h2>
+        <p class="muted">A simple route for first-time visitors with booking reminders and backup notes.</p>
+        <a class="text-link" href={city.freeGuideHref}>Open free guide <ArrowRight size={16} /></a>
+      </article>
+      <article class="content-card">
+        <LockKeyhole size={32} />
+        <h2>2-Day / 3-Day previews</h2>
+        <p class="muted">Preview the paid route structure before unlocking the full current pack.</p>
+        <div class="tag-list" style="margin-top: 12px;">
+          <a class="tag" href={city.twoDayHref}>2-day preview</a>
+          <a class="tag" href={city.threeDayHref}>3-day preview</a>
+          <a class="tag" href="/unlock/">Full pack</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container content-grid">
+      <article class="content-card">
+        <h2>Before you arrive</h2>
+        <p class="muted">Set up payments, transport, apps, and ticket backups before you rely on them during the day.</p>
+        <a class="text-link" href="/china-travel-checklist/">Open arrival checklist <ArrowRight size={16} /></a>
+      </article>
+      <article class="content-card">
+        <h2>Ticket reminders</h2>
+        <p class="muted">Major attractions can require passport-based booking and saved confirmation screens.</p>
+        <a class="text-link" href="/china-ticket-booking-guide/">Read ticket booking guide <ArrowRight size={16} /></a>
+      </article>
+      <article class="content-card">
+        <h2>Unlock current pack</h2>
+        <p class="muted">Get complete 2-day and 3-day city routes, printable PDFs, booking reminders, and backup plans.</p>
+        <a class="text-link" href="/unlock/">Preview all current packs <ArrowRight size={16} /></a>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

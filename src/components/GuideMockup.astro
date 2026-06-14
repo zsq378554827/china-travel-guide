@@ -1,0 +1,35 @@
+---
+type Props = {
+  compact?: boolean;
+};
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={["mockup-stack", compact && "mockup-stack-compact"]} aria-label="Printable PDF pack preview">
+  <div class="paper-sheet" aria-hidden="true">
+    <strong>ARRIVAL SETUP</strong>
+    <ul>
+      <li>Before you fly</li>
+      <li>Payment backup</li>
+      <li>Metro and taxi</li>
+      <li>Ticket reminders</li>
+      <li>Offline card</li>
+    </ul>
+  </div>
+  <div class="guide-cover">
+    <span class="eyebrow">Printable PDF</span>
+    <strong>CHINA FIRST-TIME VISITOR PACK</strong>
+    <p class="muted">Itineraries, setup guides, maps, and checklists.</p>
+  </div>
+  <div class="phone-card" aria-hidden="true">
+    <strong>Offline checklist</strong>
+    <ul>
+      <li>Hotel address saved</li>
+      <li>Passport photo backup</li>
+      <li>Metro app ready</li>
+      <li>Ticket QR saved</li>
+      <li>Emergency card</li>
+    </ul>
+  </div>
+</div>

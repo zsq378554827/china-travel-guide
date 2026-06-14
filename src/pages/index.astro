@@ -1,0 +1,254 @@
+---
+import {
+  BookOpen,
+  Briefcase,
+  CalendarDays,
+  CreditCard,
+  Earth,
+  Plane,
+  ShieldCheck,
+  Ticket,
+  TrainFront,
+  WalletCards,
+} from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import ChinaTravelMap from "@components/ChinaTravelMap.astro";
+import CityCard from "@components/CityCard.astro";
+import FAQList from "@components/FAQList.astro";
+import GuideMockup from "@components/GuideMockup.astro";
+import { cities } from "@data/cities";
+import { setupGuides } from "@data/setupGuides";
+import { checkoutUrl, site } from "@data/site";
+
+const homeFaq = [
+  {
+    question: "Are the 1-day guides free?",
+    answer: "Yes. The MVP keeps 1-day city guides free so first-time visitors can check the style and usefulness before buying.",
+  },
+  {
+    question: "Is the full pack a subscription?",
+    answer: "No. It is a one-time purchase for the current packs available at checkout.",
+  },
+  {
+    question: "Do I get future content?",
+    answer: "You get the current packs at the time of purchase. Future content is not included unless stated on the checkout page.",
+  },
+  {
+    question: "Can I use the guides offline?",
+    answer: "The full pack is designed as downloadable PDFs, so you can save the current city packs and setup checklists before traveling.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.name,
+  description: site.description,
+  url: import.meta.env.PUBLIC_SITE_URL || "https://china-travel-guide.example.com",
+};
+
+const setupIcons = {
+  "how-to-pay-in-china": CreditCard,
+  "china-public-transport-guide": TrainFront,
+  "china-high-speed-rail-guide": TrainFront,
+  "china-travel-apps": Earth,
+  "china-ticket-booking-guide": CalendarDays,
+};
+---
+
+<BaseLayout
+  title="China Travel Guides for First-Time Visitors"
+  description="Pick one of 6 first-time visitor cities, read free 1-day China guides, and preview current 2-day, 3-day, arrival setup, and printable PDF packs."
+  jsonLd={jsonLd}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">China travel plans for first-time visitors</p>
+          <h1>6 Cities. One Clear First Trip.</h1>
+        </div>
+        <p class="lead">
+          Free 1-day guides for first-time visitors, with complete 2-day, 3-day, arrival setup, and printable PDF packs.
+        </p>
+        <div class="hero-actions" aria-label="Homepage actions">
+          <a class="button button-primary" href="#cities">Explore Free Guides</a>
+          <a class="button button-secondary" href="/unlock/">Preview Full Pack</a>
+        </div>
+        <div class="trust-row" aria-label="Product facts">
+          <span class="pill">Free 1-day city guides</span>
+          <span class="pill">6 first-time visitor cities</span>
+          <span class="pill">No subscription</span>
+        </div>
+      </div>
+      <ChinaTravelMap />
+    </div>
+    <div class="container value-strip" aria-label="MVP value summary">
+      <div class="value-item">
+        <BookOpen size={38} />
+        <div>
+          <h3>Free 1-Day Guides</h3>
+          <p class="muted">Practical, no sign-up city plans to start with confidence.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <Briefcase size={38} />
+        <div>
+          <h3>Current Packs Included</h3>
+          <p class="muted">2-day, 3-day, arrival setup, city guides, maps, and checklists.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <Ticket size={38} />
+        <div>
+          <h3>One-Time Purchase</h3>
+          <p class="muted">Current packs for $9.90. No recurring subscription.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cities">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Explore 6 Cities</p>
+          <h2>Start with a free city guide.</h2>
+        </div>
+        <p class="muted">
+          The first batch focuses on Beijing, Shanghai, Xi'an, Chengdu, Zhangjiajie, and Guilin / Yangshuo.
+        </p>
+      </div>
+      <div class="city-grid">
+        {cities.map((city) => <CityCard city={city} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="arrival-checklist">
+    <div class="container split-section">
+      <div>
+        <p class="eyebrow">Arrival Checklist</p>
+        <h2>Set up the essentials before you land.</h2>
+        <p class="lead">
+          Keep the free web checklist short enough to act on, then use the full setup pack for printable, offline steps.
+        </p>
+        <div class="inline-actions" style="margin-top: 24px;">
+          <a class="button button-primary" href="/china-travel-checklist/">Read the free checklist</a>
+          <a class="text-link" href="/unlock/">Preview full setup pack</a>
+        </div>
+      </div>
+      <div class="checklist-grid" aria-label="Arrival checklist groups">
+        <div class="checklist-col">
+          <Plane size={30} />
+          <h3>Before You Fly</h3>
+          <ul>
+            <li>Passport and visa rules</li>
+            <li>Arrival card window</li>
+            <li>Hotel address saved</li>
+          </ul>
+        </div>
+        <div class="checklist-col">
+          <WalletCards size={30} />
+          <h3>Payments</h3>
+          <ul>
+            <li>Alipay setup</li>
+            <li>WeChat Pay backup</li>
+            <li>Small cash reserve</li>
+          </ul>
+        </div>
+        <div class="checklist-col">
+          <TrainFront size={30} />
+          <h3>Getting Around</h3>
+          <ul>
+            <li>Metro and taxi basics</li>
+            <li>High-speed rail timing</li>
+            <li>Chinese address backups</li>
+          </ul>
+        </div>
+        <div class="checklist-col">
+          <Ticket size={30} />
+          <h3>Tickets</h3>
+          <ul>
+            <li>Passport name match</li>
+            <li>Confirm booking codes</li>
+            <li>Backup options</li>
+          </ul>
+        </div>
+        <div class="checklist-col">
+          <ShieldCheck size={30} />
+          <h3>Emergency</h3>
+          <ul>
+            <li>Offline emergency card</li>
+            <li>Passport photo backup</li>
+            <li>Hotel contact in Chinese</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="travel-setup">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Travel Setup</p>
+          <h2>Free setup guides for the arrival problems that matter.</h2>
+        </div>
+        <p class="muted">
+          These SEO pages stay free and lead into the full China Arrival Setup Pack when visitors need printable,
+          step-by-step offline help.
+        </p>
+      </div>
+      <div class="content-grid">
+        {setupGuides.map((guide) => {
+          const Icon = setupIcons[guide.slug as keyof typeof setupIcons] || Earth;
+          return (
+            <article class="content-card">
+              <Icon size={30} />
+              <h3>{guide.title}</h3>
+              <p class="muted">{guide.description}</p>
+              <a class="text-link" href={guide.href}>Read guide</a>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container paper-card unlock-panel">
+      <GuideMockup compact />
+      <div>
+        <p class="eyebrow">Unlock All Current Packs</p>
+        <h2>Everything needed for a smoother first China trip.</h2>
+        <ul class="clean-list" style="margin: 22px 0;">
+          <li>2-day and 3-day itineraries for all 6 cities</li>
+          <li>China Arrival Setup Pack checklists</li>
+          <li>Printable city guides and offline PDFs</li>
+          <li>Backup routes and booking reminders</li>
+        </ul>
+        <p class="price">$9.90</p>
+        <div class="trust-row" style="margin: 14px 0 22px;">
+          <span class="pill">One-time purchase</span>
+          <span class="pill">Current packs</span>
+          <span class="pill">No subscription</span>
+          <span class="pill">Printable PDFs</span>
+        </div>
+        <a class="button button-primary" href={checkoutUrl}>Unlock all current packs - $9.90</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2>Clear boundaries before checkout.</h2>
+        </div>
+      </div>
+      <FAQList items={homeFaq} />
+    </div>
+  </section>
+</BaseLayout>

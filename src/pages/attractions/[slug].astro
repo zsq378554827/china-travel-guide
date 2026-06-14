@@ -1,0 +1,168 @@
+---
+import { ArrowRight, CalendarDays, MapPin, Ticket, TrainFront } from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import FAQList from "@components/FAQList.astro";
+import { attractions, type Attraction } from "@data/attractions";
+import { cityById, type City } from "@data/cities";
+
+export function getStaticPaths() {
+  return attractions.map((attraction) => {
+    const city = cityById.get(attraction.cityId);
+
+    if (!city) {
+      throw new Error(`Missing city for attraction: ${attraction.slug}`);
+    }
+
+    return {
+      params: { slug: attraction.slug },
+      props: { attraction, city },
+    };
+  });
+}
+
+type Props = {
+  attraction: Attraction;
+  city: City;
+};
+
+const { attraction, city } = Astro.props;
+const pairLinks = attractions.filter((item) => item.cityId === city.id && item.slug !== attraction.slug).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${attraction.name} Visitor Guide`}
+  description={`Practical ${attraction.name} guide for first-time China visitors: how long to spend, what to book, how to get there, mistakes to avoid, and backup plans.`}
+>
+  <section class="subpage-hero">
+    <div class="container subpage-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span>/</span><span>Attractions</span><span>/</span><span>{attraction.name}</span>
+      </nav>
+      <p class="eyebrow">{city.name} attraction guide</p>
+      <h1>{attraction.name}</h1>
+      <p class="lead">{attraction.summary}</p>
+      <div class="trust-row">
+        <span class="pill"><CalendarDays size={16} /> {attraction.timeNeeded}</span>
+        <span class="pill"><Ticket size={16} /> {attraction.bookBeforeArrival}</span>
+        <span class="pill"><MapPin size={16} /> {city.name}</span>
+      </div>
+      <div class="inline-actions">
+        <a class="button button-primary" href={city.freeGuideHref}>Open the free {city.name} 1-day guide</a>
+        <a class="button button-secondary" href="/china-ticket-booking-guide/">Read ticket booking guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container content-grid">
+      <article class="content-card">
+        <h2>Quick facts</h2>
+        <ul class="clean-list">
+          <li>Chinese name: {attraction.chineseName}</li>
+          <li>City: {city.name}</li>
+          <li>Time needed: {attraction.timeNeeded}</li>
+          <li>Best time: {attraction.bestTime}</li>
+          <li>Good for: {attraction.goodFor}</li>
+        </ul>
+      </article>
+      <article class="content-card">
+        <Ticket size={32} />
+        <h2>What to book before arrival</h2>
+        <ul class="clean-list">
+          {attraction.bookingNotes.map((note) => <li>{note}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <TrainFront size={32} />
+        <h2>How to get there</h2>
+        <p class="muted">{attraction.transport}</p>
+        <p class="checkout-note" style="margin-top: 14px;">Taxi / map phrase: {attraction.taxiAddress}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container content-grid">
+      <article class="content-card">
+        <h2>Should you go?</h2>
+        <ul class="clean-list">
+          {attraction.shouldGo.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <h2>Skip or delay if...</h2>
+        <ul class="clean-list">
+          {attraction.skipIf.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <h2>Pair this with</h2>
+        <ul class="clean-list">
+          {pairLinks.map((item) => <li><a class="text-link" href={`/attractions/${item.slug}/`}>{item.name} <ArrowRight size={16} /></a></li>)}
+          <li><a class="text-link" href={city.href}>{city.name} city guide <ArrowRight size={16} /></a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container timeline">
+      {attraction.visitFlow.map((step) => (
+        <article class="timeline-item">
+          <div>
+            <h2>{step}</h2>
+            <p class="muted">Keep this as a simple flow. The complete city pack connects this stop with the rest of the day.</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container content-grid">
+      <article class="content-card">
+        <h2>Getting there notes</h2>
+        <ul class="clean-list">
+          {attraction.gettingThere.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <h2>Common mistakes</h2>
+        <ul class="clean-list">
+          {attraction.commonMistakes.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <h2>Backup plan</h2>
+        <p class="muted">{attraction.backupPlan}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container paper-card unlock-panel">
+      <div>
+        <p class="eyebrow">Full city route</p>
+        <h2>Turn this attraction into a complete {city.name} day.</h2>
+        <p class="muted">
+          Attraction pages stay free and practical. The full pack adds the complete 2-day and 3-day city route,
+          printable PDFs, booking reminders, and backup timing.
+        </p>
+      </div>
+      <div class="setup-card">
+        <ul class="clean-list">
+          <li><a class="text-link" href={city.freeGuideHref}>Free {city.name} 1-day guide <ArrowRight size={16} /></a></li>
+          <li><a class="text-link" href={city.twoDayHref}>Preview {city.name} 2-day guide <ArrowRight size={16} /></a></li>
+          <li><a class="text-link" href={city.threeDayHref}>Preview {city.name} 3-day guide <ArrowRight size={16} /></a></li>
+          <li><a class="text-link" href="/unlock/">Unlock all current packs <ArrowRight size={16} /></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <FAQList items={attraction.faq} />
+    </div>
+  </section>
+</BaseLayout>

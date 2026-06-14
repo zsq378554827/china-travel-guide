@@ -1,0 +1,12 @@
+---
+import SetupGuidePage from "@components/SetupGuidePage.astro";
+import { setupGuideBySlug } from "@data/setupGuides";
+
+const guide = setupGuideBySlug.get("china-travel-apps");
+
+if (!guide) {
+  throw new Error("Missing setup guide: china-travel-apps");
+}
+---
+
+<SetupGuidePage guide={guide} />

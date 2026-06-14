@@ -1,0 +1,20 @@
+---
+import { Landmark } from "@lucide/astro";
+import { checkoutUrl, navLinks } from "@data/site";
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label="China Travel Guide home">
+      <span class="brand-mark" aria-hidden="true"><Landmark size={24} stroke-width={2.4} /></span>
+      <span class="brand-title">China Travel Guide</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <a class="button button-secondary" href="/#cities">Explore Free Guides</a>
+      <a class="button button-primary" href={checkoutUrl}>Unlock - $9.90</a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,110 @@
+---
+import { ArrowRight, CircleAlert, CircleCheck, LockKeyhole, NotebookText } from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import type { SetupGuide } from "@data/setupGuides";
+
+type Props = {
+  guide: SetupGuide;
+};
+
+const { guide } = Astro.props;
+---
+
+<BaseLayout title={guide.title} description={guide.description}>
+  <section class="subpage-hero">
+    <div class="container subpage-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a><span>/</span><a href="/china-travel-checklist/">Travel Setup</a><span>/</span><span>{guide.title}</span>
+      </nav>
+      <p class="eyebrow">{guide.eyebrow}</p>
+      <h1>{guide.h1}</h1>
+      <p class="lead">{guide.summary}</p>
+      <div class="inline-actions">
+        <a class="button button-primary" href="/unlock/">Unlock the full setup pack</a>
+        <a class="button button-secondary" href="#free-guide">Read the free guide</a>
+      </div>
+      <p class="checkout-note">
+        App screens, booking rules, fees, and provider requirements can change. Check official sources and in-app prompts before travel.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="free-guide">
+    <div class="container content-grid">
+      <article class="content-card">
+        <CircleCheck size={32} />
+        <h2>Quick basics</h2>
+        <ul class="clean-list">
+          {guide.basics.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <NotebookText size={32} />
+        <h2>Free checklist</h2>
+        <ul class="clean-list">
+          {guide.freeChecklist.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="content-card">
+        <CircleAlert size={32} />
+        <h2>Common issues</h2>
+        <ul class="clean-list">
+          {guide.commonIssues.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container timeline">
+      {guide.steps.map((step) => (
+        <article class="timeline-item">
+          <div>
+            <h2>{step.title}</h2>
+            <p class="muted">{step.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Full setup pack preview</p>
+          <h2>What the paid pack adds.</h2>
+        </div>
+        <p class="muted">
+          The free page gives the checklist. The paid setup pack adds printable steps, troubleshooting, and offline backup material.
+        </p>
+      </div>
+      <div class="setup-grid">
+        {guide.paidPreview.map((item) => (
+          <article class="setup-card">
+            <LockKeyhole size={26} />
+            <h3>{item}</h3>
+            <p class="muted">Detailed printable guidance is reserved for the full current pack.</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container paper-card unlock-panel">
+      <div>
+        <p class="eyebrow">Related setup guides</p>
+        <h2>Keep the planning path connected.</h2>
+        <p class="muted">Use these free pages as entry points, then unlock the current pack when you want printable steps and city-by-city notes.</p>
+      </div>
+      <div class="setup-card">
+        <ul class="clean-list">
+          {guide.related.map((link) => (
+            <li><a class="text-link" href={link.href}>{link.label} <ArrowRight size={16} /></a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

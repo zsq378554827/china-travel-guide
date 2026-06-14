@@ -1,0 +1,19 @@
+---
+import ItineraryPreviewPage from "@components/ItineraryPreviewPage.astro";
+import { cities, type City } from "@data/cities";
+
+export function getStaticPaths() {
+  return cities.map((city) => ({
+    params: { city: city.id },
+    props: { city },
+  }));
+}
+
+type Props = {
+  city: City;
+};
+
+const { city } = Astro.props;
+---
+
+<ItineraryPreviewPage city={city} days={2} />

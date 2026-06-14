@@ -1,0 +1,111 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import FAQList from "@components/FAQList.astro";
+import { setupGuides } from "@data/setupGuides";
+
+const checklistFaq = [
+  {
+    question: "When should I fill in the arrival card?",
+    answer: "Plan to complete it 24-72 hours before departure when possible. If you cannot do it before flying, ports may provide on-arrival options.",
+  },
+  {
+    question: "Do I need a China SIM card?",
+    answer: "Not always. eSIM or international roaming can cover many short trips, while a China SIM may help with SMS verification for longer stays.",
+  },
+  {
+    question: "Can Google services be unreliable?",
+    answer: "They may be unavailable or unreliable in mainland China without international roaming or another compliant network solution.",
+  },
+];
+
+const groups = [
+  ["Before You Fly", ["Passport / visa or visa-free rules", "Arrival Card", "Hotel booking and address", "Travel insurance", "eSIM or roaming"]],
+  ["Set Up Your Phone", ["Alipay", "WeChat", "Trip.com", "Map app", "Translation app"]],
+  ["Payments", ["Link an international card to Alipay", "Set up WeChat Pay as backup", "Carry small cash", "Check app-screen fees"]],
+  ["Getting Around", ["Metro QR code", "Taxi / DiDi", "High-speed rail", "Chinese address backups"]],
+  ["Tickets & Attractions", ["Book popular attractions early", "Use passport name exactly", "Save QR codes", "Keep backup plans"]],
+  ["Emergency", ["Hotel address in Chinese", "Passport backup", "110 / 120 / 119", "Offline emergency card"]],
+];
+---
+
+<BaseLayout
+  title="China Travel Checklist for First-Time Visitors"
+  description="A free short China arrival checklist for first-time visitors covering phone setup, payments, transport, tickets, and emergency backups."
+>
+  <section class="subpage-hero">
+    <div class="container subpage-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>China Travel Checklist</span></nav>
+      <p class="eyebrow">Free checklist</p>
+      <h1>China Travel Checklist for First-Time Visitors</h1>
+      <p class="lead">Set up your phone, payments, transport, tickets, and emergency backups before you arrive in China.</p>
+      <div class="inline-actions">
+        <a class="button button-primary" href="/unlock/">Unlock the full printable setup pack</a>
+        <a class="button button-secondary" href="#free-checklist">Read the free checklist</a>
+      </div>
+      <p class="checkout-note">
+        Rules can change. Check official sources and app screens before travel. This is not official travel or legal advice.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="free-checklist">
+    <div class="container content-grid">
+      {groups.map(([title, items]) => (
+        <article class="content-card">
+          <h3>{title}</h3>
+          <ul class="clean-list">
+            {(items as string[]).map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight" id="setup-guides">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Free setup guides</p>
+          <h2>Go deeper on the practical parts.</h2>
+        </div>
+        <p class="muted">
+          Use these pages for SEO-friendly basics. The full setup pack adds printable steps, troubleshooting, and offline cards.
+        </p>
+      </div>
+      <div class="content-grid">
+        {setupGuides.map((guide) => (
+          <article class="content-card">
+            <h3>{guide.title}</h3>
+            <p class="muted">{guide.description}</p>
+            <a class="text-link" href={guide.href}>Read guide</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Full setup pack preview</p>
+          <h2>Inside the paid printable setup pack.</h2>
+        </div>
+      </div>
+      <div class="setup-grid">
+        {["Arrival Card Step-by-Step", "Hotel Registration", "Alipay Setup", "Metro / Bus QR", "Offline Emergency Card"].map((title) => (
+          <article class="setup-card">
+            <h3>{title}</h3>
+            <p class="muted">Detailed steps are reserved for the full printable pack.</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <FAQList items={checklistFaq} />
+    </div>
+  </section>
+</BaseLayout>

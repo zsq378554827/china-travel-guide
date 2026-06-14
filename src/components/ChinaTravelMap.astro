@@ -1,0 +1,101 @@
+---
+import { MapPin } from "@lucide/astro";
+import { cities } from "@data/cities";
+
+const tiandituKey = import.meta.env.PUBLIC_TIANDITU_KEY || "";
+const cityPoints = cities.map((city) => ({
+  id: city.id,
+  name: city.name,
+  lat: city.lat,
+  lng: city.lng,
+  href: city.freeGuideHref,
+  tagline: city.tagline,
+}));
+---
+
+<div class="map-card" data-map-component>
+  <div class="map-card__header">
+    <span class="map-status">Tianditu map Spike</span>
+    <span>6 calibrated city pins + HTML fallback</span>
+  </div>
+  <div id="tianditu-map" class="tianditu-map" aria-label="China map with first-time visitor cities">
+    {!tiandituKey && (
+      <div class="map-empty">
+        <div class="map-empty__panel">
+          <MapPin size={34} color="#C62828" />
+          <h3>Live compliant base map pending key</h3>
+          <p>
+            Add <strong>PUBLIC_TIANDITU_KEY</strong> to load Tianditu's official online base map here. Until then, city
+            navigation remains available through crawlable links below.
+          </p>
+        </div>
+      </div>
+    )}
+  </div>
+  <div class="map-source">
+    Base map target: Tianditu / National Platform for Common Geospatial Information Services. Keep required attribution,
+    review number, and service source visible before launch.
+  </div>
+  <nav class="city-link-list" aria-label="Crawlable city guide links">
+    {cities.map((city) => <a href={city.freeGuideHref}>{city.name}</a>)}
+  </nav>
+</div>
+
+<script is:inline define:vars={{ cityPoints, tiandituKey }}>
+  const container = document.getElementById("tianditu-map");
+
+  function showMapState(message) {
+    if (!container) return;
+    container.innerHTML = `
+      <div class="map-empty">
+        <div class="map-empty__panel">
+          <h3>Tianditu map Spike needs review</h3>
+          <p>${message}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  function initTiandituMap() {
+    if (!container || !window.T) {
+      showMapState("The Tianditu API did not expose window.T. Check the script URL, key, and network.");
+      return;
+    }
+
+    container.innerHTML = "";
+    const map = new window.T.Map("tianditu-map");
+    map.centerAndZoom(new window.T.LngLat(104.1954, 35.8617), 4);
+    map.enableScrollWheelZoom();
+
+    cityPoints.forEach((city) => {
+      const position = new window.T.LngLat(city.lng, city.lat);
+      const marker = new window.T.Marker(position);
+      const label = new window.T.Label({
+        text: city.name,
+        position,
+        offset: new window.T.Point(12, -28),
+      });
+
+      map.addOverLay(marker);
+      map.addOverLay(label);
+
+      marker.addEventListener("click", () => {
+        window.location.href = city.href;
+      });
+      label.addEventListener("click", () => {
+        window.location.href = city.href;
+      });
+    });
+  }
+
+  if (tiandituKey && container) {
+    const script = document.createElement("script");
+    script.src = `https://api.tianditu.gov.cn/api?v=4.0&tk=${encodeURIComponent(tiandituKey)}`;
+    script.async = true;
+    script.onload = initTiandituMap;
+    script.onerror = () => {
+      showMapState("The Tianditu API script failed to load. Use the static standard-map fallback before launch.");
+    };
+    document.head.appendChild(script);
+  }
+</script>
