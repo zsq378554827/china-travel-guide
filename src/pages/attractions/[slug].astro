@@ -105,6 +105,25 @@ const pairLinks = attractions.filter((item) => item.cityId === city.id && item.s
     </div>
   </section>
 
+  {attraction.officialSources && (
+    <section class="section-tight">
+      <div class="container paper-card source-panel">
+        <div>
+          <p class="eyebrow">Official pages</p>
+          <h2>Check booking rules before travel.</h2>
+          <p class="muted">
+            Attraction reservations, accepted IDs, opening days, and add-on transport can change. Use the official pages as the final source before booking.
+          </p>
+        </div>
+        <div class="source-links">
+          {attraction.officialSources.map((source) => (
+            <a class="text-link" href={source.href}>{source.label} <ArrowRight size={16} /></a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="section-tight">
     <div class="container timeline">
       {attraction.visitFlow.map((step) => (

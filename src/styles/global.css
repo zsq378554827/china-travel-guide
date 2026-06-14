@@ -551,6 +551,19 @@ p {
   padding: 34px;
 }
 
+.source-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(320px, 1fr);
+  gap: 28px;
+  align-items: start;
+  padding: 28px;
+}
+
+.source-links {
+  display: grid;
+  gap: 12px;
+}
+
 .mockup-stack {
   position: relative;
   min-height: 300px;
@@ -839,7 +852,8 @@ p {
 
   .hero-grid,
   .split-section,
-  .unlock-panel {
+  .unlock-panel,
+  .source-panel {
     grid-template-columns: 1fr;
   }
 

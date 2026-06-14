@@ -24,6 +24,8 @@ const {
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || Astro.site?.toString() || "https://china-travel-guide.example.com";
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 ---
 
 <!doctype html>
@@ -40,6 +42,49 @@ const canonical = new URL(Astro.url.pathname, siteUrl).toString();
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {gaMeasurementId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+        <script
+          is:inline
+          set:html={`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "${gaMeasurementId}");`}
+        />
+      </>
+    )}
+    {plausibleDomain && <script is:inline defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js"></script>}
+    <script
+      is:inline
+      set:html={`document.addEventListener("click", function (event) {
+  var link = event.target && event.target.closest ? event.target.closest("a[href]") : null;
+  if (!link) return;
+
+  var url;
+  try {
+    url = new URL(link.href);
+  } catch (_) {
+    return;
+  }
+
+  var text = (link.textContent || "").toLowerCase();
+  var path = url.pathname;
+  var eventName = "";
+
+  if (/^\\/cities\\/[^/]+\\/$/.test(path)) {
+    eventName = "city_click";
+  } else if (path === "/unlock/" && window.location.pathname !== "/unlock/") {
+    eventName = "unlock_click";
+  } else if (text.indexOf("unlock all current packs") !== -1 || text.indexOf("buy") !== -1) {
+    eventName = "checkout_click";
+  }
+
+  if (!eventName) return;
+  if (typeof window.gtag === "function") window.gtag("event", eventName);
+  if (typeof window.plausible === "function") window.plausible(eventName);
+});`}
+    />
   </head>
   <body>
     <div class="site-shell">

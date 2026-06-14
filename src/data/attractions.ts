@@ -22,6 +22,10 @@ export type Attraction = {
     question: string;
     answer: string;
   }[];
+  officialSources?: {
+    label: string;
+    href: string;
+  }[];
 };
 
 export const attractions: Attraction[] = [
@@ -33,21 +37,24 @@ export const attractions: Attraction[] = [
     summary: "Choose Mutianyu for a calmer first Great Wall day, or Badaling if you want the simplest rail access.",
     goodFor: "First-time visitors who want a landmark day outside central Beijing.",
     timeNeeded: "Half day to full day",
-    bookBeforeArrival: "Transport, entry ticket, and cable car or shuttle choice",
+    bookBeforeArrival: "Transport, entry ticket, and cable car or shuttle choice through the current official or authorized channel",
     bestTime: "Early morning, especially on weekends and holidays",
     transport: "Tour bus, private transfer, or high-speed rail plus shuttle for Badaling",
     taxiAddress: "请前往慕田峪长城游客中心或八达岭长城景区",
     pairWith: ["Forbidden City", "Temple of Heaven"],
     shouldGo: ["You want the one landmark most visitors associate with China.", "You can start early and keep the day flexible."],
     skipIf: ["You only have a few hours in Beijing.", "Weather is poor and you cannot reschedule."],
-    bookingNotes: ["Decide Mutianyu or Badaling before booking.", "Keep passport details consistent with the ticket platform.", "Check cable car and shuttle availability."],
+    bookingNotes: ["Decide Mutianyu or Badaling before booking.", "Use the current official or authorized booking channel.", "Keep passport details consistent with the ticket platform.", "Check cable car, shuttle, weather, and closure notices before leaving Beijing."],
     gettingThere: ["Leave central Beijing early.", "Save the Chinese destination name for your driver or map app.", "Confirm the return meeting point before entering the scenic area."],
     visitFlow: ["Arrive at the visitor center.", "Collect or scan tickets.", "Take shuttle or cable route.", "Walk one short section instead of trying to cover everything.", "Return before late-afternoon traffic."],
-    commonMistakes: ["Underestimating round-trip travel time.", "Booking the wrong Great Wall section.", "Trying to combine it with too many city sights."],
+    commonMistakes: ["Underestimating round-trip travel time.", "Booking the wrong Great Wall section or entrance add-on.", "Ignoring weather or closure notices.", "Trying to combine it with too many city sights."],
     backupPlan: "If weather is bad, switch to Temple of Heaven plus a slower hutong walk and keep the Great Wall for another day.",
     faq: [
       { question: "Which section is easier for a first visit?", answer: "Mutianyu is often calmer; Badaling is easier by rail but can feel busier." },
       { question: "Can I visit without a tour?", answer: "Yes, but a transfer can reduce planning friction for a short trip." },
+    ],
+    officialSources: [
+      { label: "Beijing attraction ticketing guide", href: "https://english.beijing.gov.cn/specials/ticketing/index.html" },
     ],
   },
   {
@@ -55,24 +62,28 @@ export const attractions: Attraction[] = [
     name: "Forbidden City",
     cityId: "beijing",
     chineseName: "故宫博物院",
-    summary: "Beijing's central palace complex is a high-priority booking item for first-time visitors.",
+    summary: "Beijing's central palace complex is a high-priority real-name reservation item for first-time visitors.",
     goodFor: "History, architecture, and a classic first Beijing route.",
     timeNeeded: "3-4 hours",
-    bookBeforeArrival: "Timed ticket using passport details",
+    bookBeforeArrival: "Real-name reservation using accepted passport or ID details",
     bestTime: "Morning entry",
     transport: "Metro to Tiananmen East / West area, then security and walking routes",
     taxiAddress: "请前往故宫博物院午门入口",
     pairWith: ["Temple of Heaven", "Great Wall - Mutianyu / Badaling"],
     shouldGo: ["You want Beijing's most important imperial landmark.", "You can handle a long walking route with security checks."],
-    skipIf: ["You dislike crowds and cannot enter early.", "You do not have a valid ticket linked to your passport."],
-    bookingNotes: ["Use the exact passport name required by the booking flow.", "Check closure days before planning.", "Save confirmation screenshots offline."],
+    skipIf: ["You dislike crowds and cannot enter early.", "You do not have a valid reservation linked to the accepted ID used at booking."],
+    bookingNotes: ["Do not rely on buying for the same date.", "Use the exact passport or accepted ID details required by the booking flow.", "Check closure days and current reservation rules before planning.", "Save confirmation screenshots offline."],
     gettingThere: ["Use metro or taxi to the Tiananmen area.", "Expect security lines before reaching the entrance.", "Follow the south-to-north visitor flow."],
     visitFlow: ["Enter through the Meridian Gate.", "Follow the central axis first.", "Add side halls only if energy allows.", "Exit north toward Jingshan or nearby transit."],
-    commonMistakes: ["Arriving without a ticket.", "Using a different passport name format.", "Planning another faraway attraction immediately after."],
+    commonMistakes: ["Arriving without a valid reservation.", "Using a different passport or ID name format.", "Not checking current ticket availability rules.", "Planning another faraway attraction immediately after."],
     backupPlan: "If tickets are unavailable, use Jingshan Park, hutongs, and Temple of Heaven as a lighter Beijing day.",
     faq: [
-      { question: "Do I need to book ahead?", answer: "Yes. Treat Forbidden City as an advance-booking item, especially in peak seasons." },
+      { question: "Do I need to book ahead?", answer: "Yes. Treat Forbidden City as a real-name advance-reservation item and check the current official rules before choosing the date." },
       { question: "How long should I allow?", answer: "Plan at least three hours, plus security and walking time." },
+    ],
+    officialSources: [
+      { label: "Palace Museum visitor reservation notice", href: "https://english.beijing.gov.cn/latest/news/202306/t20230629_3150036.html" },
+      { label: "Beijing attraction ticketing guide", href: "https://english.beijing.gov.cn/specials/ticketing/index.html" },
     ],
   },
   {
