@@ -107,7 +107,7 @@ const productJsonLd = {
           <span class="pill"><CircleX size={16} /> No subscription</span>
         </div>
         <div class="hero-actions">
-          <a class="button button-primary" href={checkoutUrl}>Unlock all current packs - $9.90</a>
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock all current packs - $9.90</a>
           <a class="button button-secondary" href="#included">Preview what is included</a>
         </div>
       </div>
@@ -241,7 +241,7 @@ const productJsonLd = {
       </div>
       <div>
         <p class="price">$9.90</p>
-        <a class="button button-primary" href={checkoutUrl}>Unlock all current packs - $9.90</a>
+        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock all current packs - $9.90</a>
         {!import.meta.env.PUBLIC_CHECKOUT_URL && (
           <p id="checkout-note" class="checkout-note" style="margin-top: 16px;">
             Checkout is not connected yet. Configure PUBLIC_CHECKOUT_URL with a Lemon Squeezy or Gumroad URL before launch.

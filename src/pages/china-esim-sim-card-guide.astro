@@ -1,0 +1,12 @@
+---
+import SetupGuidePage from "@components/SetupGuidePage.astro";
+import { setupGuideBySlug } from "@data/setupGuides";
+
+const guide = setupGuideBySlug.get("china-esim-sim-card-guide");
+
+if (!guide) {
+  throw new Error("Missing setup guide: china-esim-sim-card-guide");
+}
+---
+
+<SetupGuidePage guide={guide} />

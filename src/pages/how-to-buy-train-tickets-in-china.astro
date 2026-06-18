@@ -1,0 +1,12 @@
+---
+import SetupGuidePage from "@components/SetupGuidePage.astro";
+import { setupGuideBySlug } from "@data/setupGuides";
+
+const guide = setupGuideBySlug.get("how-to-buy-train-tickets-in-china");
+
+if (!guide) {
+  throw new Error("Missing setup guide: how-to-buy-train-tickets-in-china");
+}
+---
+
+<SetupGuidePage guide={guide} />

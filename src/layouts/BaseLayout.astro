@@ -69,10 +69,14 @@ gtag("config", "${gaMeasurementId}");`}
 
   var text = (link.textContent || "").toLowerCase();
   var path = url.pathname;
-  var eventName = "";
+  var eventName = link.dataset.analyticsEvent || "";
 
-  if (/^\\/cities\\/[^/]+\\/$/.test(path)) {
+  if (eventName) {
+    eventName = eventName;
+  } else if (/^\\/cities\\/[^/]+\\/$/.test(path)) {
     eventName = "city_click";
+  } else if (path === "/unlock/" && url.hash === "#checkout-note") {
+    eventName = "checkout_click";
   } else if (path === "/unlock/" && window.location.pathname !== "/unlock/") {
     eventName = "unlock_click";
   } else if (text.indexOf("unlock all current packs") !== -1 || text.indexOf("buy") !== -1) {
@@ -80,7 +84,7 @@ gtag("config", "${gaMeasurementId}");`}
   }
 
   if (!eventName) return;
-  if (typeof window.gtag === "function") window.gtag("event", eventName);
+  if (typeof window.gtag === "function") window.gtag("event", eventName, { transport_type: "beacon" });
   if (typeof window.plausible === "function") window.plausible(eventName);
 });`}
     />

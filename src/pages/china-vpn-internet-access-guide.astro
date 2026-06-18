@@ -1,0 +1,12 @@
+---
+import SetupGuidePage from "@components/SetupGuidePage.astro";
+import { setupGuideBySlug } from "@data/setupGuides";
+
+const guide = setupGuideBySlug.get("china-vpn-internet-access-guide");
+
+if (!guide) {
+  throw new Error("Missing setup guide: china-vpn-internet-access-guide");
+}
+---
+
+<SetupGuidePage guide={guide} />

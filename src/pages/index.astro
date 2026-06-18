@@ -49,9 +49,14 @@ const jsonLd = {
 
 const setupIcons = {
   "how-to-pay-in-china": CreditCard,
+  "can-foreigners-use-alipay-in-china": WalletCards,
+  "can-tourists-use-wechat-pay-in-china": WalletCards,
   "china-public-transport-guide": TrainFront,
   "china-high-speed-rail-guide": TrainFront,
+  "how-to-buy-train-tickets-in-china": Ticket,
   "china-travel-apps": Earth,
+  "china-esim-sim-card-guide": Earth,
+  "china-vpn-internet-access-guide": ShieldCheck,
   "china-ticket-booking-guide": CalendarDays,
 };
 ---
@@ -235,7 +240,7 @@ const setupIcons = {
           <span class="pill">No subscription</span>
           <span class="pill">Printable PDFs</span>
         </div>
-        <a class="button button-primary" href={checkoutUrl}>Unlock all current packs - $9.90</a>
+        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock all current packs - $9.90</a>
       </div>
     </div>
   </section>

@@ -1,0 +1,12 @@
+---
+import SetupGuidePage from "@components/SetupGuidePage.astro";
+import { setupGuideBySlug } from "@data/setupGuides";
+
+const guide = setupGuideBySlug.get("can-tourists-use-wechat-pay-in-china");
+
+if (!guide) {
+  throw new Error("Missing setup guide: can-tourists-use-wechat-pay-in-china");
+}
+---
+
+<SetupGuidePage guide={guide} />

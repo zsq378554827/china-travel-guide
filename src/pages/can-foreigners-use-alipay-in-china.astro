@@ -1,0 +1,12 @@
+---
+import SetupGuidePage from "@components/SetupGuidePage.astro";
+import { setupGuideBySlug } from "@data/setupGuides";
+
+const guide = setupGuideBySlug.get("can-foreigners-use-alipay-in-china");
+
+if (!guide) {
+  throw new Error("Missing setup guide: can-foreigners-use-alipay-in-china");
+}
+---
+
+<SetupGuidePage guide={guide} />
