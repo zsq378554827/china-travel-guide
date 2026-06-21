@@ -1,7 +1,5 @@
 ---
 import {
-  BookOpen,
-  Briefcase,
   CalendarDays,
   CreditCard,
   Earth,
@@ -12,10 +10,10 @@ import {
   WalletCards,
 } from "@lucide/astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import ChinaTravelMap from "@components/ChinaTravelMap.astro";
 import CityCard from "@components/CityCard.astro";
 import FAQList from "@components/FAQList.astro";
 import GuideMockup from "@components/GuideMockup.astro";
+import HomeHero3D from "@components/home/HomeHero3D.astro";
 import { cities } from "@data/cities";
 import { setupGuides } from "@data/setupGuides";
 import { checkoutUrl, resolvedSiteUrl, site } from "@data/site";
@@ -26,7 +24,7 @@ const homeFaq = [
     answer: "Yes. The MVP keeps 1-day city guides free so first-time visitors can check the style and usefulness before buying.",
   },
   {
-    question: "Is the full pack a subscription?",
+    question: "Is the Arrival Pack a subscription?",
     answer: "No. It is a one-time purchase for the current packs available at checkout.",
   },
   {
@@ -35,7 +33,7 @@ const homeFaq = [
   },
   {
     question: "Can I use the guides offline?",
-    answer: "The full pack is designed as downloadable PDFs, so you can save the current city packs and setup checklists before traveling.",
+    answer: "The Arrival Pack is designed as downloadable PDFs, so you can save city planning notes and setup checklists before traveling.",
   },
 ];
 
@@ -59,59 +57,21 @@ const setupIcons = {
   "china-vpn-internet-access-guide": ShieldCheck,
   "china-ticket-booking-guide": CalendarDays,
 };
+
+const homepageSetupGuides = setupGuides.filter(
+  (guide) =>
+    !["china-high-speed-rail-guide", "how-to-buy-train-tickets-in-china", "china-ticket-booking-guide"].includes(
+      guide.slug,
+    ),
+);
 ---
 
 <BaseLayout
   title="China Travel Guides for First-Time Visitors"
-  description="Pick one of 6 first-time visitor cities, read free 1-day China guides, and preview current 2-day, 3-day, arrival setup, and printable PDF packs."
+  description="Free first-day city guides, arrival setup tips, and a printable China Arrival Pack for first-time visitors."
   jsonLd={jsonLd}
 >
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <div>
-          <p class="eyebrow">China travel plans for first-time visitors</p>
-          <h1>6 Cities. One Clear First Trip.</h1>
-        </div>
-        <p class="lead">
-          Free 1-day guides for first-time visitors, with complete 2-day, 3-day, arrival setup, and printable PDF packs.
-        </p>
-        <div class="hero-actions" aria-label="Homepage actions">
-          <a class="button button-primary" href="#cities">Explore Free Guides</a>
-          <a class="button button-secondary" href="/unlock/">Preview Full Pack</a>
-        </div>
-        <div class="trust-row" aria-label="Product facts">
-          <span class="pill">Free 1-day city guides</span>
-          <span class="pill">6 first-time visitor cities</span>
-          <span class="pill">No subscription</span>
-        </div>
-      </div>
-      <ChinaTravelMap />
-    </div>
-    <div class="container value-strip" aria-label="MVP value summary">
-      <div class="value-item">
-        <BookOpen size={38} />
-        <div>
-          <h3>Free 1-Day Guides</h3>
-          <p class="muted">Practical, no sign-up city plans to start with confidence.</p>
-        </div>
-      </div>
-      <div class="value-item">
-        <Briefcase size={38} />
-        <div>
-          <h3>Current Packs Included</h3>
-          <p class="muted">2-day, 3-day, arrival setup, city guides, maps, and checklists.</p>
-        </div>
-      </div>
-      <div class="value-item">
-        <Ticket size={38} />
-        <div>
-          <h3>One-Time Purchase</h3>
-          <p class="muted">Current packs for $9.90. No recurring subscription.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HomeHero3D />
 
   <section class="section" id="cities">
     <div class="container">
@@ -136,11 +96,11 @@ const setupIcons = {
         <p class="eyebrow">Arrival Checklist</p>
         <h2>Set up the essentials before you land.</h2>
         <p class="lead">
-          Keep the free web checklist short enough to act on, then use the full setup pack for printable, offline steps.
+          Keep the free web checklist short enough to act on, then use the Arrival Pack for printable, offline steps.
         </p>
         <div class="inline-actions" style="margin-top: 24px;">
           <a class="button button-primary" href="/china-travel-checklist/">Read the free checklist</a>
-          <a class="text-link" href="/unlock/">Preview full setup pack</a>
+          <a class="text-link" href={checkoutUrl} data-analytics-event="checkout_click">Unlock the Arrival Pack</a>
         </div>
       </div>
       <div class="checklist-grid" aria-label="Arrival checklist groups">
@@ -201,12 +161,12 @@ const setupIcons = {
           <h2>Free setup guides for the arrival problems that matter.</h2>
         </div>
         <p class="muted">
-          These SEO pages stay free and lead into the full China Arrival Setup Pack when visitors need printable,
+          These SEO pages stay free and lead into the China Arrival Pack when visitors need printable,
           step-by-step offline help.
         </p>
       </div>
       <div class="content-grid">
-        {setupGuides.map((guide) => {
+        {homepageSetupGuides.map((guide) => {
           const Icon = setupIcons[guide.slug as keyof typeof setupIcons] || Earth;
           return (
             <article class="content-card">
@@ -225,7 +185,7 @@ const setupIcons = {
     <div class="container paper-card unlock-panel">
       <GuideMockup compact />
       <div>
-        <p class="eyebrow">Unlock All Current Packs</p>
+        <p class="eyebrow">Arrival Pack</p>
         <h2>Everything needed for a smoother first China trip.</h2>
         <ul class="clean-list" style="margin: 22px 0;">
           <li>2-day and 3-day itineraries for all 6 cities</li>
@@ -240,7 +200,7 @@ const setupIcons = {
           <span class="pill">No subscription</span>
           <span class="pill">Printable PDFs</span>
         </div>
-        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock all current packs - $9.90</a>
+        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock the $9.90 Arrival Pack</a>
       </div>
     </div>
   </section>

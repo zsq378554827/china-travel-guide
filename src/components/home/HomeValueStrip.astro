@@ -1,0 +1,35 @@
+---
+import { ClipboardCheck, FileText, MapPin } from "@lucide/astro";
+
+const values = [
+  {
+    title: "6 First-Time Cities",
+    copy: "Built for first-time China travelers",
+    Icon: MapPin,
+  },
+  {
+    title: "Arrival Setup Covered",
+    copy: "Payments, apps, checklists, city planning",
+    Icon: ClipboardCheck,
+  },
+  {
+    title: "$9.90 Arrival Pack",
+    copy: "Printable PDFs, setup checklists, and offline planning notes",
+    Icon: FileText,
+  },
+];
+---
+
+<div class="home-value-strip" aria-label="Homepage value summary">
+  {values.map(({ title, copy, Icon }) => (
+    <div class="home-value-strip__item">
+      <span class="home-value-strip__icon" aria-hidden="true">
+        <Icon size={31} stroke-width={2.25} />
+      </span>
+      <div>
+        <h3>{title}</h3>
+        <p>{copy}</p>
+      </div>
+    </div>
+  ))}
+</div>

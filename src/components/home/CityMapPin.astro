@@ -1,0 +1,23 @@
+---
+import type { City } from "@data/cities";
+
+type Props = {
+  city: City;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+const { city, x, y, width, height } = Astro.props;
+---
+
+<a
+  class="home-map-pin"
+  href={city.href}
+  data-analytics-event="city_click"
+  style={`--x: ${x}%; --y: ${y}%; --pin-width: ${width}px; --pin-height: ${height}px;`}
+  aria-label={`Open ${city.name} city guide`}
+>
+  <span class="sr-only">{city.name}</span>
+</a>

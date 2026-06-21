@@ -1,0 +1,21 @@
+---
+import { CalendarDays, ClipboardCheck, CreditCard, FileText, Map, Smartphone } from "@lucide/astro";
+
+const features = [
+  { label: "1-Day City Guides", Icon: Map },
+  { label: "2-Day / 3-Day Previews", Icon: CalendarDays },
+  { label: "Arrival Checklist", Icon: ClipboardCheck },
+  { label: "Payment Setup", Icon: CreditCard },
+  { label: "Travel Apps", Icon: Smartphone },
+  { label: "Offline PDF Pack", Icon: FileText },
+];
+---
+
+<div class="home-feature-grid" aria-label="China Arrival Pack and free guide features">
+  {features.map(({ label, Icon }) => (
+    <div class="home-feature-grid__item">
+      <Icon size={28} stroke-width={2.2} />
+      <span>{label}</span>
+    </div>
+  ))}
+</div>

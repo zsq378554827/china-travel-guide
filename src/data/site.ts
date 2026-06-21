@@ -1,7 +1,7 @@
 export const site = {
   name: "China Travel Guide",
   description:
-    "Free 1-day China city guides for first-time visitors, with complete current 2-day, 3-day, arrival setup, and printable PDF packs.",
+    "Free first-day China city guides, arrival setup tips, and a printable China Arrival Pack for first-time visitors.",
   price: "$9.90",
   updatedLabel: "Last updated: June 14, 2026",
 };
@@ -13,16 +13,18 @@ export const checkoutUrl = import.meta.env.PUBLIC_CHECKOUT_URL || "/unlock/#chec
 
 export const navLinks = [
   { label: "Cities", href: "/#cities" },
-  { label: "Free 1-Day Guides", href: "/#cities" },
-  { label: "Arrival Checklist", href: "/china-travel-checklist/" },
+  { label: "Free Guides", href: "/#cities" },
   { label: "Travel Setup", href: "/china-travel-checklist/#setup-guides" },
+  { label: "Arrival Checklist", href: "/china-travel-checklist/" },
+  { label: "Arrival Pack", href: "/unlock/" },
 ];
 
 export const footerLinks = [
   { label: "Cities", href: "/#cities" },
-  { label: "Free 1-Day Guides", href: "/#cities" },
+  { label: "Free Guides", href: "/#cities" },
   { label: "Arrival Checklist", href: "/china-travel-checklist/" },
   { label: "Travel Setup", href: "/china-travel-checklist/#setup-guides" },
+  { label: "Arrival Pack", href: "/unlock/" },
   { label: "Payments", href: "/how-to-pay-in-china/" },
   { label: "Tickets", href: "/china-ticket-booking-guide/" },
   { label: "Terms", href: "/terms/" },

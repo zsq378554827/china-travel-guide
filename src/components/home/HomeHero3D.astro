@@ -1,0 +1,76 @@
+---
+import { LockKeyhole, Map as MapIcon } from "@lucide/astro";
+import CityMapPin from "@components/home/CityMapPin.astro";
+import HeroFeatureGrid from "@components/home/HeroFeatureGrid.astro";
+import HomeValueStrip from "@components/home/HomeValueStrip.astro";
+import { cities } from "@data/cities";
+import { checkoutUrl } from "@data/site";
+
+const pinConfig = {
+  beijing: { x: 66, y: 26, width: 150, height: 168 },
+  shanghai: { x: 73, y: 47, width: 158, height: 164 },
+  xian: { x: 45, y: 44, width: 150, height: 164 },
+  chengdu: { x: 28, y: 50, width: 158, height: 164 },
+  "guilin-yangshuo": { x: 44, y: 70, width: 190, height: 166 },
+  zhangjiajie: { x: 62, y: 65, width: 190, height: 172 },
+} as const;
+
+const heroCities = cities.map((city) => ({
+  city,
+  pin: pinConfig[city.id as keyof typeof pinConfig],
+}));
+---
+
+<section class="home-hero" aria-labelledby="home-hero-title">
+  <div class="home-hero__inner">
+    <div class="home-hero__copy">
+      <p class="home-hero__eyebrow">CHINA TRAVEL PLANS FOR FIRST-TIME VISITORS</p>
+      <h1 id="home-hero-title">
+        Your First Trip<br />
+        to <span>China,</span><br />
+        Made Simple.
+      </h1>
+      <p class="home-hero__lead">
+        Free first-day city guides, arrival setup tips, and a printable China Arrival Pack for first-time visitors.
+      </p>
+      <div class="home-hero__actions" aria-label="Homepage actions">
+        <a class="button button-primary home-hero__primary" href="#cities">
+          <MapIcon size={22} stroke-width={2.2} />
+          Explore Free City Guides
+        </a>
+        <a class="button home-hero__secondary" href={checkoutUrl} data-analytics-event="checkout_click">
+          <LockKeyhole size={21} stroke-width={2.2} />
+          Unlock the $9.90 Arrival Pack
+        </a>
+      </div>
+    </div>
+
+    <div class="home-map" aria-label="3D China travel map with clickable city links">
+      <div class="home-map__stage">
+        <img
+          src="/images/home/hero-map-3d.png"
+          alt="3D isometric China travel map with Beijing, Shanghai, Xi'an, Chengdu, Guilin / Yangshuo, Zhangjiajie, Taiwan, and Hainan."
+          width="1132"
+          height="740"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="home-map__pins">
+          {heroCities.map(({ city, pin }) => pin && (
+            <CityMapPin city={city} x={pin.x} y={pin.y} width={pin.width} height={pin.height} />
+          ))}
+        </div>
+      </div>
+
+      <nav class="home-map__fallback" aria-label="City guide links">
+        {cities.map((city) => (
+          <a href={city.href} data-analytics-event="city_click">{city.name}</a>
+        ))}
+      </nav>
+    </div>
+
+    <HeroFeatureGrid />
+  </div>
+
+  <HomeValueStrip />
+</section>
