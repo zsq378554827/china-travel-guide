@@ -144,8 +144,8 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
-  min-height: 86px;
+  gap: 28px;
+  min-height: 78px;
 }
 
 .brand {
@@ -159,8 +159,8 @@ p {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border: 2px solid rgba(169, 31, 31, 0.22);
   border-radius: 999px;
   background:
@@ -175,7 +175,7 @@ p {
 }
 
 .brand-title {
-  font-size: 1.45rem;
+  font-size: 1.36rem;
   font-weight: 700;
 }
 
@@ -190,7 +190,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 38px;
+  gap: 34px;
   color: #201c18;
   font-size: 0.96rem;
   font-weight: 650;
@@ -258,8 +258,8 @@ p {
 .home-hero {
   position: relative;
   overflow: hidden;
-  min-height: 820px;
-  padding: 44px 0 30px;
+  min-height: 824px;
+  padding: 28px 0 118px;
   border-bottom: 1px solid rgba(126, 97, 53, 0.18);
   background:
     radial-gradient(circle at 70% 34%, rgba(212, 175, 55, 0.12), transparent 30%),
@@ -273,7 +273,7 @@ p {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(255, 250, 240, 0.92) 0%, rgba(255, 250, 240, 0.76) 27%, rgba(255, 250, 240, 0) 55%),
+    linear-gradient(90deg, rgba(255, 250, 240, 0.96) 0%, rgba(255, 250, 240, 0.84) 29%, rgba(255, 250, 240, 0.18) 53%, rgba(255, 250, 240, 0) 68%),
     radial-gradient(circle at 7% 92%, rgba(180, 154, 112, 0.18), transparent 23%);
   z-index: 0;
 }
@@ -281,26 +281,18 @@ p {
 .home-hero__inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(360px, 0.36fr) minmax(620px, 0.64fr);
-  grid-template-areas:
-    "copy map"
-    "features map";
-  grid-template-rows: auto auto;
-  align-items: center;
-  gap: 8px;
   width: min(1560px, calc(100% - 92px));
-  min-height: 700px;
+  min-height: 676px;
   margin: 0 auto;
 }
 
 .home-hero__copy {
   position: relative;
-  z-index: 2;
-  grid-area: copy;
+  z-index: 4;
   display: grid;
-  gap: 18px;
-  max-width: 430px;
+  gap: 14px;
+  width: min(100%, 480px);
+  max-width: 480px;
 }
 
 .home-hero__eyebrow {
@@ -316,9 +308,10 @@ p {
 .home-hero h1 {
   margin: 0;
   color: #161513;
-  font-size: clamp(4rem, 5.4vw, 5.7rem);
+  font-size: clamp(3.9rem, 4.75vw, 5.05rem);
   letter-spacing: 0;
-  line-height: 0.93;
+  line-height: 0.94;
+  white-space: nowrap;
 }
 
 .home-hero h1 span {
@@ -326,7 +319,7 @@ p {
 }
 
 .home-hero__lead {
-  max-width: 390px;
+  max-width: 410px;
   color: #4f4942;
   font-size: clamp(1rem, 1.24vw, 1.15rem);
   line-height: 1.48;
@@ -358,12 +351,13 @@ p {
 }
 
 .home-feature-grid {
-  grid-area: features;
+  position: relative;
+  z-index: 4;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   overflow: hidden;
-  margin-top: 8px;
-  max-width: 430px;
+  margin-top: 20px;
+  max-width: 424px;
   border: 1px solid rgba(126, 97, 53, 0.22);
   border-radius: 14px;
   background: rgba(255, 252, 246, 0.7);
@@ -375,8 +369,8 @@ p {
   display: grid;
   place-items: center;
   gap: 8px;
-  min-height: 98px;
-  padding: 13px 9px;
+  min-height: 88px;
+  padding: 11px 8px;
   border-right: 1px solid rgba(126, 97, 53, 0.12);
   border-bottom: 1px solid rgba(126, 97, 53, 0.12);
   color: #173f37;
@@ -399,12 +393,13 @@ p {
 }
 
 .home-map {
-  position: relative;
+  position: absolute;
+  top: -30px;
+  right: -92px;
   z-index: 1;
-  grid-area: map;
-  width: min(1120px, 69vw);
-  margin-left: -104px;
-  transform: translateY(-70px);
+  width: min(1080px, 66vw);
+  margin-left: 0;
+  transform: none;
 }
 
 .home-map__stage {
@@ -413,17 +408,38 @@ p {
   filter: drop-shadow(0 28px 44px rgba(59, 45, 27, 0.2));
 }
 
+.home-map__stage::after {
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(90deg, rgba(255, 248, 236, 0.92) 0%, rgba(255, 248, 236, 0.6) 13%, rgba(255, 248, 236, 0.08) 30%, rgba(255, 248, 236, 0) 42%);
+}
+
 .home-map__stage img {
+  position: relative;
+  z-index: 0;
   display: block;
   width: 100%;
   height: auto;
   max-width: none;
+  object-fit: contain;
   user-select: none;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 9%, #000 100%),
+    linear-gradient(180deg, transparent 0%, #000 7%, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 9%, #000 100%),
+    linear-gradient(180deg, transparent 0%, #000 7%, #000 84%, transparent 100%);
+  mask-composite: intersect;
 }
 
 .home-map__pins {
   position: absolute;
   inset: 0;
+  z-index: 3;
 }
 
 .home-map-pin {
@@ -519,17 +535,20 @@ p {
 }
 
 .home-value-strip {
-  position: relative;
-  z-index: 3;
+  position: absolute;
+  right: 50%;
+  bottom: 22px;
+  z-index: 5;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  width: min(1060px, calc(100% - 96px));
-  margin: 10px auto 0;
+  width: min(1020px, calc(100% - 132px));
+  margin: 0;
   overflow: hidden;
   border: 1px solid rgba(126, 97, 53, 0.18);
   border-radius: 16px;
   background: rgba(255, 252, 246, 0.84);
   box-shadow: 0 20px 50px rgba(45, 36, 25, 0.16);
+  transform: translateX(50%);
   backdrop-filter: blur(16px);
 }
 
@@ -538,8 +557,8 @@ p {
   grid-template-columns: auto 1fr;
   gap: 18px;
   align-items: center;
-  min-height: 94px;
-  padding: 18px 28px;
+  min-height: 86px;
+  padding: 16px 26px;
 }
 
 .home-value-strip__item + .home-value-strip__item {
@@ -549,8 +568,8 @@ p {
 .home-value-strip__icon {
   display: grid;
   place-items: center;
-  width: 58px;
-  height: 58px;
+  width: 54px;
+  height: 54px;
   border-radius: 999px;
   background: linear-gradient(180deg, var(--red), var(--red-dark));
   color: #fff8ec;
@@ -559,7 +578,7 @@ p {
 
 .home-value-strip h3 {
   font-family: "Source Serif 4", Georgia, serif;
-  font-size: 1.28rem;
+  font-size: 1.2rem;
   line-height: 1.04;
 }
 
@@ -1627,6 +1646,7 @@ p {
   }
 
   .home-hero__inner {
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
       "copy"
@@ -1638,7 +1658,12 @@ p {
   }
 
   .home-hero__copy {
+    grid-area: copy;
     max-width: 650px;
+  }
+
+  .home-hero h1 {
+    white-space: normal;
   }
 
   .home-hero__actions {
@@ -1648,12 +1673,17 @@ p {
   }
 
   .home-map {
+    position: relative;
+    top: auto;
+    right: auto;
+    grid-area: map;
     width: 100%;
     margin-left: 0;
     transform: none;
   }
 
   .home-feature-grid {
+    grid-area: features;
     max-width: 100%;
   }
 
@@ -1676,9 +1706,13 @@ p {
   }
 
   .home-value-strip {
+    position: relative;
+    right: auto;
+    bottom: auto;
     grid-template-columns: 1fr;
     width: min(100% - 44px, 780px);
     margin-top: 18px;
+    transform: none;
   }
 
   .home-value-strip__item + .home-value-strip__item {
@@ -1805,7 +1839,9 @@ p {
   }
 
   .home-hero h1 {
-    font-size: clamp(3rem, 15vw, 4.1rem);
+    font-size: clamp(2.55rem, 12.5vw, 3.15rem);
+    line-height: 0.98;
+    white-space: nowrap;
   }
 
   .home-hero__lead {
@@ -1843,13 +1879,13 @@ p {
 
   .home-map__stage {
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 0;
   }
 
   .home-map__stage img {
-    width: 148%;
+    width: 118%;
     max-width: none;
-    transform: translateX(-17%);
+    transform: translateX(-9%);
   }
 
   .home-map-pin {
