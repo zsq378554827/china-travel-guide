@@ -817,6 +817,411 @@ p {
   color: #5f231e;
 }
 
+.map-concept {
+  padding: 42px 0 84px;
+  border-bottom: 1px solid var(--line);
+}
+
+.map-concept__hero {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(250px, 0.36fr);
+  gap: 28px;
+  align-items: end;
+  margin-bottom: 22px;
+}
+
+.map-concept__copy {
+  display: grid;
+  gap: 14px;
+}
+
+.map-concept__copy h1 {
+  max-width: 900px;
+  font-size: clamp(3rem, 5.4vw, 4.85rem);
+}
+
+.map-concept__note {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid rgba(17, 17, 17, 0.13);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--muted);
+}
+
+.map-concept__note strong {
+  color: var(--ink);
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.concept-map-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.concept-map-stage {
+  position: relative;
+  min-height: 660px;
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 28px 80px rgba(45, 36, 25, 0.14);
+  isolation: isolate;
+}
+
+.concept-map-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.concept-map-art__backdrop {
+  fill: rgba(255, 255, 255, 0.55);
+}
+
+.concept-map-art__land,
+.concept-map-art__extrude,
+.concept-map-art__coast,
+.concept-map-art__inner-line,
+.concept-map-art__route,
+.concept-map-art__dot,
+.concept-map-art__brush path,
+.concept-map-art__grid path {
+  vector-effect: non-scaling-stroke;
+}
+
+.concept-map-art__land {
+  stroke-width: 2.2;
+}
+
+.concept-map-art__extrude {
+  transform: translate(24px, 28px);
+}
+
+.concept-map-art__coast {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.concept-map-art__inner-line {
+  fill: none;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+
+.concept-map-art__route {
+  fill: none;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-dasharray: 6 10;
+  opacity: 0.45;
+}
+
+.concept-map-art__dot {
+  fill: currentColor;
+}
+
+.concept-map-art__body,
+.concept-map-art__routes,
+.concept-map-art__dots {
+  transform: translateY(-34px);
+}
+
+.concept-map-art__brush path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.32;
+}
+
+.concept-map-art__grid path {
+  fill: none;
+  stroke-width: 1;
+}
+
+.concept-pin-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.concept-pin {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 240px;
+  color: #16130f;
+  transform: translate(-50%, -50%);
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.concept-pin:hover {
+  filter: saturate(1.08);
+  transform: translate(-50%, calc(-50% - 2px));
+}
+
+.concept-pin--left {
+  flex-direction: row-reverse;
+}
+
+.concept-pin__marker {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+}
+
+.concept-pin__marker svg {
+  width: 48px;
+  height: 48px;
+  overflow: visible;
+}
+
+.concept-pin__marker-glow {
+  fill: var(--city-color);
+  opacity: 0.2;
+}
+
+.concept-pin__marker-disc {
+  fill: var(--city-color);
+}
+
+.concept-pin__marker svg g,
+.concept-city-card__icon svg g {
+  fill: none;
+  stroke: #fffdf8;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.concept-pin__label {
+  display: grid;
+  min-width: 145px;
+  gap: 1px;
+  padding: 9px 11px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 14px 34px rgba(32, 24, 17, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.concept-pin__label strong {
+  font-size: 0.92rem;
+  line-height: 1.1;
+}
+
+.concept-pin__label small {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.concept-map-aside {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 20px 60px rgba(45, 36, 25, 0.08);
+}
+
+.concept-map-aside h2 {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+}
+
+.concept-city-list {
+  display: grid;
+  gap: 10px;
+}
+
+.concept-city-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.concept-city-card:hover {
+  border-color: var(--city-color);
+  background: #fffdf8;
+  transform: translateY(-1px);
+}
+
+.concept-city-card__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--city-color);
+}
+
+.concept-city-card__icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.concept-city-card__icon circle {
+  fill: var(--city-color);
+}
+
+.concept-city-card strong,
+.concept-city-card small {
+  display: block;
+}
+
+.concept-city-card small {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.concept-city-card > svg {
+  color: var(--muted);
+}
+
+.map-concept--a {
+  background:
+    linear-gradient(180deg, #fbf9f4 0%, #f3f7f4 48%, #faf7f2 100%);
+}
+
+.map-concept--a .concept-map-stage {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 243, 239, 0.86)),
+    linear-gradient(90deg, rgba(46, 125, 98, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(46, 125, 98, 0.05) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+}
+
+.map-concept--a .concept-map-art__land {
+  fill: #dfeee8;
+  stroke: #b8cec4;
+}
+
+.map-concept--a .concept-map-art__extrude {
+  fill: #b7d1c7;
+  opacity: 0.64;
+}
+
+.map-concept--a .concept-map-art__coast,
+.map-concept--a .concept-map-art__inner-line,
+.map-concept--a .concept-map-art__route {
+  stroke: #6c9d8a;
+}
+
+.map-concept--a .concept-map-art__dot {
+  color: #c62828;
+}
+
+.map-concept--a .concept-pin__marker {
+  box-shadow: 0 0 0 10px rgba(46, 125, 98, 0.08), 0 16px 34px rgba(46, 125, 98, 0.22);
+}
+
+.map-concept--b {
+  background:
+    linear-gradient(180deg, #fbf6ec 0%, #f6efe2 52%, #faf7f2 100%);
+}
+
+.map-concept--b .concept-map-stage {
+  background:
+    radial-gradient(circle at 16% 14%, rgba(198, 40, 40, 0.1), transparent 24%),
+    linear-gradient(135deg, rgba(255, 252, 244, 0.96), rgba(241, 232, 214, 0.92));
+}
+
+.map-concept--b .concept-map-art__land {
+  fill: #f2ead8;
+  stroke: #b99247;
+}
+
+.map-concept--b .concept-map-art__coast,
+.map-concept--b .concept-map-art__inner-line,
+.map-concept--b .concept-map-art__route {
+  stroke: #b99247;
+}
+
+.map-concept--b .concept-map-art__brush path {
+  stroke: #2e7d62;
+}
+
+.map-concept--b .concept-map-art__dot {
+  color: #c62828;
+}
+
+.map-concept--b .concept-pin__label {
+  border-color: rgba(185, 146, 71, 0.32);
+  background: rgba(255, 252, 244, 0.86);
+}
+
+.map-concept--b .concept-map-aside,
+.map-concept--b .map-concept__note {
+  border-color: rgba(185, 146, 71, 0.28);
+  background: rgba(255, 252, 244, 0.66);
+}
+
+.map-concept--c {
+  background:
+    linear-gradient(180deg, #f8fbfa 0%, #eef6f3 50%, #faf7f2 100%);
+}
+
+.map-concept--c .concept-map-stage {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(238, 246, 243, 0.94));
+}
+
+.map-concept--c .concept-map-art__land {
+  fill: rgba(46, 125, 98, 0.08);
+  stroke: rgba(46, 125, 98, 0.62);
+}
+
+.map-concept--c .concept-map-art__coast,
+.map-concept--c .concept-map-art__inner-line,
+.map-concept--c .concept-map-art__route {
+  stroke: rgba(46, 125, 98, 0.52);
+}
+
+.map-concept--c .concept-map-art__grid path {
+  stroke: rgba(46, 125, 98, 0.08);
+}
+
+.map-concept--c .concept-map-art__dot {
+  color: #2e7d62;
+}
+
+.map-concept--c .concept-pin__marker-glow {
+  opacity: 0.1;
+}
+
+.map-concept--c .concept-pin__label {
+  border-color: rgba(46, 125, 98, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.map-concept--c .concept-map-aside {
+  background: rgba(255, 255, 255, 0.72);
+}
+
 .site-footer {
   padding: 36px 0;
   border-top: 1px solid var(--line);
@@ -853,12 +1258,22 @@ p {
   .hero-grid,
   .split-section,
   .unlock-panel,
-  .source-panel {
+  .source-panel,
+  .map-concept__hero,
+  .concept-map-shell {
     grid-template-columns: 1fr;
   }
 
   .hero {
     padding-top: 38px;
+  }
+
+  .concept-map-stage {
+    min-height: 560px;
+  }
+
+  .concept-map-aside {
+    grid-row: 2;
   }
 
   .tianditu-map {
@@ -939,6 +1354,52 @@ p {
 
   .hero-actions .button {
     width: 100%;
+  }
+
+  .map-concept {
+    padding: 28px 0 56px;
+  }
+
+  .map-concept__copy h1 {
+    font-size: clamp(2.35rem, 10.5vw, 3rem);
+  }
+
+  .map-concept__hero {
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .map-concept__note {
+    display: none;
+  }
+
+  .concept-map-stage {
+    min-height: 390px;
+    border-radius: 10px;
+  }
+
+  .concept-map-art {
+    transform: scale(1.08);
+    transform-origin: 50% 50%;
+  }
+
+  .concept-pin__label {
+    display: none;
+  }
+
+  .concept-pin__marker,
+  .concept-pin__marker svg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .concept-map-aside {
+    padding: 18px;
+    border-radius: 10px;
+  }
+
+  .concept-city-card {
+    padding: 11px;
   }
 
   .compare-row {
