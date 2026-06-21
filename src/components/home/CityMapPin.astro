@@ -13,11 +13,14 @@ const { city, x, y, width, height } = Astro.props;
 ---
 
 <a
-  class="home-map-pin"
+  class="home-map-pin city-marker"
   href={city.href}
   data-analytics-event="city_click"
   style={`--x: ${x}%; --y: ${y}%; --pin-width: ${width}px; --pin-height: ${height}px;`}
-  aria-label={`Open ${city.name} city guide`}
+  aria-label={`Open ${city.name} guide`}
 >
+  <span class="city-marker__badge" aria-hidden="true"></span>
+  <span class="city-marker__label" aria-hidden="true">{city.name}</span>
+  <span class="city-marker__glow" aria-hidden="true"></span>
   <span class="sr-only">{city.name}</span>
 </a>

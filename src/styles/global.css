@@ -259,7 +259,7 @@ p {
   position: relative;
   overflow: hidden;
   min-height: 824px;
-  padding: 28px 0 118px;
+  padding: 34px 0 118px;
   border-bottom: 1px solid rgba(126, 97, 53, 0.18);
   background:
     radial-gradient(circle at 70% 34%, rgba(212, 175, 55, 0.12), transparent 30%),
@@ -290,9 +290,10 @@ p {
   position: relative;
   z-index: 4;
   display: grid;
-  gap: 14px;
+  gap: 12px;
   width: min(100%, 480px);
   max-width: 480px;
+  padding-top: 4px;
 }
 
 .home-hero__eyebrow {
@@ -310,7 +311,7 @@ p {
   color: #161513;
   font-size: clamp(3.9rem, 4.75vw, 5.05rem);
   letter-spacing: 0;
-  line-height: 0.94;
+  line-height: 0.97;
   white-space: nowrap;
 }
 
@@ -444,28 +445,29 @@ p {
 
 .home-map-pin {
   position: absolute;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   left: var(--x);
   top: var(--y);
   width: var(--pin-width);
   height: var(--pin-height);
+  padding-top: 5px;
   border-radius: 28px;
   outline: 0;
   cursor: pointer;
   transform: translate(-50%, -50%);
-  transform-origin: center;
+  transform-origin: center bottom;
   transition:
     filter 180ms ease,
     transform 180ms ease;
   -webkit-tap-highlight-color: transparent;
 }
 
-.home-map-pin::before,
-.home-map-pin::after {
-  position: absolute;
+.city-marker__badge,
+.city-marker__label,
+.city-marker__glow {
   pointer-events: none;
-  content: "";
-  opacity: 0;
   transition:
     background 180ms ease,
     box-shadow 180ms ease,
@@ -473,61 +475,70 @@ p {
     transform 180ms ease;
 }
 
-.home-map-pin::before {
-  left: 50%;
-  top: 82%;
-  width: 48px;
-  height: 24px;
+.city-marker__badge {
+  display: block;
+  width: min(80px, calc(var(--pin-width) * 0.54));
+  height: min(80px, calc(var(--pin-width) * 0.54));
+  margin: 0 auto;
+  border-radius: 999px;
+  opacity: 0;
+}
+
+.city-marker__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  margin-top: -5px;
+  padding: 0 15px;
+  border-radius: 999px;
+  color: transparent;
+  font-size: 0.86rem;
+  font-weight: 820;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.city-marker__glow {
+  display: block;
+  width: 52px;
+  height: 26px;
+  margin-top: 23px;
   border-radius: 999px;
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 214, 110, 0.72) 0%,
-    rgba(255, 187, 59, 0.28) 46%,
-    rgba(255, 187, 59, 0) 76%
+    rgba(255, 218, 112, 0.78) 0%,
+    rgba(255, 185, 64, 0.34) 47%,
+    rgba(255, 185, 64, 0) 78%
   );
-  transform: translate(-50%, -50%) scale(0.92);
-}
-
-.home-map-pin::after {
-  left: 50%;
-  top: 52%;
-  width: min(116px, calc(var(--pin-width) * 0.74));
-  height: 36px;
-  border-radius: 999px;
-  background: rgba(255, 252, 246, 0.08);
-  transform: translate(-50%, -50%) scale(0.98);
+  opacity: 0;
+  transform: scale(0.94);
 }
 
 .home-map-pin:hover,
 .home-map-pin:focus-visible {
-  filter: drop-shadow(0 10px 18px rgba(166, 30, 30, 0.16));
-  transform: translate(-50%, calc(-50% - 2px)) scale(1.04);
+  filter: drop-shadow(0 12px 20px rgba(166, 30, 30, 0.18));
+  transform: translate(-50%, calc(-50% - 3px)) scale(1.04);
 }
 
-.home-map-pin:hover::before,
-.home-map-pin:focus-visible::before {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.08);
-}
-
-.home-map-pin:hover::after {
-  background: rgba(255, 252, 246, 0.16);
+.home-map-pin:hover .city-marker__label {
   box-shadow: 0 8px 18px rgba(45, 36, 25, 0.16);
+}
+
+.home-map-pin:hover .city-marker__glow,
+.home-map-pin:focus-visible .city-marker__glow {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1.02);
+  transform: scale(1.1);
 }
 
 .home-map-pin:focus {
   outline: none;
 }
 
-.home-map-pin:focus-visible::after {
-  background: rgba(255, 252, 246, 0.2);
-  box-shadow:
-    0 0 0 2px rgba(169, 31, 31, 0.78),
-    0 7px 18px rgba(45, 36, 25, 0.14);
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.02);
+.home-map-pin:focus-visible .city-marker__label {
+  outline: 2px solid #b91c1c;
+  outline-offset: 3px;
+  box-shadow: 0 8px 18px rgba(45, 36, 25, 0.14);
 }
 
 .home-map__fallback {
