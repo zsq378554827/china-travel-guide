@@ -262,9 +262,9 @@ p {
   padding: 34px 0 118px;
   border-bottom: 1px solid rgba(126, 97, 53, 0.18);
   background:
-    radial-gradient(circle at 70% 34%, rgba(212, 175, 55, 0.12), transparent 30%),
-    radial-gradient(circle at 11% 88%, rgba(255, 255, 255, 0.7), transparent 25%),
-    linear-gradient(110deg, #fff8ec 0%, #fbf4e9 34%, #eef0e8 66%, #d9e7e3 100%);
+    radial-gradient(circle at 78% 88%, rgba(63, 132, 145, 0.14), transparent 30%),
+    radial-gradient(circle at 11% 88%, rgba(255, 255, 255, 0.68), transparent 25%),
+    linear-gradient(110deg, #fff8ec 0%, #fbf4e9 42%, #f5efe4 72%, #e1eae5 100%);
 }
 
 .home-hero::before {
@@ -273,8 +273,8 @@ p {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(255, 250, 240, 0.96) 0%, rgba(255, 250, 240, 0.84) 29%, rgba(255, 250, 240, 0.18) 53%, rgba(255, 250, 240, 0) 68%),
-    radial-gradient(circle at 7% 92%, rgba(180, 154, 112, 0.18), transparent 23%);
+    linear-gradient(90deg, rgba(255, 250, 240, 0.94) 0%, rgba(255, 250, 240, 0.74) 28%, rgba(255, 250, 240, 0.08) 46%, rgba(255, 250, 240, 0) 61%),
+    radial-gradient(circle at 8% 88%, rgba(180, 154, 112, 0.14), transparent 26%);
   z-index: 0;
 }
 
@@ -294,6 +294,15 @@ p {
   width: min(100%, 480px);
   max-width: 480px;
   padding-top: 4px;
+}
+
+.home-hero__copy::before {
+  position: absolute;
+  inset: -14px -54px -18px -20px;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(90deg, rgba(255, 250, 240, 0.98) 0%, rgba(255, 250, 240, 0.92) 72%, rgba(255, 250, 240, 0) 100%);
 }
 
 .home-hero__eyebrow {
@@ -395,10 +404,10 @@ p {
 
 .home-map {
   position: absolute;
-  top: -30px;
-  right: -92px;
+  top: 4px;
+  right: 0;
   z-index: 1;
-  width: min(1080px, 66vw);
+  width: min(1025px, 69vw);
   margin-left: 0;
   transform: none;
 }
@@ -406,7 +415,6 @@ p {
 .home-map__stage {
   position: relative;
   width: 100%;
-  filter: drop-shadow(0 28px 44px rgba(59, 45, 27, 0.2));
 }
 
 .home-map__stage::after {
@@ -415,7 +423,7 @@ p {
   z-index: 1;
   pointer-events: none;
   content: "";
-  background: linear-gradient(90deg, rgba(255, 248, 236, 0.92) 0%, rgba(255, 248, 236, 0.6) 13%, rgba(255, 248, 236, 0.08) 30%, rgba(255, 248, 236, 0) 42%);
+  display: none;
 }
 
 .home-map__stage img {
@@ -427,14 +435,6 @@ p {
   max-width: none;
   object-fit: contain;
   user-select: none;
-  -webkit-mask-image:
-    linear-gradient(90deg, transparent 0%, #000 9%, #000 100%),
-    linear-gradient(180deg, transparent 0%, #000 7%, #000 84%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(90deg, transparent 0%, #000 9%, #000 100%),
-    linear-gradient(180deg, transparent 0%, #000 7%, #000 84%, transparent 100%);
-  mask-composite: intersect;
 }
 
 .home-map__pins {
