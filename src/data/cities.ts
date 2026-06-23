@@ -13,6 +13,9 @@ export type City = {
   twoDayHref: string;
   threeDayHref: string;
   color: string;
+  image: string;
+  imageAlt: string;
+  imagePosition?: string;
 };
 
 export const cities: City[] = [
@@ -31,6 +34,9 @@ export const cities: City[] = [
     twoDayHref: "/cities/beijing/2-day-itinerary/",
     threeDayHref: "/cities/beijing/3-day-itinerary/",
     color: "#C62828",
+    image: "/images/cities/beijing-cover.jpg",
+    imageAlt: "Beijing skyline of the Forbidden City and the Great Wall",
+    imagePosition: "center center",
   },
   {
     id: "shanghai",
@@ -47,6 +53,9 @@ export const cities: City[] = [
     twoDayHref: "/cities/shanghai/2-day-itinerary/",
     threeDayHref: "/cities/shanghai/3-day-itinerary/",
     color: "#2E7D62",
+    image: "/images/cities/shanghai-cover.jpg",
+    imageAlt: "Shanghai skyline along the Huangpu River",
+    imagePosition: "center center",
   },
   {
     id: "xian",
@@ -63,6 +72,9 @@ export const cities: City[] = [
     twoDayHref: "/cities/xian/2-day-itinerary/",
     threeDayHref: "/cities/xian/3-day-itinerary/",
     color: "#D4AF37",
+    image: "/images/cities/xian-cover.jpg",
+    imageAlt: "Terracotta Warriors and Xi'an city wall",
+    imagePosition: "center center",
   },
   {
     id: "chengdu",
@@ -79,6 +91,9 @@ export const cities: City[] = [
     twoDayHref: "/cities/chengdu/2-day-itinerary/",
     threeDayHref: "/cities/chengdu/3-day-itinerary/",
     color: "#2E7D62",
+    image: "/images/cities/chengdu-cover.jpg",
+    imageAlt: "Panda and teahouse scene in Chengdu",
+    imagePosition: "center center",
   },
   {
     id: "zhangjiajie",
@@ -95,6 +110,9 @@ export const cities: City[] = [
     twoDayHref: "/cities/zhangjiajie/2-day-itinerary/",
     threeDayHref: "/cities/zhangjiajie/3-day-itinerary/",
     color: "#C62828",
+    image: "/images/cities/zhangjiajie-cover.jpg",
+    imageAlt: "Sandstone pillar peaks in Zhangjiajie",
+    imagePosition: "center center",
   },
   {
     id: "guilin-yangshuo",
@@ -111,6 +129,9 @@ export const cities: City[] = [
     twoDayHref: "/cities/guilin-yangshuo/2-day-itinerary/",
     threeDayHref: "/cities/guilin-yangshuo/3-day-itinerary/",
     color: "#D4AF37",
+    image: "/images/cities/guilin-yangshuo-cover.jpg",
+    imageAlt: "Karst river landscape in Guilin and Yangshuo",
+    imagePosition: "center center",
   },
 ];
 

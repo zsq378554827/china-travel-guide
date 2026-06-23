@@ -848,19 +848,48 @@ p {
   display: grid;
   min-height: 154px;
   align-items: end;
+  overflow: hidden;
   padding: 18px;
   color: var(--warm-white);
+  background: color-mix(in srgb, var(--city-color), #1f1a16 40%);
+  isolation: isolate;
+}
+
+.city-card__media::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
   background:
-    linear-gradient(180deg, transparent 20%, rgba(17, 17, 17, 0.68)),
-    radial-gradient(circle at 72% 30%, rgba(212, 175, 55, 0.44), transparent 30%),
-    linear-gradient(135deg, var(--city-color), #2b463b);
+    linear-gradient(180deg, rgba(17, 17, 17, 0.02) 22%, rgba(17, 17, 17, 0.52) 100%),
+    linear-gradient(90deg, rgba(17, 17, 17, 0.28) 0%, rgba(17, 17, 17, 0.04) 55%);
+  pointer-events: none;
+}
+
+.city-card__media img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--city-image-position, center);
+  transition: transform 220ms ease;
+}
+
+.city-card:hover .city-card__media img {
+  transform: scale(1.035);
 }
 
 .city-card__media span {
+  position: relative;
+  z-index: 2;
   width: fit-content;
   padding: 5px 9px;
   border-radius: 999px;
-  background: rgba(250, 247, 242, 0.14);
+  background: rgba(18, 18, 18, 0.46);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
   font-size: 0.78rem;
   font-weight: 760;
 }

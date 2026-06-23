@@ -9,8 +9,9 @@ type Props = {
 const { city } = Astro.props;
 ---
 
-<article class="city-card" style={`--city-color: ${city.color}`}>
+<article class="city-card" style={`--city-color: ${city.color}; --city-image-position: ${city.imagePosition ?? "center"}`}>
   <a class="city-card__media" href={city.href} aria-label={`${city.name} city guide`}>
+    <img src={city.image} alt={city.imageAlt} width="1600" height="680" loading="lazy" decoding="async" />
     <span>{city.region}</span>
   </a>
   <div class="city-card__body">
