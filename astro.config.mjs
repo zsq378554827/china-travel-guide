@@ -5,7 +5,7 @@ export default defineConfig({
   site: process.env.PUBLIC_SITE_URL || "https://china-travel-guide-bq8.pages.dev",
   integrations: [
     sitemap({
-      filter: (page) => !/\/map-concept-(a|b|c)\/?$/.test(page),
+      filter: (page) => !/\/(map-concept-(a|b|c)|hero-map-layout-preview)\/?$/.test(page),
     }),
   ],
 });
