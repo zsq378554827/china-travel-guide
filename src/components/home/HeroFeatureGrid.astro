@@ -2,20 +2,20 @@
 import { CalendarDays, ClipboardCheck, CreditCard, FileText, Map, Smartphone } from "@lucide/astro";
 
 const features = [
-  { label: "1-Day City Guides", Icon: Map },
-  { label: "2-Day / 3-Day Previews", Icon: CalendarDays },
-  { label: "Arrival Checklist", Icon: ClipboardCheck },
-  { label: "Payment Setup", Icon: CreditCard },
-  { label: "Travel Apps", Icon: Smartphone },
-  { label: "Offline PDF Pack", Icon: FileText },
+  { label: "1-Day City Guides", href: "/#cities", event: "feature_click", Icon: Map },
+  { label: "2-Day / 3-Day Previews", href: "/#cities", event: "feature_click", Icon: CalendarDays },
+  { label: "Arrival Checklist", href: "/china-travel-checklist/", event: "feature_click", Icon: ClipboardCheck },
+  { label: "Payment Setup", href: "/how-to-pay-in-china/", event: "feature_click", Icon: CreditCard },
+  { label: "Travel Apps", href: "/china-travel-apps/", event: "feature_click", Icon: Smartphone },
+  { label: "Offline PDF Pack", href: "/unlock/", event: "unlock_click", Icon: FileText },
 ];
 ---
 
 <div class="home-feature-grid" aria-label="China Arrival Pack and free guide features">
-  {features.map(({ label, Icon }) => (
-    <div class="home-feature-grid__item">
+  {features.map(({ label, href, event, Icon }) => (
+    <a class="home-feature-grid__item" href={href} data-analytics-event={event} data-analytics-label={label}>
       <Icon size={28} stroke-width={2.2} />
       <span>{label}</span>
-    </div>
+    </a>
   ))}
 </div>

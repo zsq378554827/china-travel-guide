@@ -5,24 +5,30 @@ const values = [
   {
     title: "6 First-Time Cities",
     copy: "Built for first-time China travelers",
+    href: "/#cities",
+    event: "value_strip_click",
     Icon: MapPin,
   },
   {
     title: "Arrival Setup Covered",
     copy: "Payments, apps, checklists, city planning",
+    href: "/china-travel-checklist/",
+    event: "value_strip_click",
     Icon: ClipboardCheck,
   },
   {
     title: "$9.90 Arrival Pack",
     copy: "Printable PDFs, setup checklists, and offline planning notes",
+    href: "/unlock/",
+    event: "unlock_click",
     Icon: FileText,
   },
 ];
 ---
 
 <div class="home-value-strip" aria-label="Homepage value summary">
-  {values.map(({ title, copy, Icon }) => (
-    <div class="home-value-strip__item">
+  {values.map(({ title, copy, href, event, Icon }) => (
+    <a class="home-value-strip__item" href={href} data-analytics-event={event} data-analytics-label={title}>
       <span class="home-value-strip__icon" aria-hidden="true">
         <Icon size={31} stroke-width={2.25} />
       </span>
@@ -30,6 +36,6 @@ const values = [
         <h3>{title}</h3>
         <p>{copy}</p>
       </div>
-    </div>
+    </a>
   ))}
 </div>
