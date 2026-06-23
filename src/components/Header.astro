@@ -1,6 +1,12 @@
 ---
 import { Landmark } from "@lucide/astro";
 import { checkoutUrl, navLinks } from "@data/site";
+
+type Props = {
+  ctaLabel?: string;
+};
+
+const { ctaLabel = "Unlock - $9.90" } = Astro.props;
 ---
 
 <header class="site-header">
@@ -16,7 +22,7 @@ import { checkoutUrl, navLinks } from "@data/site";
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
     </nav>
     <div class="header-actions">
-      <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock - $9.90</a>
+      <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">{ctaLabel}</a>
     </div>
   </div>
 </header>

@@ -14,6 +14,7 @@ type Props = {
   description?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
+  headerCtaLabel?: string;
 };
 
 const {
@@ -21,6 +22,7 @@ const {
   description = site.description,
   jsonLd,
   noindex = false,
+  headerCtaLabel,
 } = Astro.props;
 
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
@@ -94,7 +96,7 @@ gtag("config", "${gaMeasurementId}");`}
   </head>
   <body>
     <div class="site-shell">
-      <Header />
+      <Header ctaLabel={headerCtaLabel} />
       <main>
         <slot />
       </main>

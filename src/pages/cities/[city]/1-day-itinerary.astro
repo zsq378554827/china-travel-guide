@@ -1,7 +1,25 @@
 ---
-import { ArrowRight } from "@lucide/astro";
+import {
+  ArrowRight,
+  CalendarDays,
+  Car,
+  Check,
+  ClipboardCheck,
+  Clock3,
+  Footprints,
+  Hotel,
+  Info,
+  Landmark,
+  Map,
+  Route,
+  ShieldCheck,
+  TrainFront,
+  Utensils,
+  Users,
+} from "@lucide/astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getAttractionsByCity } from "@data/attractions";
+import { checkoutUrl } from "@data/site";
 import { cities, type City } from "@data/cities";
 
 export function getStaticPaths() {
@@ -17,6 +35,7 @@ type Props = {
 
 const { city } = Astro.props;
 const cityAttractions = getAttractionsByCity(city.id);
+const isBeijing = city.id === "beijing";
 
 const timeline = [
   ["Morning", `Start with the main landmark cluster for ${city.name}. Keep transport simple and arrive early.`],
@@ -24,95 +43,1331 @@ const timeline = [
   ["Afternoon", "Continue with the second must-see area and leave room for tickets, queues, or weather changes."],
   ["Evening", "Use a flexible option near your hotel area, riverfront, old street, or easy metro line."],
 ];
+
+const beijingStats = [
+  { label: "Recommended", value: "8-10 hours", Icon: Clock3 },
+  { label: "Best for", value: "First-time visitors", Icon: Users },
+  { label: "Transport", value: "Metro + Walking + Taxi", Icon: TrainFront },
+];
+
+const prepCards = [
+  {
+    title: "Must: Book in Advance",
+    Icon: ShieldCheck,
+    variant: "red",
+    columns: [
+      {
+        title: "Tiananmen Square Reservation",
+        lines: ["Reserve on official platform", "Bring passport for entry"],
+      },
+      {
+        title: "Forbidden City Tickets",
+        lines: ["Book 1-7 days in advance", "Enter with passport"],
+      },
+    ],
+  },
+  {
+    title: "Important Reminders",
+    Icon: ClipboardCheck,
+    variant: "green",
+    checks: [
+      "Bring your passport (original)",
+      "Use the same passport for ticket booking",
+      "Wear comfortable shoes",
+      "Bring power bank, water & sun protection",
+    ],
+  },
+  {
+    title: "Best Travel Seasons",
+    Icon: CalendarDays,
+    variant: "red",
+    highlight: "Mar-May / Sep-Nov",
+    text: "Pleasant weather, beautiful scenery",
+  },
+];
+
+const routeSteps = [
+  { title: "Meridian Gate", note: "(Entrance)" },
+  { title: "Taihe Hall / Zhonghe Hall / Baohe Hall", note: "(Outer Court)" },
+  { title: "Qianqing Palace / Jiaotai Hall / Kunning Palace", note: "(Inner Court)" },
+  { title: "Imperial Garden", note: "" },
+  { title: "Shenwumen (North Gate) Exit", note: "" },
+];
+
+const beijingStops = [
+  {
+    number: 1,
+    time: "08:00",
+    end: "08:45",
+    title: "Tiananmen Square",
+    description:
+      "Visit the world's largest city square, see the Monument to the People's Heroes, and feel the history.",
+    transport: { mode: "Walking", detail: "From hotel", time: "10-20 min", Icon: Footprints },
+  },
+  {
+    number: 2,
+    time: "09:00",
+    end: "12:00",
+    title: "Forbidden City (Palace Museum)",
+    description:
+      "Explore the largest and best-preserved imperial palace. Follow the central axis to see the highlights.",
+    transport: { mode: "Walking", detail: "Enter from Tiananmen", time: "5 min", Icon: Footprints },
+    route: true,
+  },
+  {
+    number: 3,
+    time: "12:00",
+    end: "12:45",
+    title: "Jingshan Park",
+    description: "Climb to the pavilion for the best panoramic view of the Forbidden City.",
+    transport: { mode: "Walking", detail: "From North Gate", time: "5 min", Icon: Footprints },
+  },
+  {
+    number: 4,
+    time: "13:00",
+    end: "14:30",
+    title: "Lunch",
+    suffix: "(Choose One)",
+    transport: { mode: "Taxi / Walking", detail: "From Jingshan", time: "10-20 min", Icon: Car },
+    options: [
+      {
+        label: "Option A:",
+        title: "Peking Duck",
+        image: "/images/beijing-itinerary/peking-duck-thumb.jpg",
+        alt: "Peking duck on a Beijing restaurant table",
+        lines: ["Siji Minfu (Gugong Branch)", "¥120-250 per person", "Classic Peking duck", "Good environment"],
+      },
+      {
+        label: "Option B:",
+        title: "Zhajiangmian",
+        image: "/images/beijing-itinerary/zhajiangmian-thumb.jpg",
+        alt: "Beijing zhajiangmian noodles in a bowl",
+        lines: ["Haiwanju / nearby noodle shop", "¥50-80 per person", "Beijing-style noodles", "Quick & local"],
+      },
+    ],
+  },
+  {
+    number: 5,
+    time: "15:00",
+    end: "17:00",
+    title: "Temple of Heaven",
+    description: "Visit the Hall of Prayer, Echo Wall, and Circular Mound Altar. Learn imperial rituals.",
+    transport: { mode: "Taxi / Metro", detail: "From lunch area", time: "25-40 min", Icon: Car },
+  },
+  {
+    number: 6,
+    time: "17:30",
+    end: "19:00",
+    title: "Qianmen Street / Wangfujing",
+    description: "Shopping, local snacks, and experience old Beijing charm.",
+    transport: { mode: "Taxi / Metro", detail: "From Temple", time: "20-30 min", Icon: Car },
+  },
+  {
+    number: 7,
+    time: "19:00",
+    end: "onwards",
+    title: "Dinner & End of Day",
+    transport: { mode: "Walking / Taxi", detail: "Back to hotel", time: "10-20 min", Icon: Footprints },
+    options: [
+      {
+        label: "Option A:",
+        title: "Duck Dinner",
+        image: "/images/beijing-itinerary/peking-duck-thumb.jpg",
+        alt: "Peking duck dinner in Beijing",
+        lines: ["Quanjude (Qianmen)", "¥150-300 per person", "Peking duck specialty"],
+      },
+      {
+        label: "Option B:",
+        title: "Local Snacks",
+        image: "/images/beijing-itinerary/local-snacks-thumb.jpg",
+        alt: "Beijing local snacks including tanghulu and baozi",
+        lines: ["Qianmen Street Snacks", "¥30-80 per person", "Tanghulu, jianbing, baozi, yogurt, etc."],
+      },
+    ],
+  },
+];
+
+const hotels = [
+  {
+    label: "Value Option",
+    name: "Capital Hotel Beijing",
+    image: "/images/beijing-itinerary/capital-hotel-thumb.jpg",
+    alt: "Capital Hotel Beijing exterior",
+    tags: ["Great Location", "Good Value", "Convenient"],
+    price: "¥600-900/night",
+    description: "Walk to Qianmen, Tiananmen & Forbidden City.",
+  },
+  {
+    label: "Premium Option",
+    name: "Mandarin Oriental Wangfujing",
+    image: "/images/beijing-itinerary/mandarin-oriental-thumb.jpg",
+    alt: "Mandarin Oriental Wangfujing hotel exterior",
+    tags: ["Luxury Stay", "Excellent Service", "Top Choice"],
+    price: "¥1800-3500/night",
+    description: "Premium comfort, great service, and perfect location.",
+  },
+];
+
+const airportTransfers = [
+  {
+    title: "Beijing Capital Airport (PEK)",
+    image: "/images/beijing-itinerary/beijing-airport-thumb.jpg",
+    alt: "Modern Beijing airport terminal approach road",
+    recommended: "Taxi / DiDi",
+    time: "≈45-75 min, direct to hotel",
+    budget: "Airport Express + Taxi",
+    route: "Take Express to Dongzhimen + Taxi",
+    fare: "Express fare ¥25",
+    total: "about 60-90 min",
+  },
+  {
+    title: "Beijing Daxing Airport (PKX)",
+    image: "/images/beijing-itinerary/beijing-airport-thumb.jpg",
+    alt: "Beijing airport terminal and arrival road",
+    recommended: "Taxi / DiDi",
+    time: "≈60-90 min, direct to hotel",
+    budget: "Daxing Express + Taxi",
+    route: "Take Express to Caoqiao + Taxi",
+    fare: "Express fare ¥35 (standard)",
+    total: "about 75-105 min",
+  },
+];
+
+const importantGroups = [
+  {
+    title: "Forbidden City Tickets",
+    kicker: "Latest 2025 / check official site before travel",
+    Icon: ShieldCheck,
+    items: [
+      "Book 1-7 days in advance on official platform",
+      "Regular Season (Apr 1 - Oct 31): ¥60/person",
+      "Off Season (Nov 1 - Mar 31): ¥40/person",
+      "Closed on Mondays except national holidays",
+      "Enter with passport",
+    ],
+  },
+  {
+    title: "Tiananmen Square Reservation",
+    Icon: ShieldCheck,
+    items: ["Reserve on official platform in advance", "Bring original passport", "Security check required"],
+  },
+  {
+    title: "Opening Hours",
+    Icon: Clock3,
+    items: [
+      "Forbidden City: 08:30-17:00, last entry around 16:10",
+      "Temple of Heaven: core attractions may close on Mondays",
+      "Jingshan Park: check latest entry rule before going",
+    ],
+  },
+  {
+    title: "Restaurant Hours",
+    kicker: "As of June 2025",
+    Icon: Utensils,
+    items: [
+      "Siji Minfu (Gugong Branch): check same-day opening hours",
+      "Haiwanju / local noodle shops: check before going",
+      "Quanjude (Qianmen): check before going",
+      "Hours may vary. Please check on Google Maps or local maps.",
+    ],
+  },
+];
+
+const ctaFeatures = [
+  { label: "2-3 Day Routes", Icon: Route },
+  { label: "Food Map", Icon: Map },
+  { label: "Top Attractions", Icon: Landmark },
+  { label: "Transport Guide", Icon: Car },
+  { label: "Hotel Area Notes", Icon: Hotel },
+];
 ---
 
 <BaseLayout
   title={`${city.name} 1-Day Itinerary for First-Time Visitors`}
   description={`A free ${city.name} 1-day itinerary for first-time visitors with simple timing, booking reminders, food notes, and backup planning.`}
+  headerCtaLabel={isBeijing ? "Unlock All Guides - $9.90" : undefined}
 >
-  <section class="subpage-hero">
-    <div class="container subpage-hero__inner">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a><span>/</span><a href={city.href}>Cities</a><span>/</span><span>{city.name} 1-Day Itinerary</span>
-      </nav>
-      <p class="eyebrow">Free 1-day guide</p>
-      <h1>{city.name} 1-Day Itinerary for First-Time Visitors</h1>
-      <p class="lead">
-        A brief but actionable first-day route for visitors who want a simple plan before unlocking the complete current pack.
-      </p>
-      <div class="trust-row">
-        <span class="pill">Who this is for: first-time visitors</span>
-        <span class="pill">Transport style: simple metro / taxi</span>
-        <span class="pill">Book before arrival: key attractions</span>
-      </div>
-      <div class="inline-actions">
-        <a class="button button-primary" href="#free-route">Read the free route</a>
-        <a class="button button-secondary" href={city.twoDayHref}>Preview paid multi-day routes</a>
-      </div>
-    </div>
-  </section>
+  {isBeijing ? (
+    <div class="beijing-guide">
+      <section class="bj-hero" aria-labelledby="beijing-itinerary-title">
+        <div class="bj-container bj-hero__inner">
+          <div class="bj-hero__copy">
+            <p class="bj-eyebrow">FREE 1-DAY GUIDE</p>
+            <h1 id="beijing-itinerary-title">Beijing <span class="bj-nowrap">1-Day</span><br />Itinerary</h1>
+            <p class="bj-subtitle">Classic Route × Local Food × Practical Tips</p>
+            <p class="bj-lead">
+              A simple, efficient route for first-time visitors. Experience the best of Beijing in one day.
+            </p>
+            <div class="bj-stat-row" aria-label="Route summary">
+              {beijingStats.map(({ label, value, Icon }) => (
+                <div class="bj-stat">
+                  <span class="bj-stat__icon" aria-hidden="true"><Icon size={23} /></span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{value}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="bj-hero__image">
+            <img src="/images/cities/beijing-cover.jpg" alt="Forbidden City rooftops at sunset in Beijing" />
+          </div>
+        </div>
+      </section>
 
-  <section class="section" id="free-route">
-    <div class="container timeline">
-      {timeline.map(([label, text]) => (
-        <article class="timeline-item">
-          <div>
-            <h2>{label}</h2>
-            <p class="muted">{text}</p>
+      <section class="bj-container bj-prep-grid" aria-label="Before you go">
+        {prepCards.map((card) => {
+          const Icon = card.Icon;
+          return (
+            <article class={`bj-prep-card bj-prep-card--${card.variant}`}>
+              <div class="bj-card-heading">
+                <span aria-hidden="true"><Icon size={22} /></span>
+                <h2>{card.title}</h2>
+              </div>
+              {card.columns && (
+                <div class="bj-booking-columns">
+                  {card.columns.map((column) => (
+                    <div>
+                      <h3>{column.title}</h3>
+                      {column.lines.map((line) => <p>{line}</p>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {card.checks && (
+                <ul class="bj-check-list">
+                  {card.checks.map((item) => (
+                    <li><Check size={15} /> {item}</li>
+                  ))}
+                </ul>
+              )}
+              {card.highlight && (
+                <div class="bj-season">
+                  <strong>{card.highlight}</strong>
+                  <p>{card.text}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section class="bj-container bj-main-grid" aria-label="Beijing one-day itinerary details">
+        <article class="bj-panel bj-timeline-panel">
+          <header class="bj-section-title bj-section-title--center">
+            <h2>One-Day Itinerary <span>(Classic Route)</span></h2>
+          </header>
+
+          <div class="bj-timeline">
+            {beijingStops.map((stop) => {
+              const TransportIcon = stop.transport.Icon;
+              return (
+                <section class="bj-stop">
+                  <div class="bj-stop__time">
+                    <strong>{stop.time}</strong>
+                    <span>-{stop.end}</span>
+                  </div>
+                  <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
+                  <div class="bj-stop__content">
+                    <h3>{stop.title} {stop.suffix && <span>{stop.suffix}</span>}</h3>
+                    {stop.description && <p>{stop.description}</p>}
+
+                    {stop.route && (
+                      <div class="bj-route-card">
+                        <div class="bj-route-card__heading">
+                          <strong>Suggested Route</strong>
+                          <span>(Enter from Meridian Gate, Exit at North Gate)</span>
+                        </div>
+                        <div class="bj-route-card__steps">
+                          {routeSteps.map((step, index) => (
+                            <>
+                              <div class="bj-route-step">
+                                <strong>{step.title}</strong>
+                                {step.note && <small>{step.note}</small>}
+                              </div>
+                              {index < routeSteps.length - 1 && <ArrowRight class="bj-route-arrow" size={15} aria-hidden="true" />}
+                            </>
+                          ))}
+                        </div>
+                        <p>
+                          <strong>Tip:</strong> Tickets must be booked 1-7 days in advance except special dates. Enter
+                          with passport. Arrive at opening time to avoid crowds.
+                        </p>
+                      </div>
+                    )}
+
+                    {stop.options && (
+                      <div class="bj-food-grid">
+                        {stop.options.map((option) => (
+                          <article class="bj-food-card">
+                            <img src={option.image} alt={option.alt} width="420" height="300" loading="lazy" decoding="async" />
+                            <div>
+                              <h4><span>{option.label}</span> {option.title}</h4>
+                              {option.lines.map((line) => <p>{line}</p>)}
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <aside class="bj-transport-card">
+                    <TransportIcon size={22} />
+                    <strong>{stop.transport.mode}</strong>
+                    <span>{stop.transport.detail}</span>
+                    <small>{stop.transport.time}</small>
+                  </aside>
+                </section>
+              );
+            })}
+          </div>
+
+          <div class="bj-tip">
+            <Info size={18} />
+            <p><strong>Tip:</strong> Adjust the time flexibly based on crowds and your energy. Take your time and enjoy your first day in Beijing!</p>
           </div>
         </article>
-      ))}
-    </div>
-  </section>
 
-  <section class="section-tight">
-    <div class="container content-grid">
-      <article class="content-card">
-        <h2>Before you go</h2>
-        <ul class="clean-list">
-          <li>Save your hotel address in Chinese.</li>
-          <li>Check ticket booking windows and passport-name rules.</li>
-          <li>Prepare Alipay or WeChat Pay with a backup payment method.</li>
-        </ul>
-      </article>
-      <article class="content-card">
-        <h2>Key attraction pages</h2>
-        <ul class="clean-list">
-          {cityAttractions.slice(0, 3).map((attraction) => (
-            <li><a class="text-link" href={`/attractions/${attraction.slug}/`}>{attraction.name} <ArrowRight size={16} /></a></li>
+        <aside class="bj-sidebar">
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Where to Stay <span>(Wangfujing / Qianmen Area)</span></h2>
+            </header>
+            <div class="bj-stack">
+              {hotels.map((hotel) => (
+                <article class="bj-media-card">
+                  <img src={hotel.image} alt={hotel.alt} width="640" height="420" loading="lazy" decoding="async" />
+                  <div>
+                    <p class="bj-green-label">{hotel.label}</p>
+                    <h3>{hotel.name}</h3>
+                    <div class="bj-mini-tags">
+                      {hotel.tags.map((tag) => <span>{tag}</span>)}
+                    </div>
+                    <p><strong>Price:</strong> {hotel.price}</p>
+                    <p>{hotel.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p class="bj-note">Prices vary by date. Check before booking.</p>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>From Airport to Hotel</h2>
+            </header>
+            <div class="bj-stack">
+              {airportTransfers.map((airport) => (
+                <article class="bj-media-card bj-media-card--airport">
+                  <img src={airport.image} alt={airport.alt} width="640" height="420" loading="lazy" decoding="async" />
+                  <div>
+                    <h3>{airport.title}</h3>
+                    <p><strong>Recommended:</strong> {airport.recommended}</p>
+                    <p>{airport.time}</p>
+                    <p><strong>Budget:</strong> {airport.budget}</p>
+                    <p>{airport.route}</p>
+                    <p>{airport.fare}</p>
+                    <p>Total time {airport.total}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section bj-important">
+            <header class="bj-section-title">
+              <h2>Important Information</h2>
+            </header>
+            <div class="bj-info-groups">
+              {importantGroups.map((group) => {
+                const Icon = group.Icon;
+                return (
+                  <section class="bj-info-group">
+                    <span class="bj-info-icon" aria-hidden="true"><Icon size={21} /></span>
+                    <div>
+                      <h3>{group.title}</h3>
+                      {group.kicker && <p class="bj-kicker">{group.kicker}</p>}
+                      <ul>
+                        {group.items.map((item) => <li>{item}</li>)}
+                      </ul>
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Beijing guide">
+        <div>
+          <h2>Want More Details & Practical Info?</h2>
+          <p>Get 2-3 day itineraries, food map, transport guide, hotel area notes, backup routes and more!</p>
+        </div>
+        <div class="bj-cta-features" aria-label="Included guide details">
+          {ctaFeatures.map(({ label, Icon }) => (
+            <span><Icon size={24} /> {label}</span>
           ))}
-        </ul>
-      </article>
-      <article class="content-card">
-        <h2>Backup plan</h2>
-        <p class="muted">If tickets sell out, weather changes, or the day feels too long, switch to a slower city walk and keep the paid multi-day route for later.</p>
-      </article>
-      <article class="content-card">
-        <h2>Want 2 more days planned?</h2>
-        <p class="muted">The full current pack adds 2-day and 3-day routes, printable PDFs, city notes, food picks, and backup routes.</p>
-        <a class="text-link" href="/unlock/">Unlock all current itinerary packs for $9.90 <ArrowRight size={16} /></a>
-      </article>
+        </div>
+        <div class="bj-cta-action">
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock All Guides - $9.90</a>
+          <small>Instant access · Printable PDFs · Easy to use</small>
+        </div>
+      </section>
     </div>
-  </section>
+  ) : (
+    <>
+      <section class="subpage-hero">
+        <div class="container subpage-hero__inner">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a><span>/</span><a href={city.href}>Cities</a><span>/</span><span>{city.name} 1-Day Itinerary</span>
+          </nav>
+          <p class="eyebrow">Free 1-day guide</p>
+          <h1>{city.name} 1-Day Itinerary for First-Time Visitors</h1>
+          <p class="lead">
+            A brief but actionable first-day route for visitors who want a simple plan before unlocking the complete current pack.
+          </p>
+          <div class="trust-row">
+            <span class="pill">Who this is for: first-time visitors</span>
+            <span class="pill">Transport style: simple metro / taxi</span>
+            <span class="pill">Book before arrival: key attractions</span>
+          </div>
+          <div class="inline-actions">
+            <a class="button button-primary" href="#free-route">Read the free route</a>
+            <a class="button button-secondary" href={city.twoDayHref}>Preview paid multi-day routes</a>
+          </div>
+        </div>
+      </section>
 
-  <section class="section-tight">
-    <div class="container paper-card unlock-panel">
-      <div>
-        <p class="eyebrow">Multi-day previews</p>
-        <h2>Need more than one day in {city.name}?</h2>
-        <p class="muted">
-          Preview the paid 2-day and 3-day outlines before buying. Full timings, maps, food notes, booking reminders,
-          and printable PDFs are in the current pack.
-        </p>
-      </div>
-      <div class="setup-card">
-        <ul class="clean-list">
-          <li><a class="text-link" href={city.twoDayHref}>{city.name} 2-day preview <ArrowRight size={16} /></a></li>
-          <li><a class="text-link" href={city.threeDayHref}>{city.name} 3-day preview <ArrowRight size={16} /></a></li>
-          <li><a class="text-link" href="/china-ticket-booking-guide/">Ticket booking guide <ArrowRight size={16} /></a></li>
-          <li><a class="text-link" href="/china-public-transport-guide/">Public transport guide <ArrowRight size={16} /></a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
+      <section class="section" id="free-route">
+        <div class="container timeline">
+          {timeline.map(([label, text]) => (
+            <article class="timeline-item">
+              <div>
+                <h2>{label}</h2>
+                <p class="muted">{text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="section-tight">
+        <div class="container content-grid">
+          <article class="content-card">
+            <h2>Before you go</h2>
+            <ul class="clean-list">
+              <li>Save your hotel address in Chinese.</li>
+              <li>Check ticket booking windows and passport-name rules.</li>
+              <li>Prepare Alipay or WeChat Pay with a backup payment method.</li>
+            </ul>
+          </article>
+          <article class="content-card">
+            <h2>Key attraction pages</h2>
+            <ul class="clean-list">
+              {cityAttractions.slice(0, 3).map((attraction) => (
+                <li><a class="text-link" href={`/attractions/${attraction.slug}/`}>{attraction.name} <ArrowRight size={16} /></a></li>
+              ))}
+            </ul>
+          </article>
+          <article class="content-card">
+            <h2>Backup plan</h2>
+            <p class="muted">If tickets sell out, weather changes, or the day feels too long, switch to a slower city walk and keep the paid multi-day route for later.</p>
+          </article>
+          <article class="content-card">
+            <h2>Want 2 more days planned?</h2>
+            <p class="muted">The full current pack adds 2-day and 3-day routes, printable PDFs, city notes, food picks, and backup routes.</p>
+            <a class="text-link" href="/unlock/">Unlock all current itinerary packs for $9.90 <ArrowRight size={16} /></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-tight">
+        <div class="container paper-card unlock-panel">
+          <div>
+            <p class="eyebrow">Multi-day previews</p>
+            <h2>Need more than one day in {city.name}?</h2>
+            <p class="muted">
+              Preview the paid 2-day and 3-day outlines before buying. Full timings, maps, food notes, booking reminders,
+              and printable PDFs are in the current pack.
+            </p>
+          </div>
+          <div class="setup-card">
+            <ul class="clean-list">
+              <li><a class="text-link" href={city.twoDayHref}>{city.name} 2-day preview <ArrowRight size={16} /></a></li>
+              <li><a class="text-link" href={city.threeDayHref}>{city.name} 3-day preview <ArrowRight size={16} /></a></li>
+              <li><a class="text-link" href="/china-ticket-booking-guide/">Ticket booking guide <ArrowRight size={16} /></a></li>
+              <li><a class="text-link" href="/china-public-transport-guide/">Public transport guide <ArrowRight size={16} /></a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
+  )}
 </BaseLayout>
+
+<style>
+  .beijing-guide {
+    --bj-bg: #fbf7f0;
+    --bj-card: rgba(255, 253, 248, 0.86);
+    --bj-line: rgba(118, 96, 68, 0.18);
+    --bj-red: #c52222;
+    --bj-red-dark: #a91414;
+    --bj-green: #1f7a57;
+    --bj-ink: #17130f;
+    --bj-muted: #5f5a53;
+    background:
+      radial-gradient(circle at 72% 6%, rgba(255, 214, 128, 0.16), transparent 30%),
+      linear-gradient(180deg, #fffaf2 0%, var(--bj-bg) 42%, #f8f2e9 100%);
+    color: var(--bj-ink);
+    padding-bottom: 40px;
+  }
+
+  .bj-container {
+    width: min(100% - 56px, 1360px);
+    margin: 0 auto;
+  }
+
+  .bj-hero {
+    overflow: hidden;
+    padding: 34px 0 24px;
+  }
+
+  .bj-hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(430px, 0.42fr) minmax(0, 0.58fr);
+    align-items: center;
+    min-height: 380px;
+  }
+
+  .bj-hero__copy {
+    position: relative;
+    z-index: 2;
+    padding: 22px 0 18px 12px;
+  }
+
+  .bj-eyebrow {
+    margin: 0 0 12px;
+    color: var(--bj-red-dark);
+    font-size: 0.86rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+  }
+
+  .bj-hero h1 {
+    max-width: 560px;
+    margin: 0;
+    font-size: clamp(4.5rem, 6.2vw, 6.35rem);
+    line-height: 0.91;
+    letter-spacing: -0.045em;
+  }
+
+  .bj-nowrap {
+    white-space: nowrap;
+  }
+
+  .bj-subtitle {
+    margin: 18px 0 14px;
+    color: var(--bj-green);
+    font-size: clamp(1.05rem, 1.35vw, 1.42rem);
+    font-weight: 850;
+  }
+
+  .bj-lead {
+    max-width: 470px;
+    margin: 0;
+    color: #29231d;
+    font-size: 1.08rem;
+    line-height: 1.58;
+  }
+
+  .bj-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 22px;
+    margin-top: 30px;
+  }
+
+  .bj-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bj-stat__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(31, 122, 87, 0.22);
+    border-radius: 999px;
+    background: rgba(240, 249, 242, 0.84);
+    color: var(--bj-green);
+  }
+
+  .bj-stat strong,
+  .bj-stat small {
+    display: block;
+  }
+
+  .bj-stat strong {
+    font-size: 0.8rem;
+  }
+
+  .bj-stat small {
+    color: #27221d;
+    font-size: 0.82rem;
+    line-height: 1.25;
+  }
+
+  .bj-hero__image {
+    position: absolute;
+    top: -8px;
+    right: -20px;
+    width: min(790px, 62vw);
+    height: 380px;
+    overflow: hidden;
+    border-radius: 0 0 0 44px;
+  }
+
+  .bj-hero__image::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    background: linear-gradient(90deg, #fffaf2 0%, rgba(255, 250, 242, 0.86) 14%, rgba(255, 250, 242, 0.1) 40%, rgba(255, 250, 242, 0) 72%);
+    pointer-events: none;
+  }
+
+  .bj-hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .bj-prep-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.95fr 1fr;
+    gap: 16px;
+    padding: 10px 0 20px;
+  }
+
+  .bj-panel,
+  .bj-prep-card,
+  .bj-bottom-cta {
+    border: 1px solid var(--bj-line);
+    border-radius: 18px;
+    background: var(--bj-card);
+    box-shadow: 0 16px 38px rgba(66, 50, 29, 0.06);
+  }
+
+  .bj-prep-card {
+    min-height: 150px;
+    padding: 22px;
+  }
+
+  .bj-card-heading,
+  .bj-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bj-card-heading span {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+  }
+
+  .bj-prep-card--red .bj-card-heading span {
+    background: rgba(197, 34, 34, 0.1);
+    color: var(--bj-red);
+  }
+
+  .bj-prep-card--green .bj-card-heading span {
+    background: rgba(31, 122, 87, 0.1);
+    color: var(--bj-green);
+  }
+
+  .bj-card-heading h2,
+  .bj-section-title h2 {
+    margin: 0;
+    font-size: 1.08rem;
+  }
+
+  .bj-booking-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .bj-booking-columns > div + div {
+    border-left: 1px solid var(--bj-line);
+    padding-left: 18px;
+  }
+
+  .bj-booking-columns h3,
+  .bj-media-card h3,
+  .bj-info-group h3 {
+    margin: 0 0 7px;
+    font-size: 0.9rem;
+  }
+
+  .bj-booking-columns p,
+  .bj-media-card p,
+  .bj-food-card p {
+    margin: 0;
+    color: #2d2822;
+    font-size: 0.8rem;
+    line-height: 1.42;
+  }
+
+  .bj-check-list {
+    display: grid;
+    gap: 9px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .bj-check-list li {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #27221d;
+    font-size: 0.82rem;
+  }
+
+  .bj-check-list svg {
+    color: var(--bj-green);
+  }
+
+  .bj-season {
+    margin-top: 22px;
+    padding-left: 45px;
+  }
+
+  .bj-season strong {
+    color: var(--bj-green);
+    font-size: 1.16rem;
+  }
+
+  .bj-season p {
+    margin: 12px 0 0;
+    color: #4c453c;
+  }
+
+  .bj-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(380px, 0.82fr);
+    gap: 18px;
+    align-items: start;
+    padding: 0 0 20px;
+  }
+
+  .bj-timeline-panel,
+  .bj-side-section {
+    padding: 18px;
+  }
+
+  .bj-section-title {
+    margin-bottom: 14px;
+  }
+
+  .bj-section-title--center {
+    justify-content: center;
+  }
+
+  .bj-section-title h2 {
+    font-size: 1.46rem;
+    line-height: 1.1;
+  }
+
+  .bj-section-title h2 span,
+  .bj-stop h3 span {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .bj-timeline {
+    display: grid;
+  }
+
+  .bj-stop {
+    position: relative;
+    display: grid;
+    grid-template-columns: 76px 40px minmax(0, 1fr) 128px;
+    gap: 16px;
+    padding: 18px 0;
+    border-top: 1px solid rgba(118, 96, 68, 0.14);
+  }
+
+  .bj-stop::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 116px;
+    width: 1px;
+    content: "";
+    background: rgba(118, 96, 68, 0.22);
+  }
+
+  .bj-stop__time {
+    display: grid;
+    align-content: start;
+    gap: 5px;
+    padding-top: 4px;
+  }
+
+  .bj-stop__time strong {
+    font-size: 1rem;
+  }
+
+  .bj-stop__time span {
+    color: var(--bj-green);
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  .bj-stop__marker {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: var(--bj-red);
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .bj-stop h3 {
+    margin: 0 0 7px;
+    font-size: 1.22rem;
+    line-height: 1.15;
+  }
+
+  .bj-stop__content > p {
+    max-width: 420px;
+    margin: 0;
+    color: #322b25;
+    font-size: 0.9rem;
+    line-height: 1.46;
+  }
+
+  .bj-transport-card {
+    align-self: start;
+    display: grid;
+    gap: 5px;
+    padding: 14px 12px;
+    border-left: 1px solid rgba(118, 96, 68, 0.14);
+    color: #1f4939;
+    font-size: 0.76rem;
+  }
+
+  .bj-transport-card svg {
+    color: var(--bj-green);
+  }
+
+  .bj-transport-card strong {
+    color: var(--bj-green);
+    font-size: 0.84rem;
+  }
+
+  .bj-route-card,
+  .bj-tip {
+    margin-top: 18px;
+    border: 1px solid rgba(179, 137, 75, 0.18);
+    border-radius: 12px;
+    background: rgba(255, 248, 235, 0.86);
+  }
+
+  .bj-route-card {
+    padding: 18px;
+  }
+
+  .bj-route-card__heading {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 0.86rem;
+  }
+
+  .bj-route-card__steps {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bj-route-step {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bj-route-step strong,
+  .bj-route-step small {
+    display: block;
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  .bj-route-step small {
+    margin-top: 4px;
+    color: #453d33;
+  }
+
+  .bj-route-arrow {
+    flex: 0 0 auto;
+    color: var(--bj-red);
+  }
+
+  .bj-route-card p {
+    margin: 14px 0 0;
+    color: #42382f;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .bj-food-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .bj-food-card {
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 10px;
+    padding: 9px;
+    border: 1px solid rgba(118, 96, 68, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 253, 248, 0.8);
+  }
+
+  .bj-food-card img {
+    width: 82px;
+    height: 74px;
+    border-radius: 9px;
+    object-fit: cover;
+  }
+
+  .bj-food-card h4 {
+    margin: 0 0 5px;
+    color: var(--bj-red-dark);
+    font-size: 0.84rem;
+  }
+
+  .bj-food-card h4 span {
+    color: #8d281f;
+    font-size: 0.72rem;
+  }
+
+  .bj-sidebar {
+    display: grid;
+    gap: 16px;
+  }
+
+  .bj-stack {
+    display: grid;
+    gap: 12px;
+  }
+
+  .bj-media-card {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 14px;
+    padding: 9px;
+    border: 1px solid rgba(118, 96, 68, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 253, 248, 0.78);
+  }
+
+  .bj-media-card img {
+    width: 150px;
+    height: 104px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .bj-media-card--airport img {
+    height: 116px;
+  }
+
+  .bj-green-label,
+  .bj-kicker {
+    margin: 0 0 5px;
+    color: var(--bj-green);
+    font-size: 0.76rem;
+    font-weight: 850;
+  }
+
+  .bj-mini-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+  }
+
+  .bj-mini-tags span {
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: #edf4f2;
+    color: #26483d;
+    font-size: 0.68rem;
+    font-weight: 750;
+  }
+
+  .bj-note {
+    margin: 12px 0 0;
+    color: var(--bj-muted);
+    font-size: 0.78rem;
+  }
+
+  .bj-info-groups {
+    display: grid;
+    gap: 16px;
+  }
+
+  .bj-info-group {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .bj-info-icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: rgba(197, 34, 34, 0.08);
+    color: var(--bj-red);
+  }
+
+  .bj-info-group ul {
+    margin: 6px 0 0;
+    padding-left: 18px;
+    color: #2d2822;
+    font-size: 0.78rem;
+    line-height: 1.38;
+  }
+
+  .bj-tip {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 13px 16px;
+  }
+
+  .bj-tip svg {
+    flex: 0 0 auto;
+    color: #d39a1d;
+  }
+
+  .bj-tip p {
+    margin: 0;
+    color: #352e26;
+    font-size: 0.83rem;
+  }
+
+  .bj-bottom-cta {
+    display: grid;
+    grid-template-columns: 1.2fr 1.3fr 0.9fr;
+    gap: 22px;
+    align-items: center;
+    padding: 22px 42px;
+    background: linear-gradient(135deg, rgba(250, 253, 249, 0.94), rgba(255, 250, 242, 0.92));
+  }
+
+  .bj-bottom-cta h2 {
+    margin: 0 0 7px;
+    font-size: 1.42rem;
+  }
+
+  .bj-bottom-cta p {
+    margin: 0;
+    color: #443c34;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .bj-cta-features {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  .bj-cta-features span {
+    display: grid;
+    justify-items: center;
+    gap: 5px;
+    color: #244d3d;
+    font-size: 0.66rem;
+    font-weight: 740;
+    text-align: center;
+  }
+
+  .bj-cta-features svg {
+    color: var(--bj-green);
+  }
+
+  .bj-cta-action {
+    display: grid;
+    justify-items: stretch;
+    gap: 8px;
+  }
+
+  .bj-cta-action small {
+    color: #5c554b;
+    font-size: 0.73rem;
+    text-align: center;
+  }
+
+  @media (max-width: 1120px) {
+    .bj-hero__inner,
+    .bj-main-grid,
+    .bj-bottom-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .bj-hero__image {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    .bj-hero__image::before {
+      background: linear-gradient(180deg, rgba(255, 250, 242, 0.28), rgba(255, 250, 242, 0));
+    }
+
+    .bj-prep-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bj-main-grid {
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .bj-container {
+      width: min(100% - 28px, 1360px);
+    }
+
+    .bj-hero {
+      padding-top: 24px;
+    }
+
+    .bj-hero__inner {
+      min-height: 0;
+    }
+
+    .bj-hero__copy {
+      padding-left: 0;
+    }
+
+    .bj-hero h1 {
+      font-size: clamp(3.25rem, 16vw, 4.2rem);
+    }
+
+    .bj-stat-row,
+    .bj-booking-columns,
+    .bj-food-grid,
+    .bj-cta-features {
+      grid-template-columns: 1fr;
+    }
+
+    .bj-stat-row {
+      gap: 14px;
+    }
+
+    .bj-booking-columns > div + div {
+      border-top: 1px solid var(--bj-line);
+      border-left: 0;
+      padding-top: 12px;
+      padding-left: 0;
+    }
+
+    .bj-stop {
+      grid-template-columns: 66px 34px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .bj-stop::before {
+      left: 99px;
+    }
+
+    .bj-transport-card {
+      grid-column: 3;
+      border-top: 1px solid rgba(118, 96, 68, 0.14);
+      border-left: 0;
+      padding: 10px 0 0;
+    }
+
+    .bj-route-card__steps {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .bj-route-arrow {
+      transform: rotate(90deg);
+    }
+
+    .bj-media-card {
+      grid-template-columns: 112px minmax(0, 1fr);
+    }
+
+    .bj-media-card img {
+      width: 112px;
+      height: 100%;
+      min-height: 112px;
+    }
+
+    .bj-bottom-cta {
+      padding: 22px;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .bj-hero__image {
+      height: 235px;
+      border-radius: 18px;
+    }
+
+    .bj-stop {
+      grid-template-columns: 58px 32px minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .bj-stop::before {
+      left: 86px;
+    }
+
+    .bj-stop h3 {
+      font-size: 1.05rem;
+    }
+
+    .bj-media-card,
+    .bj-food-card {
+      grid-template-columns: 1fr;
+    }
+
+    .bj-media-card img,
+    .bj-food-card img {
+      width: 100%;
+      height: 150px;
+    }
+  }
+</style>
