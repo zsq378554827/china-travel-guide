@@ -618,9 +618,6 @@ const shanghaiImportantGroups = [
 ];
 
 const xianIllustrationImage = "/images/cities/xian-cover.jpg";
-const xianFoodImage = "/images/beijing-itinerary/local-snacks-thumb.jpg";
-const xianHotelImage = "/images/beijing-itinerary/capital-hotel-thumb.jpg";
-const xianAirportImage = "/images/beijing-itinerary/beijing-airport-thumb.jpg";
 
 const xianStats = [
   { label: "Recommended", value: "10-12 hours", Icon: Clock3 },
@@ -650,7 +647,7 @@ const xianRouteOverview = [
   {
     number: 3,
     time: "09:00",
-    title: "Emperor Qinshihuang’s Mausoleum Site Museum / Terracotta Warriors",
+    title: "Terracotta Warriors",
     detail: "Qin Mausoleum Site",
     transport: "",
     duration: "",
@@ -661,8 +658,8 @@ const xianRouteOverview = [
     time: "12:00",
     title: "Return to Bell Tower / South Gate Area",
     detail: "City center",
-    transport: "Taxi / DiDi or Metro + local bus",
-    duration: "60-120 min",
+    transport: "Taxi / DiDi: 60-90 min",
+    duration: "Metro + local bus: 90-120 min",
     Icon: Car,
   },
   {
@@ -719,8 +716,9 @@ const xianPrepCards = [
     variant: "red",
     columns: [
       {
-        title: "Emperor Qinshihuang’s Mausoleum Site Museum / Terracotta Warriors",
+        title: "Terracotta Warriors Tickets",
         lines: [
+          "Official name: Emperor Qinshihuang’s Mausoleum Site Museum",
           "Advance reservation required",
           "Bring the passport used for booking",
           "Official website: www.bmy.com.cn",
@@ -768,19 +766,8 @@ const xianStops = [
     time: "07:00",
     end: "07:40",
     title: "Breakfast",
-    suffix: "(Choose One)",
-    description: "Eat near Bell Tower / South Gate. Do not be late — aim to leave around 07:40-08:00.",
+    description: "Breakfast near Bell Tower / South Gate. Choose Qin Yu Roujiamo, Fan Ji Roujiamo, or a quick backup below. Aim to leave around 07:40-08:00.",
     transport: { mode: "Food", detail: "Bell Tower / South Gate", time: "20-40 min", Icon: Utensils },
-    chips: [
-      {
-        title: "Qin Yu Roujiamo 秦豫肉夹馍",
-        text: "No.19 Dongmutoushi, Beilin District. Nav: 西安市碑林区东木头市19号. Roujiamo, liangpi, soup. ¥20-40.",
-      },
-      {
-        title: "Fan Ji La Zhi Roujiamo 樊记腊汁肉夹馍",
-        text: "No.53 Zhubashi Street, Beilin District. Nav: 西安市碑林区竹笆市53号. La zhi roujiamo, liangpi, soup. ¥20-50.",
-      },
-    ],
   },
   {
     number: 2,
@@ -792,12 +779,13 @@ const xianStops = [
     routeCard: {
       title: "Budget Route",
       note: "Metro + local bus",
-      steps: [
-        { title: "Yongningmen / Zhonglou" },
-        { title: "Line 2 to Beidajie" },
-        { title: "Line 1 to Fangzhicheng" },
-        { title: "Line 9 to Huaqingchi" },
-        { title: "Bus 613 / 602" },
+      lines: [
+        "Yongningmen / Zhonglou",
+        "Metro Line 2 to Beidajie",
+        "Metro Line 1 to Fangzhicheng",
+        "Metro Line 9 to Huaqingchi",
+        "Exit C",
+        "Bus 613 / 602 to Terracotta Warriors",
       ],
       tip: "Budget route can take 90-120 min. Use it for the return if you want to save money.",
     },
@@ -881,6 +869,33 @@ const xianStops = [
     title: "Return to Hotel",
     description: "Walk / Metro / Taxi.",
     transport: { mode: "Hotel return", detail: "End of day", time: "10-30 min", Icon: Hotel },
+  },
+];
+
+const xianBreakfastOptions = [
+  {
+    label: "Classic Local Breakfast",
+    name: "Qin Yu Roujiamo 秦豫肉夹馍",
+    address: "No.19 Dongmutoushi, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区东木头市19号",
+    recommended: "Roujiamo, liangpi, soup",
+    cost: "¥20-40",
+  },
+  {
+    label: "Old-School Roujiamo",
+    name: "Fan Ji La Zhi Roujiamo 樊记腊汁肉夹馍",
+    address: "No.53 Zhubashi Street, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区竹笆市53号",
+    recommended: "La zhi roujiamo, liangpi, soup",
+    cost: "¥20-50",
+  },
+  {
+    label: "Quick Backup",
+    name: "Wei Jia Liangpi 魏家凉皮",
+    address: "Use the nearest central branch around Bell Tower / South Gate",
+    chineseAddress: "地图搜索：魏家凉皮 钟楼 / 南门",
+    recommended: "Liangpi, roujiamo, quick noodles",
+    cost: "¥20-50",
   },
 ];
 
@@ -992,16 +1007,14 @@ const xianHotels = [
 const xianAirportOptions = [
   {
     title: "Best Option: Taxi / DiDi",
-    image: xianAirportImage,
-    alt: "Airport arrival and taxi transfer illustration",
+    Icon: Car,
     time: "45-70 min",
     bestFor: "First-time visitors, families, late arrivals, travelers with luggage.",
     route: "Xi’an Xianyang International Airport → Bell Tower / South Gate hotel",
   },
   {
     title: "Budget Option: Metro",
-    image: xianAirportImage,
-    alt: "Metro and airport transport illustration",
+    Icon: TrainFront,
     time: "about 60-80 min",
     bestFor: "Budget travelers with light luggage.",
     route: "Airport Line / Metro Line 14 → Xi’an North Railway Station → Metro Line 2 → Zhonglou or Yongningmen → Walk or taxi to hotel",
@@ -1029,6 +1042,21 @@ const xianQuickNotes = [
     text: "Try paomo for one meal and Shaanxi dishes for another.",
     Icon: Utensils,
   },
+  {
+    title: "Chinese navigation names",
+    text: "Restaurant and hotel cards include Chinese navigation names. Copy the Chinese address into your map or DiDi app.",
+    Icon: Map,
+  },
+];
+
+const xianNavigationNames = [
+  ["Terracotta Warriors", "兵马俑 / 秦始皇帝陵博物院"],
+  ["Yongning Gate", "永宁门"],
+  ["Bell Tower", "钟楼"],
+  ["Drum Tower", "鼓楼"],
+  ["Muslim Quarter", "回民街"],
+  ["Sajinqiao", "洒金桥"],
+  ["Dapiyuan", "大皮院"],
 ];
 
 const xianCtaFeatures = [
@@ -1626,16 +1654,9 @@ const xianCtaFeatures = [
                           <strong>{stop.routeCard.title}</strong>
                           <span>({stop.routeCard.note})</span>
                         </div>
-                        <div class="bj-route-card__steps">
-                          {stop.routeCard.steps.map((step, index) => (
-                            <>
-                              <div class="bj-route-step">
-                                <strong>{step.title}</strong>
-                              </div>
-                              {index < stop.routeCard.steps.length - 1 && <ArrowRight class="bj-route-arrow" size={15} aria-hidden="true" />}
-                            </>
-                          ))}
-                        </div>
+                        <ol class="xian-route-lines">
+                          {stop.routeCard.lines.map((line) => <li>{line}</li>)}
+                        </ol>
                         <p><strong>Tip:</strong> {stop.routeCard.tip}</p>
                       </div>
                     )}
@@ -1671,16 +1692,31 @@ const xianCtaFeatures = [
         <aside class="bj-sidebar">
           <section class="bj-panel bj-side-section">
             <header class="bj-section-title">
+              <h2>Breakfast Options <span>(Bell Tower / South Gate)</span></h2>
+            </header>
+            <p class="bj-note">Keep breakfast close to your hotel area so you can leave for Terracotta Warriors on time.</p>
+            <div class="xian-card-grid xian-card-grid--three">
+              {xianBreakfastOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Address:</strong> {option.address}</p>
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
               <h2>Lunch Options <span>(Near Bell Tower / Muslim Quarter)</span></h2>
             </header>
             <p class="bj-note">Some lunch and dinner options overlap because they are reliable, central, and easy for first-time visitors.</p>
             <div class="xian-card-grid xian-card-grid--three">
               {xianLunchOptions.map((option) => (
                 <article class="xian-detail-card">
-                  <div class="xian-card-image">
-                    <img src={xianFoodImage} alt={`${option.name} food illustration`} width="420" height="260" loading="lazy" decoding="async" />
-                    <span class="xian-image-label">Illustration</span>
-                  </div>
                   <p class="bj-green-label">{option.label}</p>
                   <h3>{option.name}</h3>
                   <p><strong>Type:</strong> {option.type}</p>
@@ -1733,10 +1769,6 @@ const xianCtaFeatures = [
             <div class="xian-card-grid xian-card-grid--three">
               {xianHotels.map((hotel) => (
                 <article class="xian-detail-card">
-                  <div class="xian-card-image">
-                    <img src={xianHotelImage} alt={`${hotel.name} hotel illustration`} width="420" height="260" loading="lazy" decoding="async" />
-                    <span class="xian-image-label">Illustration</span>
-                  </div>
                   <p class="bj-green-label">{hotel.label}</p>
                   <h3>{hotel.name}</h3>
                   <p>{hotel.chineseName}</p>
@@ -1754,12 +1786,11 @@ const xianCtaFeatures = [
               <h2>From Xi’an Xianyang International Airport to Bell Tower / South Gate</h2>
             </header>
             <div class="bj-stack">
-              {xianAirportOptions.map((option) => (
+              {xianAirportOptions.map((option) => {
+                const AirportIcon = option.Icon;
+                return (
                 <article class="bj-media-card bj-media-card--airport">
-                  <div class="xian-card-image">
-                    <img src={option.image} alt={option.alt} width="640" height="420" loading="lazy" decoding="async" />
-                    <span class="xian-image-label">Illustration</span>
-                  </div>
+                  <span class="xian-icon-card" aria-hidden="true"><AirportIcon size={34} /></span>
                   <div>
                     <h3>{option.title}</h3>
                     <p><strong>Time:</strong> {option.time}</p>
@@ -1767,7 +1798,8 @@ const xianCtaFeatures = [
                     <p><strong>Route:</strong> {option.route}</p>
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
           </section>
 
@@ -1789,6 +1821,20 @@ const xianCtaFeatures = [
                 );
               })}
             </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Chinese Navigation Names</h2>
+            </header>
+            <dl class="xian-nav-names">
+              {xianNavigationNames.map(([english, chinese]) => (
+                <div>
+                  <dt>{english}</dt>
+                  <dd>{chinese}</dd>
+                </div>
+              ))}
+            </dl>
           </section>
         </aside>
       </section>
@@ -2696,6 +2742,42 @@ const xianCtaFeatures = [
     color: #ba6a22;
   }
 
+  .xian-route-lines {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .xian-route-lines li {
+    position: relative;
+    padding: 8px 10px 8px 34px;
+    border: 1px solid rgba(31, 122, 87, 0.14);
+    border-radius: 10px;
+    background: rgba(244, 250, 247, 0.68);
+    color: #2e2a24;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .xian-route-lines li::before {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    width: 13px;
+    height: 13px;
+    border-radius: 999px;
+    background: rgba(31, 122, 87, 0.14);
+    color: var(--bj-green);
+    content: "→";
+    font-size: 0.72rem;
+    font-weight: 900;
+    line-height: 13px;
+    text-align: center;
+    transform: translateY(-50%);
+  }
+
   .xian-card-grid {
     display: grid;
     gap: 12px;
@@ -2758,6 +2840,48 @@ const xianCtaFeatures = [
   .bj-media-card > .xian-card-image img {
     width: 100%;
     height: 100%;
+  }
+
+  .xian-icon-card {
+    display: grid;
+    place-items: center;
+    align-self: stretch;
+    width: 92px;
+    min-height: 92px;
+    border: 1px solid rgba(31, 122, 87, 0.18);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(240, 249, 242, 0.92), rgba(255, 253, 248, 0.78));
+    color: var(--bj-green);
+  }
+
+  .xian-nav-names {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .xian-nav-names div {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 10px;
+    align-items: baseline;
+    padding: 9px 10px;
+    border: 1px solid rgba(118, 96, 68, 0.12);
+    border-radius: 10px;
+    background: rgba(255, 253, 248, 0.7);
+  }
+
+  .xian-nav-names dt {
+    color: var(--bj-green);
+    font-size: 0.78rem;
+    font-weight: 850;
+  }
+
+  .xian-nav-names dd {
+    margin: 0;
+    color: #2d2822;
+    font-size: 0.82rem;
+    line-height: 1.32;
   }
 
   .xian-image-label {
@@ -2987,9 +3111,19 @@ const xianCtaFeatures = [
       height: 150px;
     }
 
+    .xian-icon-card {
+      width: 100%;
+      min-height: 88px;
+    }
+
     .bj-media-card > .xian-card-image {
       width: 100%;
       height: 150px;
+    }
+
+    .xian-nav-names div {
+      grid-template-columns: 1fr;
+      gap: 4px;
     }
   }
 </style>
