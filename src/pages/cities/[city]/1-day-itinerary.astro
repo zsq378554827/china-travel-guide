@@ -1,16 +1,21 @@
 ---
 import {
   ArrowRight,
+  Bus,
   CalendarDays,
+  CableCar,
   Car,
   Check,
   ClipboardCheck,
   Clock3,
+  Coffee,
   Footprints,
   Hotel,
   Info,
   Landmark,
   Map,
+  Mountain,
+  Navigation,
   Route,
   ShieldCheck,
   TrainFront,
@@ -38,6 +43,7 @@ const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
 const isXian = city.id === "xian";
+const isZhangjiajie = city.id === "zhangjiajie";
 
 const timeline = [
   ["Morning", `Start with the main landmark cluster for ${city.name}. Keep transport simple and arrive early.`],
@@ -1068,12 +1074,457 @@ const xianCtaFeatures = [
   { label: "Backup Plans", Icon: ClipboardCheck },
   { label: "Printable PDFs", Icon: Info },
 ];
+
+const zhangjiajieHeroImage = "/images/zhangjiajie/zhangjiajie-hero-bailong.jpg";
+
+const zhangjiajieStats = [
+  { label: "Recommended", value: "9-11 hours\n11-13 hours incl. transfers", Icon: Clock3 },
+  { label: "Best for", value: "First-time visitors\nNature lovers\nPhotography", Icon: Users },
+  { label: "Transport", value: "Park shuttle essential\nCableway & elevator within the park", Icon: Bus },
+];
+
+const zhangjiajieHeroNotes = [
+  {
+    title: "This route assumes you stay near Wulingyuan East Gate / Sign Gate the night before.",
+    Icon: Navigation,
+  },
+  {
+    title: "This is a full-day mountain route with many transfers. It may feel rushed for seniors, young children, or travelers who prefer slow travel.",
+    Icon: Info,
+  },
+];
+
+const zhangjiajieRouteOverview = [
+  {
+    number: 1,
+    time: "07:30",
+    title: "Breakfast",
+    detail: "Wulingyuan Area",
+    transport: "Walk / Taxi",
+    duration: "10-20 min",
+    Icon: Utensils,
+  },
+  {
+    number: 2,
+    time: "08:00",
+    title: "Forest Park East Gate",
+    detail: "Sign Gate",
+    transport: "Walk / Taxi",
+    duration: "10-20 min",
+    Icon: Navigation,
+  },
+  {
+    number: 3,
+    time: "08:30",
+    title: "Enter Park + Bailong Elevator",
+    detail: "Elevator up",
+    transport: "Park Shuttle",
+    duration: "20-30 min + 1-2 min up",
+    Icon: CableCar,
+  },
+  {
+    number: 4,
+    time: "09:30",
+    title: "Yuanjiajie",
+    detail: "Avatar Peaks",
+    transport: "Park shuttle / walking",
+    duration: "30-40 min",
+    Icon: Mountain,
+  },
+  {
+    number: 5,
+    time: "11:00",
+    title: "Tianzi Mountain",
+    detail: "Viewpoints",
+    transport: "Park shuttle",
+    duration: "10-15 min",
+    Icon: Mountain,
+  },
+  {
+    number: 6,
+    time: "12:30",
+    title: "Lunch in the Park",
+    detail: "Quick meal",
+    transport: "",
+    duration: "",
+    Icon: Utensils,
+  },
+  {
+    number: 7,
+    time: "14:00",
+    title: "Ten-Mile Gallery",
+    detail: "Walk or train",
+    transport: "Cableway down + park shuttle",
+    duration: "20-30 min",
+    Icon: TrainFront,
+  },
+  {
+    number: 8,
+    time: "15:30",
+    title: "Return to Wulingyuan East Gate",
+    detail: "Back to Sign Gate",
+    transport: "Park shuttle",
+    duration: "10-20 min",
+    Icon: Bus,
+  },
+  {
+    number: 9,
+    time: "18:00",
+    title: "Dinner & Evening Plan",
+    detail: "Wulingyuan",
+    transport: "Taxi / Walk",
+    duration: "10-30 min",
+    Icon: Map,
+  },
+  {
+    number: 10,
+    time: "20:30+",
+    title: "Return to Hotel",
+    detail: "End of day",
+    transport: "",
+    duration: "",
+    Icon: Hotel,
+  },
+];
+
+const zhangjiajiePrepCards = [
+  {
+    title: "Must: Book Before You Go",
+    Icon: ShieldCheck,
+    variant: "red",
+    columns: [
+      {
+        title: "Forest Park Tickets",
+        lines: [
+          "Book in advance. Bring the passport used for booking.",
+          "Recommended options: Trip.com, Klook, GetYourGuide, or official Chinese platforms if available.",
+          "Official price reference: Forest Park ticket + eco-bus around ¥236.",
+          "Usually valid for 4 days.",
+          "Usually not included: Bailong Elevator, Tianzi Mountain Cableway, Ten-Mile Gallery sightseeing train.",
+        ],
+      },
+      {
+        title: "Mountain Transport Extra",
+        lines: [
+          "Bailong Elevator: approx. ¥65 one way.",
+          "Tianzi Mountain Cableway: approx. ¥72 one way.",
+          "Ten-Mile Gallery sightseeing train: approx. ¥38 one way, optional.",
+          "Start early. Queues can be long on weekends, holidays, and summer months.",
+        ],
+      },
+      {
+        title: "Estimated Scenic Cost Per Person",
+        lines: [
+          "Forest Park ticket + eco-bus: around ¥236.",
+          "Bailong Elevator: around ¥65.",
+          "Tianzi Mountain Cableway: around ¥72.",
+          "Ten-Mile Gallery train: around ¥38 optional.",
+          "Core scenic cost without train: around ¥373.",
+          "With Ten-Mile Gallery train: around ¥411.",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Important Reminders",
+    Icon: ClipboardCheck,
+    variant: "green",
+    checks: [
+      "Bring the passport used for booking.",
+      "Wear comfortable shoes.",
+      "Weather can change quickly.",
+      "Fog may reduce views.",
+      "Carry water and snacks.",
+      "Use park shuttle smartly.",
+      "Check last cableway, shuttle, and elevator times before descending.",
+      "Start early to avoid long queues.",
+      "Use Alipay / WeChat Pay, mobile data, and a map app. Carry some cash as backup.",
+    ],
+  },
+  {
+    title: "Best Travel Seasons",
+    Icon: CalendarDays,
+    variant: "red",
+    highlight: "Apr-Jun / Sep-Nov",
+    text: "Spring and autumn are best for comfortable hiking and clearer views. Summer is lush but hot, humid, and crowded. Winter can be cold, misty, and slippery.",
+  },
+];
+
+const zhangjiajieStops = [
+  {
+    number: 1,
+    time: "07:30",
+    end: "08:00",
+    title: "Breakfast near Wulingyuan",
+    description: "Eat near your hotel. Leave around 08:00.",
+    transport: { mode: "Food", detail: "Wulingyuan Area", time: "30 min", Icon: Utensils },
+  },
+  {
+    number: 2,
+    time: "08:00",
+    end: "08:30",
+    title: "Walk / Taxi to Forest Park East Gate",
+    description: "About 10-20 minutes.",
+    transport: { mode: "Walking", detail: "To Sign Gate", time: "10-20 min", Icon: Footprints },
+  },
+  {
+    number: 3,
+    time: "08:30",
+    end: "09:30",
+    title: "Enter Park + Bailong Elevator Up",
+    description: "Take park shuttle to Bailong Elevator, then ride up to Yuanjiajie area.",
+    transport: { mode: "Elevator", detail: "Park shuttle + Bailong", time: "30-60 min", Icon: CableCar },
+  },
+  {
+    number: 4,
+    time: "09:30",
+    end: "11:00",
+    title: "Yuanjiajie / Avatar Peaks",
+    description: "See the iconic floating mountains and viewpoints.",
+    transport: { mode: "Mountain", detail: "Viewpoints", time: "90 min", Icon: Mountain },
+  },
+  {
+    number: 5,
+    time: "11:00",
+    end: "12:30",
+    title: "Park Shuttle to Tianzi Mountain",
+    description: "Visit Tianzi Mountain viewpoints.",
+    transport: { mode: "Mountain shuttle", detail: "To Tianzi Mountain", time: "90 min", Icon: Bus },
+  },
+  {
+    number: 6,
+    time: "12:30",
+    end: "13:15",
+    title: "Quick Lunch in the Park",
+    description: "Simple meals to save time.",
+    transport: { mode: "Food", detail: "In park", time: "45 min", Icon: Utensils },
+  },
+  {
+    number: 7,
+    time: "13:15",
+    end: "14:00",
+    title: "Tianzi Mountain Cableway Down + Shuttle Transfer",
+    description: "Take cableway down, then shuttle to Ten-Mile Gallery.",
+    transport: { mode: "Cableway", detail: "Down + shuttle", time: "45 min", Icon: CableCar },
+  },
+  {
+    number: 8,
+    time: "14:00",
+    end: "15:30",
+    title: "Ten-Mile Gallery",
+    description: "Walk or take the small train to enjoy the scenery.",
+    transport: { mode: "Park shuttle / train", detail: "Scenic gallery", time: "90 min", Icon: TrainFront },
+  },
+  {
+    number: 9,
+    time: "15:30",
+    end: "16:30",
+    title: "Return to Wulingyuan East Gate",
+    description: "Take park shuttle back.",
+    transport: { mode: "Park shuttle", detail: "Back to Sign Gate", time: "60 min", Icon: Bus },
+  },
+  {
+    number: 10,
+    time: "16:30",
+    end: "18:00",
+    title: "Hotel Rest / Coffee Break / Buffer Time",
+    description: "Return to your hotel, rest, shower, or have a short coffee break before dinner.",
+    transport: { mode: "Coffee / hotel", detail: "Buffer time", time: "90 min", Icon: Coffee },
+  },
+  {
+    number: 11,
+    time: "18:00",
+    end: "19:30",
+    title: "Dinner in Wulingyuan",
+    description: "Enjoy local food at a good restaurant.",
+    transport: { mode: "Dinner", detail: "Wulingyuan", time: "90 min", Icon: Utensils },
+  },
+  {
+    number: 12,
+    time: "19:30",
+    end: "20:30",
+    title: "Xibu Old Street / Charming Xiangxi Show / Relaxed Walk",
+    description: "Stroll, watch a show, or relax.",
+    transport: { mode: "Lantern", detail: "Evening area", time: "60 min", Icon: Map },
+  },
+  {
+    number: 13,
+    time: "20:30",
+    end: "onwards",
+    title: "Return to Hotel",
+    description: "Taxi / Walk / Hotel shuttle.",
+    transport: { mode: "Hotel", detail: "End of day", time: "Flexible", Icon: Hotel },
+  },
+];
+
+const zhangjiajieLunchOptions = [
+  {
+    label: "Option 1",
+    name: "Quick Noodle Set",
+    bestFor: "saving time",
+    recommended: "rice noodles, simple soup noodles, bottled drink",
+    cost: "¥35-60",
+    level: "Budget",
+  },
+  {
+    label: "Option 2",
+    name: "Tujia Snack Combo",
+    bestFor: "trying local snacks quickly",
+    recommended: "Tujia bacon, potato cake, local vegetables",
+    cost: "¥40-70",
+    level: "Budget / Mid-range",
+  },
+  {
+    label: "Option 3",
+    name: "Simple Local Meal",
+    bestFor: "sharing a warm meal",
+    recommended: "Sanxiaguo, stir-fry rice, local vegetables",
+    cost: "¥50-90",
+    level: "Mid-range",
+  },
+];
+
+const zhangjiajieDinnerOptions = [
+  {
+    label: "Budget / Local Pick",
+    name: "Tang Shifu Xiangxi Famous Dishes 唐师傅湘西名菜馆",
+    address: "No.463 Wuling Road, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区武陵路463号",
+    recommended: "Sanxiaguo, Tujia bacon, stir-fried local vegetables",
+    cost: "¥60-100",
+    level: "Budget / Mid-range",
+  },
+  {
+    label: "Classic Local Food",
+    name: "Suoxi Shanzhai 索溪山寨·湘西民间土菜",
+    address: "Near Jundi Road and Tuofeng Road, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区军邸路 / 驼峰路附近",
+    recommended: "Tujia dishes, Sanxiaguo, smoked pork, local vegetables",
+    cost: "¥70-120",
+    level: "Mid-range",
+  },
+  {
+    label: "Snack & Local Food Area",
+    name: "Xibu Old Street 溪布街",
+    address: "Xibu Street, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区溪布街",
+    recommended: "local snacks, grilled food, Tujia dishes",
+    cost: "¥50-120",
+    level: "Flexible",
+    note: "This is a food / evening area, not one specific restaurant.",
+  },
+  {
+    label: "Premium Dinner",
+    name: "Pullman Zhangjiajie Hotel Restaurant 张家界京武铂尔曼酒店餐厅",
+    address: "No.188 Gaoyun Road, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区高云路188号",
+    recommended: "hotel dinner, local and Chinese dishes",
+    cost: "¥180-300+",
+    level: "Premium",
+  },
+];
+
+const zhangjiajieNavigationNames = [
+  ["Wulingyuan East Gate / Sign Gate", "武陵源东门 / 标志门"],
+  ["Bailong Elevator", "百龙天梯"],
+  ["Yuanjiajie", "袁家界"],
+  ["Tianzi Mountain", "天子山"],
+  ["Tianzi Mountain Cableway", "天子山索道"],
+  ["Ten-Mile Gallery", "十里画廊"],
+  ["Xibu Old Street", "溪布街"],
+  ["Charming Xiangxi", "魅力湘西"],
+];
+
+const zhangjiajieBackupRules = [
+  "If Bailong Elevator queue is too long, keep Yuanjiajie shorter and skip long photo stops.",
+  "If fog blocks views, wait 15-30 minutes at Yuanjiajie or Tianzi Mountain before moving on.",
+  "If you are behind schedule after 13:30, skip the Ten-Mile Gallery sightseeing train and return directly.",
+  "If you feel tired, skip the evening show and only walk around Xibu Old Street.",
+];
+
+const zhangjiajieQuickNotes = [
+  "Best entry: Wulingyuan East Gate / Sign Gate.",
+  "Start early: take Bailong Elevator up.",
+  "Main one-day route: Yuanjiajie → Tianzi Mountain → Ten-Mile Gallery.",
+  "Do not add Golden Whip Stream unless you have extra time.",
+  "Cloud and fog can hide views — stay flexible.",
+  "Check last shuttle, cableway, and elevator times before descending.",
+  "Good evening area: Xibu Old Street / Charming Xiangxi.",
+  "This is a full-day mountain route with many transfers. It may feel rushed for seniors, young children, or slow travelers.",
+];
+
+const zhangjiajieSnackExperience = {
+  name: "Xibu Old Street / Charming Xiangxi Show",
+  text: "Local snacks, handicrafts, relaxed evening walk, or the national cultural show “Charming Xiangxi”.",
+  cost: "¥50-150",
+  level: "Flexible",
+};
+
+const zhangjiajieHotels = [
+  {
+    label: "Budget Option",
+    name: "Near East Gate Hotel / Wulingyuan Budget Hotel",
+    chineseName: "武陵源东门附近经济型酒店",
+    address: "Near Wulingyuan East Gate / Sign Gate, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区武陵源东门 / 标志门附近",
+    bestFor: "budget travelers",
+    positioning: "Budget / Practical",
+    note: "Verify the exact hotel name and address before booking. Use a generic near-East-Gate recommendation if not verified.",
+  },
+  {
+    label: "Mid-range Option",
+    name: "Hampton by Hilton Zhangjiajie National Forest Park",
+    chineseName: "张家界国家森林公园希尔顿欢朋酒店",
+    address: "Guihua Road and Jundi Road, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区桂花路与军邸路交汇处",
+    bestFor: "first-time visitors",
+    positioning: "Mid-range / Convenient",
+  },
+  {
+    label: "Premium Option",
+    name: "Pullman Zhangjiajie Hotel",
+    chineseName: "张家界京武铂尔曼酒店",
+    address: "No.188 Gaoyun Road, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区高云路188号",
+    bestFor: "families, premium comfort",
+    positioning: "Premium / Resort",
+  },
+];
+
+const zhangjiajieTransfers = [
+  {
+    title: "Best Option: Taxi / DiDi",
+    Icon: Car,
+    time: "40-60 min",
+    bestFor: "first-time international visitors, families, lots of luggage",
+    route: "Airport / Station → Wulingyuan hotel",
+    text: "Taxi / DiDi is the best option for first-time international visitors. Use the bus route only in daytime and with light luggage.",
+  },
+  {
+    title: "Budget Option: Bus",
+    Icon: Bus,
+    time: "about 1.5-2 hours",
+    bestFor: "budget travelers with light luggage and daytime arrival only",
+    route: "Airport Bus / Station Bus → Zhangjiajie City → Bus or taxi to Wulingyuan",
+    text: "Use this only if you arrive in daytime, travel light, and are comfortable with transfers.",
+  },
+];
+
+const zhangjiajieCtaFeatures = [
+  { label: "2-3 Day Routes", Icon: Route },
+  { label: "Food Map", Icon: Map },
+  { label: "Transport Guide", Icon: Car },
+  { label: "Attraction Tips", Icon: Mountain },
+  { label: "Hotel Area Notes", Icon: Hotel },
+  { label: "Backup Plans", Icon: ClipboardCheck },
+  { label: "Printable PDFs", Icon: Info },
+];
 ---
 
 <BaseLayout
   title={`${city.name} 1-Day Itinerary for First-Time Visitors`}
   description={`A free ${city.name} 1-day itinerary for first-time visitors with simple timing, booking reminders, food notes, and backup planning.`}
-  headerCtaLabel={isBeijing || isShanghai || isXian ? "Unlock All Guides - $9.90" : undefined}
+  headerCtaLabel={isBeijing || isShanghai || isXian || isZhangjiajie ? "Unlock All Guides - $9.90" : undefined}
 >
   {isBeijing ? (
     <div class="beijing-guide">
@@ -1846,6 +2297,291 @@ const xianCtaFeatures = [
         </div>
         <div class="bj-cta-features xian-cta-features" aria-label="Included guide details">
           {xianCtaFeatures.map(({ label, Icon }) => (
+            <span><Icon size={24} /> {label}</span>
+          ))}
+        </div>
+        <div class="bj-cta-action">
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock All Guides - $9.90</a>
+          <small>Instant access · Printable PDFs · Easy to use</small>
+        </div>
+      </section>
+    </div>
+  ) : isZhangjiajie ? (
+    <div class="beijing-guide xian-guide zhangjiajie-guide">
+      <section class="bj-hero" aria-labelledby="zhangjiajie-itinerary-title">
+        <div class="bj-container bj-hero__inner">
+          <div class="bj-hero__copy">
+            <p class="bj-eyebrow">FREE 1-DAY GUIDE</p>
+            <h1 id="zhangjiajie-itinerary-title">Zhangjiajie <span class="bj-nowrap">1-Day</span><br />Itinerary</h1>
+            <p class="bj-subtitle">Avatar Mountains × Tianzi Mountain × Ten-Mile Gallery × Local Food</p>
+            <p class="bj-lead">
+              A classic one-day route for first-time visitors: Avatar scenery in the morning, mountain highlights in the afternoon, and local food & night experience in the evening.
+            </p>
+            <div class="bj-stat-row" aria-label="Route summary">
+              {zhangjiajieStats.map(({ label, value, Icon }) => (
+                <div class="bj-stat">
+                  <span class="bj-stat__icon" aria-hidden="true"><Icon size={23} /></span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{value}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div class="zh-route-notes" aria-label="Important route notes">
+              {zhangjiajieHeroNotes.map(({ title, Icon }) => (
+                <div class="zh-route-note">
+                  <span aria-hidden="true"><Icon size={20} /></span>
+                  <p>{title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="bj-hero__image xian-hero__image">
+            <img src={zhangjiajieHeroImage} alt="Zhangjiajie sandstone peaks and Bailong Elevator in the national forest park" />
+            <span class="xian-image-label">Illustration</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bj-container xian-route-overview" aria-label="Zhangjiajie route overview key stops">
+        <header class="bj-section-title bj-section-title--center">
+          <h2>One-Day Route Overview <span>Key Stops</span></h2>
+        </header>
+        <div class="xian-route-scroll">
+          <ol class="xian-route-map zh-route-map">
+            {zhangjiajieRouteOverview.map((step, index) => {
+              const Icon = step.Icon;
+              return (
+                <li class="xian-route-node">
+                  <div class="xian-route-node__icon" aria-hidden="true"><Icon size={23} /></div>
+                  <strong>{step.number}</strong>
+                  <time>{step.time}</time>
+                  <h3>{step.title}</h3>
+                  <p>{step.detail}</p>
+                  {step.transport && <small>{step.transport}<br />{step.duration}</small>}
+                  {index < zhangjiajieRouteOverview.length - 1 && <ArrowRight class="xian-route-arrow" size={16} aria-hidden="true" />}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      <section class="bj-container bj-prep-grid" aria-label="Before you go">
+        {zhangjiajiePrepCards.map((card) => {
+          const Icon = card.Icon;
+          return (
+            <article class={`bj-prep-card bj-prep-card--${card.variant}`}>
+              <div class="bj-card-heading">
+                <span aria-hidden="true"><Icon size={22} /></span>
+                <h2>{card.title}</h2>
+              </div>
+              {card.columns && (
+                <div class="bj-booking-columns">
+                  {card.columns.map((column) => (
+                    <div>
+                      <h3>{column.title}</h3>
+                      {column.lines.map((line) => <p>{line}</p>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {card.checks && (
+                <ul class="bj-check-list">
+                  {card.checks.map((item) => (
+                    <li><Check size={15} /> {item}</li>
+                  ))}
+                </ul>
+              )}
+              {card.highlight && (
+                <div class="bj-season">
+                  <strong>{card.highlight}</strong>
+                  <p>{card.text}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section class="bj-container bj-main-grid" aria-label="Zhangjiajie one-day itinerary details">
+        <article class="bj-panel bj-timeline-panel">
+          <header class="bj-section-title bj-section-title--center">
+            <h2>One-Day Itinerary <span>(Classic Route)</span></h2>
+          </header>
+
+          <div class="bj-timeline">
+            {zhangjiajieStops.map((stop) => {
+              const TransportIcon = stop.transport.Icon;
+              return (
+                <section class="bj-stop">
+                  <div class="bj-stop__time">
+                    <strong>{stop.time}</strong>
+                    <span>-{stop.end}</span>
+                  </div>
+                  <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
+                  <div class="bj-stop__content">
+                    <h3>{stop.title}</h3>
+                    {stop.description && <p>{stop.description}</p>}
+                  </div>
+                  <aside class="bj-transport-card">
+                    <TransportIcon size={22} />
+                    <strong>{stop.transport.mode}</strong>
+                    <span>{stop.transport.detail}</span>
+                    <small>{stop.transport.time}</small>
+                  </aside>
+                </section>
+              );
+            })}
+          </div>
+
+          <div class="bj-tip">
+            <Info size={18} />
+            <p><strong>Tip:</strong> Times are estimates. Adjust based on weather, queues, and your pace.</p>
+          </div>
+        </article>
+
+        <aside class="bj-sidebar">
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Lunch Options <span>(In Park)</span></h2>
+            </header>
+            <p class="bj-note">Lunch inside the park should be quick and simple. Save time for the mountain route.</p>
+            <div class="xian-card-grid xian-card-grid--three">
+              {zhangjiajieLunchOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Best for:</strong> {option.bestFor}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Dinner Options <span>(In Wulingyuan)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--four">
+              {zhangjiajieDinnerOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Address:</strong> {option.address}</p>
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                  {option.note && <p><strong>Note:</strong> {option.note}</p>}
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Chinese Navigation Names</h2>
+            </header>
+            <dl class="xian-nav-names">
+              {zhangjiajieNavigationNames.map(([english, chinese]) => (
+                <div>
+                  <dt>{english}</dt>
+                  <dd>{chinese}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <section class="bj-panel bj-side-section bj-important">
+            <header class="bj-section-title">
+              <h2>Backup Rules / Weather & Queue Plan</h2>
+            </header>
+            <ul class="bj-check-list">
+              {zhangjiajieBackupRules.map((rule) => (
+                <li><Check size={15} /> {rule}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section class="bj-panel bj-side-section bj-important">
+            <header class="bj-section-title">
+              <h2>Quick Practical Notes</h2>
+            </header>
+            <ul class="bj-check-list">
+              {zhangjiajieQuickNotes.map((note) => (
+                <li><Check size={15} /> {note}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Snack & Evening Experience</h2>
+            </header>
+            <article class="xian-detail-card xian-detail-card--wide">
+              <h3>{zhangjiajieSnackExperience.name}</h3>
+              <p>{zhangjiajieSnackExperience.text}</p>
+              <p><strong>Avg. Cost:</strong> {zhangjiajieSnackExperience.cost}</p>
+              <p><strong>Price Level:</strong> {zhangjiajieSnackExperience.level}</p>
+            </article>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Where to Stay <span>(Wulingyuan Area)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--three">
+              {zhangjiajieHotels.map((hotel) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{hotel.label}</p>
+                  <h3>{hotel.name}</h3>
+                  <p>{hotel.chineseName}</p>
+                  <p><strong>Address:</strong> {hotel.address}</p>
+                  <p><strong>Chinese nav:</strong> {hotel.chineseAddress}</p>
+                  <p><strong>Best for:</strong> {hotel.bestFor}</p>
+                  <p><strong>Positioning:</strong> {hotel.positioning}</p>
+                  {hotel.note && <p><strong>Note:</strong> {hotel.note}</p>}
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>From Zhangjiajie Hehua Airport or Railway Station to Wulingyuan</h2>
+            </header>
+            <div class="bj-stack">
+              {zhangjiajieTransfers.map((option) => {
+                const TransferIcon = option.Icon;
+                return (
+                  <article class="bj-media-card bj-media-card--airport">
+                    <span class="xian-icon-card" aria-hidden="true"><TransferIcon size={34} /></span>
+                    <div>
+                      <h3>{option.title}</h3>
+                      <p><strong>Time:</strong> {option.time}</p>
+                      <p><strong>Best for:</strong> {option.bestFor}</p>
+                      <p><strong>Route:</strong> {option.route}</p>
+                      <p>{option.text}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Zhangjiajie guide">
+        <div>
+          <h2>Want the Full Zhangjiajie Pack?</h2>
+          <p>Unlock the full Zhangjiajie pack: 2-3 day routes, food map, hotel area notes, transport guide, attraction tips, backup plans, and printable PDFs.</p>
+        </div>
+        <div class="bj-cta-features xian-cta-features" aria-label="Included guide details">
+          {zhangjiajieCtaFeatures.map(({ label, Icon }) => (
             <span><Icon size={24} /> {label}</span>
           ))}
         </div>
@@ -2914,6 +3650,115 @@ const xianCtaFeatures = [
     grid-template-columns: repeat(7, 1fr);
   }
 
+  .zhangjiajie-guide .bj-hero__inner {
+    grid-template-columns: minmax(500px, 0.43fr) minmax(0, 0.57fr);
+  }
+
+  .zhangjiajie-guide .bj-hero h1 {
+    max-width: 680px;
+    font-size: clamp(3.9rem, 4.65vw, 5.05rem);
+  }
+
+  .zhangjiajie-guide .bj-subtitle {
+    max-width: 600px;
+    line-height: 1.28;
+  }
+
+  .zhangjiajie-guide .bj-lead {
+    max-width: 540px;
+  }
+
+  .zhangjiajie-guide .bj-stat-row {
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    gap: 18px;
+  }
+
+  .zhangjiajie-guide .bj-stat small {
+    white-space: pre-line;
+  }
+
+  .zhangjiajie-guide .bj-hero__image {
+    width: min(820px, 63vw);
+  }
+
+  .zhangjiajie-guide .bj-hero__image img {
+    object-position: center;
+  }
+
+  .zh-route-notes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 600px;
+    margin-top: 18px;
+  }
+
+  .zh-route-note {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 12px;
+    border: 1px solid rgba(118, 96, 68, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 253, 248, 0.72);
+  }
+
+  .zh-route-note span {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: rgba(31, 122, 87, 0.1);
+    color: var(--bj-green);
+  }
+
+  .zh-route-note p {
+    margin: 0;
+    color: #302a23;
+    font-size: 0.76rem;
+    line-height: 1.42;
+  }
+
+  .zhangjiajie-guide .zh-route-map {
+    grid-template-columns: repeat(10, minmax(108px, 1fr));
+    min-width: 1180px;
+  }
+
+  .zhangjiajie-guide .xian-route-node {
+    min-height: 178px;
+  }
+
+  .zhangjiajie-guide .bj-prep-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr) minmax(0, 0.85fr);
+  }
+
+  .zhangjiajie-guide .bj-booking-columns {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .zhangjiajie-guide .bj-booking-columns > div + div {
+    border-top: 1px solid var(--bj-line);
+    border-left: 0;
+    padding-top: 12px;
+    padding-left: 0;
+  }
+
+  .zhangjiajie-guide .bj-main-grid {
+    grid-template-columns: minmax(430px, 0.86fr) minmax(0, 1.14fr);
+  }
+
+  .zhangjiajie-guide .xian-card-grid--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .zhangjiajie-guide .bj-check-list li {
+    align-items: flex-start;
+    line-height: 1.38;
+  }
+
   @media (max-width: 1120px) {
     .bj-hero__inner,
     .bj-main-grid,
@@ -2939,6 +3784,17 @@ const xianCtaFeatures = [
 
     .xian-guide .bj-main-grid {
       grid-template-columns: 1fr;
+    }
+
+    .zhangjiajie-guide .bj-hero__inner,
+    .zhangjiajie-guide .bj-main-grid,
+    .zhangjiajie-guide .bj-prep-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .zhangjiajie-guide .bj-hero__image {
+      width: 100% !important;
+      max-width: none;
     }
   }
 
@@ -2971,13 +3827,18 @@ const xianCtaFeatures = [
     .shanghai-guide .bj-lead,
     .shanghai-guide .bj-subtitle,
     .xian-guide .bj-lead,
-    .xian-guide .bj-subtitle {
+    .xian-guide .bj-subtitle,
+    .zhangjiajie-guide .bj-lead,
+    .zhangjiajie-guide .bj-subtitle {
       max-width: calc(100vw - 28px);
     }
 
     .xian-guide .bj-hero__copy,
     .xian-guide .bj-subtitle,
-    .xian-guide .bj-lead {
+    .xian-guide .bj-lead,
+    .zhangjiajie-guide .bj-hero__copy,
+    .zhangjiajie-guide .bj-subtitle,
+    .zhangjiajie-guide .bj-lead {
       min-width: 0;
       max-width: calc(100vw - 72px);
     }
@@ -2992,6 +3853,36 @@ const xianCtaFeatures = [
 
     .xian-guide .bj-lead {
       width: 320px;
+    }
+
+    .zhangjiajie-guide .bj-hero h1 {
+      font-size: clamp(3rem, 13vw, 3.75rem);
+      letter-spacing: -0.055em;
+    }
+
+    .zhangjiajie-guide .bj-subtitle {
+      display: block;
+      width: 320px;
+      font-size: clamp(0.96rem, 4.5vw, 1.12rem);
+    }
+
+    .zhangjiajie-guide .bj-lead {
+      width: 330px;
+    }
+
+    .zhangjiajie-guide .bj-hero__image {
+      width: 100% !important;
+      max-width: none;
+    }
+
+    .zhangjiajie-guide .bj-stat-row {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .zh-route-notes {
+      grid-template-columns: 1fr;
+      max-width: calc(100vw - 28px);
     }
 
     .shanghai-guide .sh-mobile-break {
@@ -3078,6 +3969,10 @@ const xianCtaFeatures = [
 
     .xian-route-node {
       min-height: 164px;
+    }
+
+    .zhangjiajie-guide .zh-route-map {
+      min-width: 1120px;
     }
   }
 
