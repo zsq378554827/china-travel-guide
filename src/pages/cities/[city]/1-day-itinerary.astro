@@ -36,6 +36,7 @@ type Props = {
 const { city } = Astro.props;
 const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
+const isShanghai = city.id === "shanghai";
 
 const timeline = [
   ["Morning", `Start with the main landmark cluster for ${city.name}. Keep transport simple and arrive early.`],
@@ -280,12 +281,331 @@ const ctaFeatures = [
   { label: "Transport Guide", Icon: Car },
   { label: "Hotel Area Notes", Icon: Hotel },
 ];
+
+const shanghaiStats = [
+  { label: "Recommended", value: "8-10 hours", Icon: Clock3 },
+  { label: "Best for", value: "First-time visitors", Icon: Users },
+  { label: "Transport", value: "Metro + Walking + Taxi", Icon: TrainFront },
+];
+
+const shanghaiPrepCards = [
+  {
+    title: "Must: Check Before You Go",
+    Icon: ShieldCheck,
+    variant: "red",
+    columns: [
+      {
+        title: "Yu Garden Hours",
+        lines: ["Usually 09:00-16:30", "Closed on Mondays except public holidays"],
+      },
+      {
+        title: "Shanghai Tower Tickets",
+        lines: ["Best on clear-weather days", "Check same-day availability"],
+      },
+      {
+        title: "Important Tickets",
+        lines: ["Some attractions may require advance booking"],
+      },
+      {
+        title: "Passport",
+        lines: ["Bring your original passport"],
+      },
+    ],
+  },
+  {
+    title: "Important Reminders",
+    Icon: ClipboardCheck,
+    variant: "green",
+    checks: [
+      "Bring your passport or valid ID",
+      "Use Alipay / WeChat Pay or a backup card",
+      "Wear comfortable shoes",
+      "Bring power bank, rain gear, and basic medicine",
+      "Check restaurant hours before going",
+    ],
+  },
+  {
+    title: "Best Travel Seasons",
+    Icon: CalendarDays,
+    variant: "red",
+    highlight: "Mar-May / Sep-Nov",
+    text: "Pleasant weather, easier walking, and better skyline views.",
+  },
+];
+
+const shanghaiStops = [
+  {
+    number: 1,
+    time: "08:00",
+    end: "08:45",
+    title: "Breakfast",
+    suffix: "(Choose One)",
+    description:
+      "Start with a simple local breakfast around People's Square or Nanjing Road East before sightseeing.",
+    transport: { mode: "Walking / Metro", detail: "From hotel", time: "5-20 min", Icon: TrainFront },
+    options: [
+      {
+        label: "Option A:",
+        title: "Shengjianbao",
+        image: "/images/shanghai/food-shengjianbao.jpg",
+        alt: "Shanghai shengjianbao pan-fried buns",
+        lines: ["Near Nanjing Road East", "Pan-fried buns", "¥20-50 per person"],
+      },
+      {
+        label: "Option B:",
+        title: "Xiaolongbao",
+        image: "/images/shanghai/food-xiaolongbao.jpg",
+        alt: "Shanghai xiaolongbao soup dumplings",
+        lines: ["Central Shanghai", "Soup dumplings", "¥25-80 per person"],
+      },
+    ],
+  },
+  {
+    number: 2,
+    time: "09:15",
+    end: "11:15",
+    title: "Yu Garden & Old City Bazaar",
+    description:
+      "Walk through classical gardens, the Nine-Turn Bridge, Huxinting Teahouse area, and old bazaar streets.",
+    transport: { mode: "Metro / Taxi", detail: "From People's Square or Nanjing Road East", time: "15-30 min", Icon: TrainFront },
+    routeCard: {
+      title: "Suggested Route",
+      note: "Classic old Shanghai walk",
+      steps: [
+        { title: "Yuyuan Bazaar / Old Street" },
+        { title: "Yu Garden Entrance" },
+        { title: "Nine-Turn Bridge" },
+        { title: "Huxinting Teahouse Area" },
+        { title: "Snack / Lunch Area" },
+      ],
+      tip:
+        "Yu Garden usually opens around 09:00-16:30, with last entry around 16:00. It is usually closed on Mondays except public holidays. Ticket prices are often around ¥40 in peak season and ¥30 in off-season. Check the latest rule before going.",
+    },
+  },
+  {
+    number: 3,
+    time: "11:30",
+    end: "12:45",
+    title: "Lunch",
+    suffix: "(Choose One)",
+    description: "Pick one Shanghai classic near the old city or central area.",
+    transport: { mode: "Walking / Taxi / Metro", detail: "From Yu Garden or lunch area", time: "10-20 min", Icon: Car },
+    options: [
+      {
+        label: "Option A:",
+        title: "Nanxiang Mantou Dian",
+        image: "/images/shanghai/food-xiaolongbao.jpg",
+        alt: "Xiaolongbao at Nanxiang Mantou Dian",
+        lines: ["Around No. 85 Yuyuan Road", "Pork and crab roe xiaolongbao", "¥80-150 per person"],
+      },
+      {
+        label: "Option B:",
+        title: "Jia Jia Tang Bao",
+        image: "/images/shanghai/food-xiaolongbao.jpg",
+        alt: "Local Shanghai soup dumplings",
+        lines: ["No. 127 Huanghe Road", "Soup dumplings and wontons", "¥40-100 per person"],
+      },
+      {
+        label: "Option C:",
+        title: "Da Hu Chun",
+        image: "/images/shanghai/food-shengjianbao.jpg",
+        alt: "Shanghai shengjianbao pan-fried buns",
+        lines: ["No. 136 Middle Sichuan Road", "Shengjianbao and small wontons", "¥30-80 per person"],
+      },
+    ],
+  },
+  {
+    number: 4,
+    time: "13:00",
+    end: "14:30",
+    title: "The Bund",
+    description: "Walk along the Huangpu River and enjoy the historic Bund buildings and Pudong skyline.",
+    transport: { mode: "Walking / Metro", detail: "From lunch area", time: "15-25 min", Icon: Footprints },
+  },
+  {
+    number: 5,
+    time: "14:45",
+    end: "16:30",
+    title: "Lujiazui / Shanghai Tower Area",
+    description:
+      "See the Oriental Pearl Tower, Lujiazui skyline, and modern Shanghai. Go up Shanghai Tower only if the weather is clear.",
+    transport: { mode: "Metro / Taxi / Ferry", detail: "From the Bund", time: "15-30 min", Icon: TrainFront },
+  },
+  {
+    number: 6,
+    time: "16:45",
+    end: "18:00",
+    title: "Flexible Break",
+    suffix: "(Choose One)",
+    description: "Slow down before the evening plan.",
+    transport: { mode: "Flexible", detail: "Metro / Taxi", time: "15-30 min", Icon: Landmark },
+    chips: [
+      {
+        title: "Shanghai Museum",
+        text: "Best if you skipped Shanghai Tower or want a culture stop. Usually 09:00-17:00, last entry around 16:00, closed on Mondays except public holidays.",
+      },
+      {
+        title: "Riverside Coffee / Sunset Break",
+        text: "Rest near the Bund or Lujiazui and wait for the skyline lights.",
+      },
+      {
+        title: "Return to Hotel for a Short Rest",
+        text: "Best for families, older travelers, hot weather, or anyone planning a proper dinner.",
+      },
+    ],
+  },
+  {
+    number: 7,
+    time: "18:30",
+    end: "20:30+",
+    title: "Dinner",
+    suffix: "(Choose One)",
+    description: "Choose a meal style based on budget and mood.",
+    transport: { mode: "Metro / Taxi", detail: "From hotel or attraction area", time: "10-30 min", Icon: Car },
+    options: [
+      {
+        label: "Option A:",
+        title: "Dexingguan",
+        image: "/images/shanghai/food-shanghai-dinner.jpg",
+        alt: "Traditional Shanghainese dinner dishes",
+        lines: ["No. 471 Guangdong Road", "Braised pork, oil-fried shrimp", "¥100-200 per person"],
+      },
+      {
+        label: "Option B:",
+        title: "Old Jesse",
+        image: "/images/shanghai/food-shanghai-dinner.jpg",
+        alt: "Classic local Shanghai cuisine",
+        lines: ["No. 41 Tianping Road", "Braised pork, eel, noodles", "¥150-300 per person"],
+      },
+      {
+        label: "Option C:",
+        title: "Dragon Phoenix",
+        image: "/images/shanghai/food-shanghai-dinner.jpg",
+        alt: "Premium Shanghainese restaurant dinner",
+        lines: ["Fairmont Peace Hotel", "Premium Chinese dining", "¥500-900+ per person"],
+      },
+    ],
+  },
+  {
+    number: 8,
+    time: "21:00",
+    end: "onwards",
+    title: "Night Snack & End of Day",
+    description: "Choose a light late-night bite or head back after the skyline walk.",
+    transport: { mode: "Walking / Taxi", detail: "Evening finish", time: "10-20 min", Icon: Footprints },
+    chips: [
+      { title: "Yang's Dumplings", text: "Shengjianbao, shrimp pan-fried buns, duck blood vermicelli soup. ¥25-60 per person." },
+      { title: "Xian De Lai Pork Rib Rice Cake", text: "Pork rib rice cake, small wontons, scallion oil noodles. ¥25-60 per person." },
+      { title: "Guangmingcun", text: "Fresh meat mooncakes, soy duck, shengjianbao, wontons. ¥40-100 per person." },
+    ],
+  },
+];
+
+const shanghaiHotels = [
+  {
+    label: "Budget Option",
+    name: "Dayin International Youth Hostel",
+    image: "/images/shanghai/hotel-dayin-hostel.jpg",
+    alt: "Dayin International Youth Hostel room",
+    tags: ["Budget", "Central", "Practical"],
+    price: "Dorm / basic room ¥150-450+; private room ¥400-700+",
+    description: "Good for budget travelers near Nanjing East Road, People's Square, and the Bund.",
+  },
+  {
+    label: "Mid-Range Option",
+    name: "Central Hotel Shanghai",
+    image: "/images/shanghai/hotel-central-shanghai.jpg",
+    alt: "Central Hotel Shanghai exterior",
+    tags: ["Mid-range", "Convenient", "Good Value"],
+    price: "¥600-1000 per night",
+    description: "A practical central hotel near Nanjing Road, People's Square, the Bund, and Shanghai Museum.",
+  },
+  {
+    label: "Premium Option",
+    name: "Fairmont Peace Hotel",
+    image: "/images/shanghai/hotel-fairmont-peace.jpg",
+    alt: "Fairmont Peace Hotel exterior",
+    tags: ["Luxury", "Bund", "Historic Stay"],
+    price: "¥2200-4000+ per night",
+    description: "A historic luxury hotel on the Bund, facing the Huangpu River and Pudong skyline.",
+  },
+];
+
+const shanghaiAirportTransfers = [
+  {
+    title: "Shanghai Pudong Airport (PVG)",
+    image: "/images/shanghai/airport-pvg.jpg",
+    alt: "Shanghai Pudong Airport terminal and arrival road",
+    recommended: "Taxi / DiDi",
+    time: "About 45-75 min to central Shanghai, depending on traffic",
+    budget: "Maglev + Metro / Taxi",
+    route: "PVG → Maglev to Longyang Road → Metro Line 2 or taxi to hotel",
+    fare: "Maglev one-way around ¥50, round-trip around ¥80",
+    total: "best with light luggage",
+  },
+  {
+    title: "Shanghai Hongqiao Airport (SHA)",
+    image: "/images/shanghai/airport-sha.jpg",
+    alt: "Shanghai Hongqiao Airport terminal",
+    recommended: "Taxi / DiDi",
+    time: "About 25-45 min to central Shanghai, depending on traffic",
+    budget: "Metro Line 2 / Line 10",
+    route: "Best for light luggage and daytime arrival",
+    fare: "Metro fare varies by distance",
+    total: "often the easiest airport for central hotels",
+  },
+];
+
+const shanghaiImportantGroups = [
+  {
+    title: "Yu Garden",
+    Icon: Landmark,
+    items: [
+      "Usually 09:00-16:30",
+      "Last entry around 16:00",
+      "Closed on Mondays except public holidays",
+      "Peak season ticket often around ¥40",
+      "Off-season ticket often around ¥30",
+      "Yu Garden and Yu Garden Bazaar may follow different rules",
+    ],
+  },
+  {
+    title: "Shanghai Tower Observatory",
+    Icon: Landmark,
+    items: [
+      "Best on clear-weather days",
+      "Adult ticket often around ¥180",
+      "Opening hours often around 08:30-21:30 / 22:00",
+      "Ticket prices and hours can change",
+      "Check official or ticket platform before going",
+    ],
+  },
+  {
+    title: "Shanghai Museum",
+    Icon: Info,
+    items: [
+      "Usually 09:00-17:00",
+      "Last entry around 16:00",
+      "Closed on Mondays except public holidays",
+      "Individual visitors usually enter with valid ID after security check",
+    ],
+  },
+  {
+    title: "Restaurant Hours",
+    Icon: Utensils,
+    items: [
+      "Popular restaurants may queue",
+      "Opening hours can change",
+      "Check Google Maps, Apple Maps, Amap, Dianping, or your hotel before visiting",
+    ],
+  },
+];
 ---
 
 <BaseLayout
   title={`${city.name} 1-Day Itinerary for First-Time Visitors`}
   description={`A free ${city.name} 1-day itinerary for first-time visitors with simple timing, booking reminders, food notes, and backup planning.`}
-  headerCtaLabel={isBeijing ? "Unlock All Guides - $9.90" : undefined}
+  headerCtaLabel={isBeijing || isShanghai ? "Unlock All Guides - $9.90" : undefined}
 >
   {isBeijing ? (
     <div class="beijing-guide">
@@ -384,7 +704,6 @@ const ctaFeatures = [
                             <>
                               <div class="bj-route-step">
                                 <strong>{step.title}</strong>
-                                {step.note && <small>{step.note}</small>}
                               </div>
                               {index < routeSteps.length - 1 && <ArrowRight class="bj-route-arrow" size={15} aria-hidden="true" />}
                             </>
@@ -515,6 +834,240 @@ const ctaFeatures = [
         </div>
       </section>
     </div>
+  ) : isShanghai ? (
+    <div class="beijing-guide shanghai-guide">
+      <section class="bj-hero" aria-labelledby="shanghai-itinerary-title">
+        <div class="bj-container bj-hero__inner">
+          <div class="bj-hero__copy">
+            <p class="bj-eyebrow">FREE 1-DAY GUIDE</p>
+            <h1 id="shanghai-itinerary-title">Shanghai <br class="sh-mobile-break" /><span class="bj-nowrap">1-Day</span><br />Itinerary</h1>
+            <p class="bj-subtitle">Classic Route × Local Food × Practical Tips</p>
+            <p class="bj-lead">
+              A simple, efficient route for first-time visitors. See old Shanghai, the Bund skyline, local food, and an easy evening finish in one day.
+            </p>
+            <div class="bj-stat-row" aria-label="Route summary">
+              {shanghaiStats.map(({ label, value, Icon }) => (
+                <div class="bj-stat">
+                  <span class="bj-stat__icon" aria-hidden="true"><Icon size={23} /></span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{value}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="bj-hero__image">
+            <img src="/images/shanghai/shanghai-hero-bund.jpg" alt="Shanghai skyline and Huangpu River view" />
+          </div>
+        </div>
+      </section>
+
+      <section class="bj-container bj-prep-grid" aria-label="Before you go">
+        {shanghaiPrepCards.map((card) => {
+          const Icon = card.Icon;
+          return (
+            <article class={`bj-prep-card bj-prep-card--${card.variant}`}>
+              <div class="bj-card-heading">
+                <span aria-hidden="true"><Icon size={22} /></span>
+                <h2>{card.title}</h2>
+              </div>
+              {card.columns && (
+                <div class="bj-booking-columns">
+                  {card.columns.map((column) => (
+                    <div>
+                      <h3>{column.title}</h3>
+                      {column.lines.map((line) => <p>{line}</p>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {card.checks && (
+                <ul class="bj-check-list">
+                  {card.checks.map((item) => (
+                    <li><Check size={15} /> {item}</li>
+                  ))}
+                </ul>
+              )}
+              {card.highlight && (
+                <div class="bj-season">
+                  <strong>{card.highlight}</strong>
+                  <p>{card.text}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section class="bj-container bj-main-grid" aria-label="Shanghai one-day itinerary details">
+        <article class="bj-panel bj-timeline-panel">
+          <header class="bj-section-title bj-section-title--center">
+            <h2>One-Day Itinerary <span>(Classic Route)</span></h2>
+          </header>
+
+          <div class="bj-timeline">
+            {shanghaiStops.map((stop) => {
+              const TransportIcon = stop.transport.Icon;
+              return (
+                <section class="bj-stop">
+                  <div class="bj-stop__time">
+                    <strong>{stop.time}</strong>
+                    <span>-{stop.end}</span>
+                  </div>
+                  <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
+                  <div class="bj-stop__content">
+                    <h3>{stop.title} {stop.suffix && <span>{stop.suffix}</span>}</h3>
+                    {stop.description && <p>{stop.description}</p>}
+
+                    {stop.routeCard && (
+                      <div class="bj-route-card">
+                        <div class="bj-route-card__heading">
+                          <strong>{stop.routeCard.title}</strong>
+                          <span>({stop.routeCard.note})</span>
+                        </div>
+                        <div class="bj-route-card__steps">
+                          {stop.routeCard.steps.map((step, index) => (
+                            <>
+                              <div class="bj-route-step">
+                                <strong>{step.title}</strong>
+                              </div>
+                              {index < stop.routeCard.steps.length - 1 && <ArrowRight class="bj-route-arrow" size={15} aria-hidden="true" />}
+                            </>
+                          ))}
+                        </div>
+                        <p><strong>Tip:</strong> {stop.routeCard.tip}</p>
+                      </div>
+                    )}
+
+                    {stop.options && (
+                      <div class={`bj-food-grid ${stop.options.length >= 3 ? "bj-food-grid--three" : ""}`}>
+                        {stop.options.map((option) => (
+                          <article class="bj-food-card">
+                            <img src={option.image} alt={option.alt} width="420" height="300" loading="lazy" decoding="async" />
+                            <div>
+                              <h4><span>{option.label}</span> {option.title}</h4>
+                              {option.lines.map((line) => <p>{line}</p>)}
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    )}
+
+                    {stop.chips && (
+                      <div class="bj-choice-grid">
+                        {stop.chips.map((choice) => (
+                          <article class="bj-choice-card">
+                            <h4>{choice.title}</h4>
+                            <p>{choice.text}</p>
+                          </article>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <aside class="bj-transport-card">
+                    <TransportIcon size={22} />
+                    <strong>{stop.transport.mode}</strong>
+                    <span>{stop.transport.detail}</span>
+                    <small>{stop.transport.time}</small>
+                  </aside>
+                </section>
+              );
+            })}
+          </div>
+
+          <div class="bj-tip">
+            <Info size={18} />
+            <p><strong>Tip:</strong> Restaurant hours, queues, and prices can change. Check Google Maps, Apple Maps, Amap, Dianping, or ask your hotel before going.</p>
+          </div>
+        </article>
+
+        <aside class="bj-sidebar">
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Where to Stay <span>(People's Square / Nanjing East Road / Bund Area)</span></h2>
+            </header>
+            <div class="bj-stack">
+              {shanghaiHotels.map((hotel) => (
+                <article class="bj-media-card">
+                  <img src={hotel.image} alt={hotel.alt} width="640" height="420" loading="lazy" decoding="async" />
+                  <div>
+                    <p class="bj-green-label">{hotel.label}</p>
+                    <h3>{hotel.name}</h3>
+                    <div class="bj-mini-tags">
+                      {hotel.tags.map((tag) => <span>{tag}</span>)}
+                    </div>
+                    <p><strong>Price:</strong> {hotel.price}</p>
+                    <p>{hotel.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p class="bj-note">Prices vary by date. Check before booking.</p>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>From Airport to Hotel</h2>
+            </header>
+            <div class="bj-stack">
+              {shanghaiAirportTransfers.map((airport) => (
+                <article class="bj-media-card bj-media-card--airport">
+                  <img src={airport.image} alt={airport.alt} width="640" height="420" loading="lazy" decoding="async" />
+                  <div>
+                    <h3>{airport.title}</h3>
+                    <p><strong>Recommended:</strong> {airport.recommended}</p>
+                    <p>{airport.time}</p>
+                    <p><strong>Budget option:</strong> {airport.budget}</p>
+                    <p>{airport.route}</p>
+                    <p>{airport.fare}</p>
+                    <p>{airport.total}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section bj-important">
+            <header class="bj-section-title">
+              <h2>Important Information</h2>
+            </header>
+            <div class="bj-info-groups">
+              {shanghaiImportantGroups.map((group) => {
+                const Icon = group.Icon;
+                return (
+                  <section class="bj-info-group">
+                    <span class="bj-info-icon" aria-hidden="true"><Icon size={21} /></span>
+                    <div>
+                      <h3>{group.title}</h3>
+                      <ul>
+                        {group.items.map((item) => <li>{item}</li>)}
+                      </ul>
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Shanghai guide">
+        <div>
+          <h2>Want More Details & Practical Info?</h2>
+          <p>Get 2-3 day routes, food map, hotel area notes, transport guide, backup plans, and more.</p>
+        </div>
+        <div class="bj-cta-features" aria-label="Included guide details">
+          {ctaFeatures.map(({ label, Icon }) => (
+            <span><Icon size={24} /> {label}</span>
+          ))}
+        </div>
+        <div class="bj-cta-action">
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock All Guides - $9.90</a>
+          <small>Instant access · Printable PDFs · Easy to use</small>
+        </div>
+      </section>
+    </div>
   ) : (
     <>
       <section class="subpage-hero">
@@ -621,6 +1174,7 @@ const ctaFeatures = [
       linear-gradient(180deg, #fffaf2 0%, var(--bj-bg) 42%, #f8f2e9 100%);
     color: var(--bj-ink);
     padding-bottom: 40px;
+    overflow-x: hidden;
   }
 
   .bj-container {
@@ -665,6 +1219,10 @@ const ctaFeatures = [
 
   .bj-nowrap {
     white-space: nowrap;
+  }
+
+  .sh-mobile-break {
+    display: none;
   }
 
   .bj-subtitle {
@@ -738,6 +1296,23 @@ const ctaFeatures = [
     object-position: center;
   }
 
+  .shanghai-guide .bj-hero__image {
+    width: min(800px, 62vw);
+  }
+
+  .shanghai-guide .bj-hero__image::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    background: linear-gradient(90deg, #fffaf2 0%, rgba(255, 250, 242, 0.84) 13%, rgba(255, 250, 242, 0.16) 34%, rgba(255, 250, 242, 0) 58%);
+    pointer-events: none;
+  }
+
+  .shanghai-guide .bj-hero__image img {
+    object-position: center;
+  }
+
   .bj-prep-grid {
     display: grid;
     grid-template-columns: 1.35fr 0.95fr 1fr;
@@ -800,6 +1375,15 @@ const ctaFeatures = [
   .bj-booking-columns > div + div {
     border-left: 1px solid var(--bj-line);
     padding-left: 18px;
+  }
+
+  .shanghai-guide .bj-booking-columns {
+    row-gap: 14px;
+  }
+
+  .shanghai-guide .bj-booking-columns > div:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
   }
 
   .bj-booking-columns h3,
@@ -1063,6 +1647,47 @@ const ctaFeatures = [
     font-size: 0.72rem;
   }
 
+  .bj-food-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bj-food-grid--three .bj-food-card {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .bj-food-grid--three .bj-food-card img {
+    width: 100%;
+    height: 82px;
+  }
+
+  .bj-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .bj-choice-card {
+    padding: 11px 12px;
+    border: 1px solid rgba(31, 122, 87, 0.18);
+    border-radius: 11px;
+    background: rgba(244, 250, 247, 0.76);
+  }
+
+  .bj-choice-card h4 {
+    margin: 0 0 6px;
+    color: var(--bj-green);
+    font-size: 0.82rem;
+  }
+
+  .bj-choice-card p {
+    margin: 0;
+    color: #302b25;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
   .bj-sidebar {
     display: grid;
     gap: 16px;
@@ -1250,7 +1875,7 @@ const ctaFeatures = [
 
   @media (max-width: 760px) {
     .bj-container {
-      width: min(100% - 28px, 1360px);
+      width: calc(100% - 28px);
     }
 
     .bj-hero {
@@ -1269,9 +1894,24 @@ const ctaFeatures = [
       font-size: clamp(3.25rem, 16vw, 4.2rem);
     }
 
+    .shanghai-guide .bj-hero h1 {
+      font-size: clamp(3.25rem, 14vw, 3.9rem);
+      letter-spacing: -0.052em;
+    }
+
+    .shanghai-guide .bj-lead,
+    .shanghai-guide .bj-subtitle {
+      max-width: calc(100vw - 28px);
+    }
+
+    .shanghai-guide .sh-mobile-break {
+      display: block;
+    }
+
     .bj-stat-row,
     .bj-booking-columns,
     .bj-food-grid,
+    .bj-choice-grid,
     .bj-cta-features {
       grid-template-columns: 1fr;
     }
@@ -1285,6 +1925,16 @@ const ctaFeatures = [
       border-left: 0;
       padding-top: 12px;
       padding-left: 0;
+    }
+
+    .shanghai-guide .bj-booking-columns > div:nth-child(odd) {
+      border-top: 1px solid var(--bj-line);
+      padding-top: 12px;
+    }
+
+    .shanghai-guide .bj-booking-columns > div:first-child {
+      border-top: 0;
+      padding-top: 0;
     }
 
     .bj-stop {
