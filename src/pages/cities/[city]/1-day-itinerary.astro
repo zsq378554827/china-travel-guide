@@ -44,6 +44,7 @@ const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
 const isXian = city.id === "xian";
 const isZhangjiajie = city.id === "zhangjiajie";
+const isChengdu = city.id === "chengdu";
 
 const timeline = [
   ["Morning", `Start with the main landmark cluster for ${city.name}. Keep transport simple and arrive early.`],
@@ -1519,12 +1520,491 @@ const zhangjiajieCtaFeatures = [
   { label: "Backup Plans", Icon: ClipboardCheck },
   { label: "Printable PDFs", Icon: Info },
 ];
+
+const chengduHeroImage = "/images/cities/chengdu-cover.jpg";
+
+const chengduStats = [
+  { label: "Recommended", value: "9-11 hours\n11-13 hours incl. transfers", Icon: Clock3 },
+  { label: "Best for", value: "First-time visitors\nFood lovers\nCulture & slow life", Icon: Users },
+  { label: "Transport", value: "Metro, Taxi / DiDi\nWalkable in city center", Icon: TrainFront },
+];
+
+const chengduHeroNotes = [
+  {
+    title: "This route assumes you stay near Tianfu Square, Chunxi Road, or Wenshu Monastery the night before.",
+    Icon: Navigation,
+  },
+  {
+    title: "This is a full-day route with city transfers and walking. Skip Wuhou Shrine if you prefer a slower pace.",
+    Icon: Info,
+  },
+];
+
+const chengduRouteOverview = [
+  {
+    number: 1,
+    time: "07:15",
+    title: "Breakfast",
+    detail: "Near Hotel",
+    transport: "Walk",
+    duration: "5-10 min",
+    Icon: Utensils,
+  },
+  {
+    number: 2,
+    time: "07:40",
+    title: "Leave for Panda Base",
+    detail: "Taxi / DiDi",
+    transport: "Taxi / DiDi",
+    duration: "30-45 min",
+    Icon: Car,
+  },
+  {
+    number: 3,
+    time: "08:20-10:40",
+    title: "Panda Base Visit",
+    detail: "Pandas",
+    transport: "",
+    duration: "",
+    Icon: Users,
+  },
+  {
+    number: 4,
+    time: "11:20",
+    title: "Wenshu Monastery",
+    detail: "Monastery",
+    transport: "Taxi / DiDi",
+    duration: "30-40 min",
+    Icon: Landmark,
+  },
+  {
+    number: 5,
+    time: "12:10",
+    title: "Lunch in Area",
+    detail: "Wenshu / city center",
+    transport: "Walk",
+    duration: "5-10 min",
+    Icon: Utensils,
+  },
+  {
+    number: 6,
+    time: "13:10",
+    title: "People's Park",
+    detail: "Tea house",
+    transport: "Walk / Metro",
+    duration: "10-15 min",
+    Icon: Coffee,
+  },
+  {
+    number: 7,
+    time: "14:10",
+    title: "Kuanzhai Alley",
+    detail: "Old lanes",
+    transport: "Walk",
+    duration: "10-15 min",
+    Icon: Landmark,
+  },
+  {
+    number: 8,
+    time: "16:00-18:00",
+    title: "Wuhou Shrine / Jinli",
+    detail: "History + street",
+    transport: "Taxi / Metro",
+    duration: "20-30 min",
+    Icon: Landmark,
+  },
+  {
+    number: 9,
+    time: "18:00",
+    title: "Dinner",
+    detail: "Choose one",
+    transport: "",
+    duration: "",
+    Icon: Utensils,
+  },
+  {
+    number: 10,
+    time: "20:00",
+    title: "Evening Choice",
+    detail: "Night walk",
+    transport: "Taxi / Metro",
+    duration: "10-30 min",
+    Icon: Map,
+  },
+  {
+    number: 11,
+    time: "21:00+",
+    title: "Return to Hotel",
+    detail: "End of day",
+    transport: "",
+    duration: "",
+    Icon: Hotel,
+  },
+];
+
+const chengduPrepCards = [
+  {
+    title: "Must: Book Before You Go",
+    Icon: ShieldCheck,
+    variant: "red",
+    columns: [
+      {
+        title: "Panda Base Tickets",
+        lines: [
+          "Reserve online in advance and bring the passport used for booking.",
+          "Reference ticket: around ¥55 adult.",
+          "Best time to visit: early morning, when pandas are more active.",
+          "Recommended visit time: 2-2.5 hours for this one-day route.",
+        ],
+      },
+      {
+        title: "Transport to Panda Base",
+        lines: [
+          "Best: Taxi / DiDi, usually 30-45 min from the city center.",
+          "Budget: Metro Line 3 to Panda Avenue Station, then shuttle bus / Bus 408 / taxi to Panda Base South Gate.",
+          "Metro + shuttle can take longer with waiting time.",
+        ],
+      },
+      {
+        title: "Wuhou Shrine Reminder",
+        lines: [
+          "Reference ticket: around ¥50 adult.",
+          "Common opening window: 08:30-18:30, with last entry often around 17:30.",
+          "Hours and ticket rules can change. Check the official listing before going.",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Important Reminders",
+    Icon: ClipboardCheck,
+    variant: "green",
+    checks: [
+      "Bring the passport used for booking.",
+      "Wear comfortable shoes.",
+      "Weather can change quickly.",
+      "Use Alipay / WeChat Pay, mobile data, and a map app. Carry some cash as backup.",
+      "Use metro and taxi smartly.",
+      "Check last entry and attraction times.",
+      "Start early to avoid long queues.",
+      "If arriving late or tired, skip Wuhou Shrine and only walk around Jinli.",
+    ],
+  },
+  {
+    title: "Best Travel Seasons",
+    Icon: CalendarDays,
+    variant: "red",
+    highlight: "Mar-May / Sep-Nov",
+    text: "Spring and autumn are best for comfortable weather. Summer is hot and humid. Winter is colder but often less crowded.",
+  },
+];
+
+const chengduStops = [
+  {
+    number: 1,
+    time: "07:15",
+    end: "07:40",
+    title: "Breakfast near Hotel",
+    description: "Eat near Tianfu Square / Chunxi Road / Wenshu Monastery. Do not spend too long; leave around 07:40.",
+    transport: { mode: "Food", detail: "Near hotel", time: "25 min", Icon: Utensils },
+  },
+  {
+    number: 2,
+    time: "07:40",
+    end: "08:20",
+    title: "Taxi / DiDi to Panda Base",
+    description: "Best: Taxi / DiDi, 30-45 min. Budget: Metro Line 3 to Panda Avenue Station, then shuttle bus / Bus 408 / taxi.",
+    transport: { mode: "Taxi / DiDi", detail: "To Panda Base", time: "30-45 min", Icon: Car },
+  },
+  {
+    number: 3,
+    time: "08:20",
+    end: "10:40",
+    title: "Chengdu Panda Base Visit",
+    description: "See giant pandas, red pandas, and nursery areas. Arrive before 09:00 if possible.",
+    transport: { mode: "Panda Base", detail: "Main visit", time: "2-2.5 hours", Icon: Users },
+  },
+  {
+    number: 4,
+    time: "10:40",
+    end: "11:20",
+    title: "Return to Wenshu Monastery Area",
+    description: "Taxi / DiDi is recommended to save time.",
+    transport: { mode: "Taxi / DiDi", detail: "To Wenshu", time: "30-40 min", Icon: Car },
+  },
+  {
+    number: 5,
+    time: "11:20",
+    end: "12:10",
+    title: "Wenshu Monastery",
+    description: "Visit the ancient monastery and red walls.",
+    transport: { mode: "Temple", detail: "Wenshu Monastery", time: "50 min", Icon: Landmark },
+  },
+  {
+    number: 6,
+    time: "12:10",
+    end: "13:10",
+    title: "Lunch in Wenshu Monastery / City Center",
+    description: "Choose one of the lunch options below.",
+    transport: { mode: "Food", detail: "Nearby", time: "60 min", Icon: Utensils },
+  },
+  {
+    number: 7,
+    time: "13:10",
+    end: "14:10",
+    title: "People's Park",
+    description: "Tea house, local life, and slow Chengdu atmosphere.",
+    transport: { mode: "Tea", detail: "People's Park", time: "60 min", Icon: Coffee },
+  },
+  {
+    number: 8,
+    time: "14:10",
+    end: "15:10",
+    title: "Kuanzhai Alley",
+    description: "Old-style lanes, snacks, photos, and local shops.",
+    transport: { mode: "Walk", detail: "Old lanes", time: "60 min", Icon: Footprints },
+  },
+  {
+    number: 9,
+    time: "15:10",
+    end: "16:00",
+    title: "Transfer to Wuhou Shrine / Jinli",
+    description: "Taxi / DiDi recommended.",
+    transport: { mode: "Taxi / Metro", detail: "To Wuhou area", time: "20-30 min", Icon: Car },
+  },
+  {
+    number: 10,
+    time: "16:00",
+    end: "17:20",
+    title: "Wuhou Shrine (if time allows)",
+    description: "Ticketed historical site. Check last entry before going.",
+    transport: { mode: "History", detail: "Wuhou Shrine", time: "60-80 min", Icon: Landmark },
+  },
+  {
+    number: 11,
+    time: "17:20",
+    end: "18:00",
+    title: "Jinli Ancient Street",
+    description: "Old-style street, snacks, souvenirs, evening atmosphere.",
+    transport: { mode: "Walk", detail: "Jinli", time: "40 min", Icon: Map },
+  },
+  {
+    number: 12,
+    time: "18:00",
+    end: "20:00",
+    title: "Dinner",
+    description: "Choose Sichuan snacks, hotpot, or a premium dinner.",
+    transport: { mode: "Dinner", detail: "City center", time: "2 hours", Icon: Utensils },
+  },
+  {
+    number: 13,
+    time: "20:00",
+    end: "21:00",
+    title: "Evening Choice",
+    description: "Jinli / Chunxi Road / Taikoo Li / Jiuyanqiao.",
+    transport: { mode: "Night walk", detail: "Flexible", time: "60 min", Icon: Map },
+  },
+  {
+    number: 14,
+    time: "21:00",
+    end: "onwards",
+    title: "Return to Hotel",
+    description: "Taxi / Metro / Walk.",
+    transport: { mode: "Hotel", detail: "End of day", time: "Flexible", Icon: Hotel },
+  },
+];
+
+const chengduLunchOptions = [
+  {
+    label: "Option 1: Budget Local Snack",
+    name: "Dongzikou Zhang Lao'er Liangfen 洞子口张老二凉粉",
+    address: "No.39 Wenshuyuan Street, Qingyang District, Chengdu",
+    chineseAddress: "成都市青羊区文殊院街39号",
+    bestFor: "quick local snacks",
+    recommended: "sweet-water noodles, liangfen, dandan noodles",
+    cost: "¥20-50",
+    level: "Budget",
+  },
+  {
+    label: "Option 2: Light Vegetarian / Tea Meal",
+    name: "Wenshu Yuan Suzhai 文殊院素斋",
+    address: "Inside or near Wenshu Monastery area, Qingyang District, Chengdu",
+    chineseAddress: "成都市青羊区文殊院区域",
+    bestFor: "light meal, vegetarian, tea culture",
+    recommended: "vegetarian dishes, tea, simple set meal",
+    cost: "¥40-80",
+    level: "Budget / Mid-range",
+  },
+  {
+    label: "Option 3: Classic Sichuan Cuisine",
+    name: "Chen Mapo Tofu 陈麻婆豆腐（总店）",
+    address: "No.51 Donghua Men Street, Qingyang District, Chengdu",
+    chineseAddress: "成都市青羊区东华门街51号",
+    bestFor: "classic Sichuan dishes",
+    recommended: "mapo tofu, kung pao chicken, twice-cooked pork",
+    cost: "¥50-100",
+    level: "Mid-range",
+  },
+];
+
+const chengduDinnerOptions = [
+  {
+    label: "Option 1: Local Snacks & Small Bites",
+    name: "Long Chao Shou 龙抄手（春熙路总店）",
+    address: "No.63 Chengshou Street, Jinjiang District, Chengdu",
+    chineseAddress: "成都市锦江区城守街63号",
+    bestFor: "quick snacks, budget",
+    recommended: "longchaoshou, dandan noodles, sweet dumplings",
+    cost: "¥30-60",
+    level: "Budget",
+  },
+  {
+    label: "Option 2: Classic Hotpot",
+    name: "Shu Jiu Xiang Hotpot 蜀九香火锅酒楼（彩虹店）",
+    address: "No.19 Wuhouci Street, Wuhou District, Chengdu",
+    chineseAddress: "成都市武侯区武侯祠大街19号",
+    bestFor: "classic hotpot experience",
+    recommended: "beef slices, tripe, duck blood, vegetables, split pot",
+    cost: "¥100-160",
+    level: "Mid-range",
+  },
+  {
+    label: "Option 3: Classic Sichuan Cuisine",
+    name: "Chen Mapo Tofu 陈麻婆豆腐（总店）",
+    address: "No.51 Donghua Men Street, Qingyang District, Chengdu",
+    chineseAddress: "成都市青羊区东华门街51号",
+    bestFor: "classic Sichuan dishes without doing hotpot",
+    recommended: "mapo tofu, twice-cooked pork, kung pao chicken",
+    cost: "¥50-100",
+    level: "Mid-range",
+  },
+  {
+    label: "Option 4: Premium Sichuan Dinner",
+    name: "Huangcheng Laoma 皇城老妈（武侯祠店）",
+    address: "No.20 Section 2, South 2nd Ring Road, Wuhou District, Chengdu",
+    chineseAddress: "成都市武侯区二环路南二段20号",
+    bestFor: "premium hotpot, families, high comfort",
+    recommended: "premium hotpot, quality beef, mushroom soup base",
+    cost: "¥180-320",
+    level: "Premium",
+  },
+];
+
+const chengduNavigationNames = [
+  ["Chengdu Panda Base", "成都大熊猫繁育研究基地"],
+  ["Panda Avenue Station", "熊猫大道站"],
+  ["Panda Base South Gate", "熊猫基地南门"],
+  ["Wenshu Monastery", "文殊院"],
+  ["People's Park", "人民公园"],
+  ["Kuanzhai Alley", "宽窄巷子"],
+  ["Wuhou Shrine", "武侯祠"],
+  ["Jinli Ancient Street", "锦里"],
+  ["Chunxi Road", "春熙路"],
+  ["Taikoo Li", "太古里"],
+  ["Jiuyanqiao", "九眼桥"],
+  ["Anshun Bridge", "安顺廊桥"],
+  ["Gaoshengqiao Station", "高升桥站"],
+];
+
+const chengduHotels = [
+  {
+    label: "Budget Option",
+    name: "Ibis Hotel Chengdu Taikoo Li Chunxi Road",
+    chineseName: "宜必思酒店（成都太古里春熙路店）",
+    address: "No.20 Shuwa North 3rd Street, Jinjiang District, Chengdu",
+    chineseAddress: "成都市锦江区暑袜北三街20号",
+    bestFor: "budget travelers",
+    positioning: "Budget / Practical",
+  },
+  {
+    label: "Mid-range Option",
+    name: "Atour Hotel Chengdu Taikoo Li Chunxi Road Pedestrian",
+    chineseName: "成都太古里春熙路步行街亚朵酒店",
+    address: "Wangfujing Department Store, Zongfu Road, Jinjiang District, Chengdu",
+    chineseAddress: "成都市锦江区总府路王府井百货附近",
+    bestFor: "first-time visitors",
+    positioning: "Mid-range / Convenient",
+  },
+  {
+    label: "Premium Option",
+    name: "The Temple House",
+    chineseName: "成都博舍",
+    address: "No.81 Bitieshi Street, Jinjiang District, Chengdu",
+    chineseAddress: "成都市锦江区笔帖式街81号",
+    bestFor: "premium comfort",
+    positioning: "Premium / Luxury",
+  },
+];
+
+const chengduTransfers = [
+  {
+    title: "From Chengdu Tianfu International Airport / TFU",
+    Icon: Navigation,
+    best: "Taxi / DiDi",
+    time: "50-70 min",
+    budget: "Metro Line 18 or Line 19, then transfer to city lines",
+    route: "TFU → city center hotel",
+  },
+  {
+    title: "From Chengdu Shuangliu International Airport / CTU",
+    Icon: Navigation,
+    best: "Taxi / DiDi",
+    time: "30-45 min",
+    budget: "Metro Line 10 or Line 19 plus city transfer",
+    route: "CTU → city center hotel",
+  },
+  {
+    title: "From Chengdu East Railway Station",
+    Icon: TrainFront,
+    best: "Metro / Taxi",
+    time: "20-40 min",
+    budget: "Metro Line 2 to Chunxi Road / Tianfu Square area",
+    route: "East Railway Station → hotel",
+  },
+];
+
+const chengduEveningChoices = [
+  {
+    name: "Option A: Jinli Night Walk",
+    text: "Best for old-style atmosphere, lanterns, snacks, and souvenirs.",
+  },
+  {
+    name: "Option B: Chunxi Road / Taikoo Li",
+    text: "Best for modern city lights, shopping, cafes, and easy taxi access.",
+  },
+  {
+    name: "Option C: Jiuyanqiao / Anshun Bridge",
+    text: "Best for riverside night views and bars.",
+  },
+];
+
+const chengduQuickNotes = [
+  "Best stay area: Tianfu Square / Chunxi Road / Wenshu Monastery.",
+  "Start early: visit Panda Base in the morning.",
+  "Main route: Panda Base → Wenshu Monastery → People's Park → Kuanzhai Alley → Wuhou Shrine / Jinli.",
+  "People's Park is a good slow-life stop; do not rush around Jinli.",
+  "Use Taxi / DiDi for long transfers and metro for central areas.",
+  "Ask for mild or split pot if you cannot eat spicy hotpot.",
+  "Set up Alipay / WeChat Pay, mobile data, and a map app before the trip.",
+  "Chengdu can be relaxed; do not overpack attractions.",
+  "Restaurant hours and queues can change. Check maps or ask your hotel before going.",
+];
+
+const chengduCtaFeatures = [
+  { label: "2-3 Day Routes", Icon: Route },
+  { label: "Food Map", Icon: Map },
+  { label: "Transport Guide", Icon: Car },
+  { label: "Attraction Tips", Icon: Landmark },
+  { label: "Hotel Area Notes", Icon: Hotel },
+  { label: "Backup Plans", Icon: ClipboardCheck },
+  { label: "Printable PDFs", Icon: Info },
+];
 ---
 
 <BaseLayout
   title={`${city.name} 1-Day Itinerary for First-Time Visitors`}
   description={`A free ${city.name} 1-day itinerary for first-time visitors with simple timing, booking reminders, food notes, and backup planning.`}
-  headerCtaLabel={isBeijing || isShanghai || isXian || isZhangjiajie ? "Unlock All Guides - $9.90" : undefined}
+  headerCtaLabel={isBeijing || isShanghai || isXian || isZhangjiajie || isChengdu ? "Unlock All Guides - $9.90" : undefined}
 >
   {isBeijing ? (
     <div class="beijing-guide">
@@ -2582,6 +3062,280 @@ const zhangjiajieCtaFeatures = [
         </div>
         <div class="bj-cta-features xian-cta-features" aria-label="Included guide details">
           {zhangjiajieCtaFeatures.map(({ label, Icon }) => (
+            <span><Icon size={24} /> {label}</span>
+          ))}
+        </div>
+        <div class="bj-cta-action">
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock All Guides - $9.90</a>
+          <small>Instant access · Printable PDFs · Easy to use</small>
+        </div>
+      </section>
+    </div>
+  ) : isChengdu ? (
+    <div class="beijing-guide xian-guide chengdu-guide">
+      <section class="bj-hero" aria-labelledby="chengdu-itinerary-title">
+        <div class="bj-container bj-hero__inner">
+          <div class="bj-hero__copy">
+            <p class="bj-eyebrow">FREE 1-DAY GUIDE</p>
+            <h1 id="chengdu-itinerary-title">Chengdu <span class="bj-nowrap">1-Day</span><br />Itinerary</h1>
+            <p class="bj-subtitle">Pandas × Wenshu Monastery × People's Park × Jinli × Local Food</p>
+            <p class="bj-lead">
+              A classic one-day route for first-time visitors: see pandas in the morning, explore temples and old streets in the afternoon, and enjoy authentic Chengdu food & night experiences.
+            </p>
+            <div class="bj-stat-row" aria-label="Route summary">
+              {chengduStats.map(({ label, value, Icon }) => (
+                <div class="bj-stat">
+                  <span class="bj-stat__icon" aria-hidden="true"><Icon size={23} /></span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{value}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div class="zh-route-notes" aria-label="Important route notes">
+              {chengduHeroNotes.map(({ title, Icon }) => (
+                <div class="zh-route-note">
+                  <span aria-hidden="true"><Icon size={20} /></span>
+                  <p>{title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="bj-hero__image xian-hero__image">
+            <img src={chengduHeroImage} alt="Giant panda with bamboo in a Chengdu teahouse-style garden" />
+            <span class="xian-image-label">Illustration</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bj-container xian-route-overview" aria-label="Chengdu route overview key stops">
+        <header class="bj-section-title bj-section-title--center">
+          <h2>One-Day Route Overview <span>Key Stops</span></h2>
+        </header>
+        <div class="xian-route-scroll">
+          <ol class="xian-route-map chengdu-route-map">
+            {chengduRouteOverview.map((step, index) => {
+              const Icon = step.Icon;
+              return (
+                <li class="xian-route-node">
+                  <div class="xian-route-node__icon" aria-hidden="true"><Icon size={23} /></div>
+                  <strong>{step.number}</strong>
+                  <time>{step.time}</time>
+                  <h3>{step.title}</h3>
+                  <p>{step.detail}</p>
+                  {step.transport && <small>{step.transport}<br />{step.duration}</small>}
+                  {index < chengduRouteOverview.length - 1 && <ArrowRight class="xian-route-arrow" size={16} aria-hidden="true" />}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      <section class="bj-container bj-prep-grid" aria-label="Before you go">
+        {chengduPrepCards.map((card) => {
+          const Icon = card.Icon;
+          return (
+            <article class={`bj-prep-card bj-prep-card--${card.variant}`}>
+              <div class="bj-card-heading">
+                <span aria-hidden="true"><Icon size={22} /></span>
+                <h2>{card.title}</h2>
+              </div>
+              {card.columns && (
+                <div class="bj-booking-columns">
+                  {card.columns.map((column) => (
+                    <div>
+                      <h3>{column.title}</h3>
+                      {column.lines.map((line) => <p>{line}</p>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {card.checks && (
+                <ul class="bj-check-list">
+                  {card.checks.map((item) => (
+                    <li><Check size={15} /> {item}</li>
+                  ))}
+                </ul>
+              )}
+              {card.highlight && (
+                <div class="bj-season">
+                  <strong>{card.highlight}</strong>
+                  <p>{card.text}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section class="bj-container bj-main-grid" aria-label="Chengdu one-day itinerary details">
+        <article class="bj-panel bj-timeline-panel">
+          <header class="bj-section-title bj-section-title--center">
+            <h2>One-Day Itinerary <span>(Classic Route)</span></h2>
+          </header>
+
+          <div class="bj-timeline">
+            {chengduStops.map((stop) => {
+              const TransportIcon = stop.transport.Icon;
+              return (
+                <section class="bj-stop">
+                  <div class="bj-stop__time">
+                    <strong>{stop.time}</strong>
+                    <span>-{stop.end}</span>
+                  </div>
+                  <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
+                  <div class="bj-stop__content">
+                    <h3>{stop.title}</h3>
+                    {stop.description && <p>{stop.description}</p>}
+                  </div>
+                  <aside class="bj-transport-card">
+                    <TransportIcon size={22} />
+                    <strong>{stop.transport.mode}</strong>
+                    <span>{stop.transport.detail}</span>
+                    <small>{stop.transport.time}</small>
+                  </aside>
+                </section>
+              );
+            })}
+          </div>
+
+          <div class="bj-tip">
+            <Info size={18} />
+            <p><strong>Tip:</strong> Times are estimates. Adjust based on traffic, queues, weather, and your pace.</p>
+          </div>
+        </article>
+
+        <aside class="bj-sidebar">
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Lunch Options <span>(Near Wenshu Monastery / City Center)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--three">
+              {chengduLunchOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Address:</strong> {option.address}</p>
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Best for:</strong> {option.bestFor}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Dinner Options <span>(Chunxi Road / Wenshu Monastery / City Center Area)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--four">
+              {chengduDinnerOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Address:</strong> {option.address}</p>
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Best for:</strong> {option.bestFor}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Chinese Navigation Names <span>English → Chinese</span></h2>
+            </header>
+            <dl class="xian-nav-names">
+              {chengduNavigationNames.map(([english, chinese]) => (
+                <div>
+                  <dt>{english}</dt>
+                  <dd>{chinese}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Where to Stay <span>(Best Areas: Chunxi Road / Tianfu Square / Wenshu Monastery)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--three">
+              {chengduHotels.map((hotel) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{hotel.label}</p>
+                  <h3>{hotel.name}</h3>
+                  <p>{hotel.chineseName}</p>
+                  <p><strong>Address:</strong> {hotel.address}</p>
+                  <p><strong>Chinese nav:</strong> {hotel.chineseAddress}</p>
+                  <p><strong>Best for:</strong> {hotel.bestFor}</p>
+                  <p><strong>Positioning:</strong> {hotel.positioning}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>From Airport / Railway Station to Hotel</h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--three">
+              {chengduTransfers.map((option) => {
+                const TransferIcon = option.Icon;
+                return (
+                  <article class="xian-detail-card">
+                    <span class="xian-icon-card" aria-hidden="true"><TransferIcon size={34} /></span>
+                    <h3>{option.title}</h3>
+                    <p><strong>Best:</strong> {option.best}</p>
+                    <p><strong>Time:</strong> {option.time}</p>
+                    <p><strong>Budget:</strong> {option.budget}</p>
+                    <p><strong>Route:</strong> {option.route}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Evening Choice <span>(20:00-21:00)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--three">
+              {chengduEveningChoices.map((option) => (
+                <article class="xian-detail-card">
+                  <h3>{option.name}</h3>
+                  <p>{option.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section bj-important">
+            <header class="bj-section-title">
+              <h2>Quick Practical Notes</h2>
+            </header>
+            <ul class="bj-check-list">
+              {chengduQuickNotes.map((note) => (
+                <li><Check size={15} /> {note}</li>
+              ))}
+            </ul>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Chengdu guide">
+        <div>
+          <h2>Want the Full Chengdu Pack?</h2>
+          <p>Unlock the full Chengdu pack: 2-3 day routes, food map, hotel area notes, transport guide, attraction tips, backup plans, and printable PDFs.</p>
+        </div>
+        <div class="bj-cta-features xian-cta-features" aria-label="Included guide details">
+          {chengduCtaFeatures.map(({ label, Icon }) => (
             <span><Icon size={24} /> {label}</span>
           ))}
         </div>
@@ -3759,6 +4513,71 @@ const zhangjiajieCtaFeatures = [
     line-height: 1.38;
   }
 
+  .chengdu-guide .bj-hero__inner {
+    grid-template-columns: minmax(500px, 0.43fr) minmax(0, 0.57fr);
+  }
+
+  .chengdu-guide .bj-hero h1 {
+    max-width: 620px;
+    font-size: clamp(4.1rem, 4.9vw, 5.35rem);
+  }
+
+  .chengdu-guide .bj-subtitle {
+    max-width: 610px;
+    line-height: 1.28;
+  }
+
+  .chengdu-guide .bj-lead {
+    max-width: 550px;
+  }
+
+  .chengdu-guide .bj-stat-row {
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    gap: 18px;
+  }
+
+  .chengdu-guide .bj-stat small {
+    white-space: pre-line;
+  }
+
+  .chengdu-guide .bj-hero__image {
+    width: min(820px, 63vw);
+  }
+
+  .chengdu-guide .bj-hero__image img {
+    object-position: center;
+  }
+
+  .chengdu-guide .chengdu-route-map {
+    grid-template-columns: repeat(11, minmax(108px, 1fr));
+    min-width: 1300px;
+  }
+
+  .chengdu-guide .xian-route-node {
+    min-height: 178px;
+  }
+
+  .chengdu-guide .bj-prep-grid {
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.95fr) minmax(0, 0.85fr);
+  }
+
+  .chengdu-guide .bj-booking-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .chengdu-guide .bj-main-grid {
+    grid-template-columns: minmax(430px, 0.86fr) minmax(0, 1.14fr);
+  }
+
+  .chengdu-guide .xian-card-grid--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .chengdu-guide .bj-check-list li {
+    align-items: flex-start;
+    line-height: 1.38;
+  }
+
   @media (max-width: 1120px) {
     .bj-hero__inner,
     .bj-main-grid,
@@ -3788,11 +4607,15 @@ const zhangjiajieCtaFeatures = [
 
     .zhangjiajie-guide .bj-hero__inner,
     .zhangjiajie-guide .bj-main-grid,
-    .zhangjiajie-guide .bj-prep-grid {
+    .zhangjiajie-guide .bj-prep-grid,
+    .chengdu-guide .bj-hero__inner,
+    .chengdu-guide .bj-main-grid,
+    .chengdu-guide .bj-prep-grid {
       grid-template-columns: 1fr;
     }
 
-    .zhangjiajie-guide .bj-hero__image {
+    .zhangjiajie-guide .bj-hero__image,
+    .chengdu-guide .bj-hero__image {
       width: 100% !important;
       max-width: none;
     }
@@ -3829,7 +4652,9 @@ const zhangjiajieCtaFeatures = [
     .xian-guide .bj-lead,
     .xian-guide .bj-subtitle,
     .zhangjiajie-guide .bj-lead,
-    .zhangjiajie-guide .bj-subtitle {
+    .zhangjiajie-guide .bj-subtitle,
+    .chengdu-guide .bj-lead,
+    .chengdu-guide .bj-subtitle {
       max-width: calc(100vw - 28px);
     }
 
@@ -3838,7 +4663,10 @@ const zhangjiajieCtaFeatures = [
     .xian-guide .bj-lead,
     .zhangjiajie-guide .bj-hero__copy,
     .zhangjiajie-guide .bj-subtitle,
-    .zhangjiajie-guide .bj-lead {
+    .zhangjiajie-guide .bj-lead,
+    .chengdu-guide .bj-hero__copy,
+    .chengdu-guide .bj-subtitle,
+    .chengdu-guide .bj-lead {
       min-width: 0;
       max-width: calc(100vw - 72px);
     }
@@ -3875,9 +4703,30 @@ const zhangjiajieCtaFeatures = [
       max-width: none;
     }
 
-    .zhangjiajie-guide .bj-stat-row {
+    .zhangjiajie-guide .bj-stat-row,
+    .chengdu-guide .bj-stat-row {
       grid-template-columns: 1fr;
       gap: 14px;
+    }
+
+    .chengdu-guide .bj-hero h1 {
+      font-size: clamp(3.15rem, 13.5vw, 3.85rem);
+      letter-spacing: -0.055em;
+    }
+
+    .chengdu-guide .bj-subtitle {
+      display: block;
+      width: 330px;
+      font-size: clamp(0.96rem, 4.5vw, 1.12rem);
+    }
+
+    .chengdu-guide .bj-lead {
+      width: 330px;
+    }
+
+    .chengdu-guide .bj-hero__image {
+      width: 100% !important;
+      max-width: none;
     }
 
     .zh-route-notes {
@@ -3973,6 +4822,15 @@ const zhangjiajieCtaFeatures = [
 
     .zhangjiajie-guide .zh-route-map {
       min-width: 1120px;
+    }
+
+    .chengdu-guide .chengdu-route-map {
+      min-width: 1180px;
+    }
+
+    .chengdu-guide .xian-card-grid--three,
+    .chengdu-guide .xian-card-grid--four {
+      grid-template-columns: 1fr;
     }
   }
 
