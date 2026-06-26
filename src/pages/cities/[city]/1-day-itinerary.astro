@@ -37,6 +37,7 @@ const { city } = Astro.props;
 const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
+const isXian = city.id === "xian";
 
 const timeline = [
   ["Morning", `Start with the main landmark cluster for ${city.name}. Keep transport simple and arrive early.`],
@@ -615,12 +616,436 @@ const shanghaiImportantGroups = [
     ],
   },
 ];
+
+const xianIllustrationImage = "/images/cities/xian-cover.jpg";
+const xianFoodImage = "/images/beijing-itinerary/local-snacks-thumb.jpg";
+const xianHotelImage = "/images/beijing-itinerary/capital-hotel-thumb.jpg";
+const xianAirportImage = "/images/beijing-itinerary/beijing-airport-thumb.jpg";
+
+const xianStats = [
+  { label: "Recommended", value: "10-12 hours", Icon: Clock3 },
+  { label: "Best for", value: "First-time visitors / History lovers", Icon: Users },
+  { label: "Transport", value: "Taxi / DiDi + Metro", Icon: TrainFront },
+];
+
+const xianRouteOverview = [
+  {
+    number: 1,
+    time: "07:00",
+    title: "Breakfast",
+    detail: "Bell Tower / South Gate Area",
+    transport: "Walk / Short Taxi",
+    duration: "10-20 min",
+    Icon: Utensils,
+  },
+  {
+    number: 2,
+    time: "07:40",
+    title: "Taxi / DiDi to Terracotta Warriors",
+    detail: "Leave the city early",
+    transport: "Taxi / DiDi",
+    duration: "60-80 min",
+    Icon: Car,
+  },
+  {
+    number: 3,
+    time: "09:00",
+    title: "Emperor Qinshihuang’s Mausoleum Site Museum / Terracotta Warriors",
+    detail: "Qin Mausoleum Site",
+    transport: "",
+    duration: "",
+    Icon: Landmark,
+  },
+  {
+    number: 4,
+    time: "12:00",
+    title: "Return to Bell Tower / South Gate Area",
+    detail: "City center",
+    transport: "Taxi / DiDi or Metro + local bus",
+    duration: "60-120 min",
+    Icon: Car,
+  },
+  {
+    number: 5,
+    time: "13:30",
+    title: "Lunch",
+    detail: "Bell Tower / Muslim Quarter",
+    transport: "",
+    duration: "",
+    Icon: Utensils,
+  },
+  {
+    number: 6,
+    time: "15:00",
+    title: "Xi’an City Wall",
+    detail: "Yongning Gate",
+    transport: "Walk / Taxi / Metro",
+    duration: "15-25 min",
+    Icon: Landmark,
+  },
+  {
+    number: 7,
+    time: "17:00",
+    title: "Bell Tower / Drum Tower",
+    detail: "Exterior views",
+    transport: "Walk / Taxi / Metro",
+    duration: "10-15 min",
+    Icon: Landmark,
+  },
+  {
+    number: 8,
+    time: "20:00",
+    title: "Evening Plan",
+    detail: "Muslim Quarter / Sajinqiao / Optional Datang Everbright City",
+    transport: "Walk / Taxi / Metro",
+    duration: "10-30 min",
+    Icon: Map,
+  },
+  {
+    number: 9,
+    time: "21:30",
+    title: "Return to Hotel",
+    detail: "Finish the day",
+    transport: "Taxi / Walk / Metro",
+    duration: "10-30 min",
+    Icon: Hotel,
+  },
+];
+
+const xianPrepCards = [
+  {
+    title: "Must: Book Before You Go",
+    Icon: ShieldCheck,
+    variant: "red",
+    columns: [
+      {
+        title: "Emperor Qinshihuang’s Mausoleum Site Museum / Terracotta Warriors",
+        lines: [
+          "Advance reservation required",
+          "Bring the passport used for booking",
+          "Official website: www.bmy.com.cn",
+          "Reference price: ¥120 adult",
+          "Recommended time: 2.5-3 hours",
+        ],
+      },
+      {
+        title: "Xi’an City Wall Tickets",
+        lines: [
+          "Recommended entrance: Yongning Gate / South Gate",
+          "Best for first-time visitors",
+          "Walk or bike a short section",
+          "Reference price: ¥54 adult",
+          "Recommended time: 1.5-2 hours",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Important Reminders",
+    Icon: ClipboardCheck,
+    variant: "green",
+    checks: [
+      "Bring the passport used for booking.",
+      "Wear comfortable shoes.",
+      "Use Alipay / WeChat Pay or a backup card.",
+      "Stay hydrated and use sunscreen.",
+      "Check attraction opening hours before going.",
+      "Terracotta Warriors tickets are timed-entry. Book morning slots on weekends and holidays.",
+    ],
+  },
+  {
+    title: "Best Travel Seasons",
+    Icon: CalendarDays,
+    variant: "red",
+    highlight: "Mar-May / Sep-Nov",
+    text: "Pleasant weather and comfortable walking conditions. Summer is hot; start early. Winter is cold and windy — dress warmly.",
+  },
+];
+
+const xianStops = [
+  {
+    number: 1,
+    time: "07:00",
+    end: "07:40",
+    title: "Breakfast",
+    suffix: "(Choose One)",
+    description: "Eat near Bell Tower / South Gate. Do not be late — aim to leave around 07:40-08:00.",
+    transport: { mode: "Food", detail: "Bell Tower / South Gate", time: "20-40 min", Icon: Utensils },
+    chips: [
+      {
+        title: "Qin Yu Roujiamo 秦豫肉夹馍",
+        text: "No.19 Dongmutoushi, Beilin District. Nav: 西安市碑林区东木头市19号. Roujiamo, liangpi, soup. ¥20-40.",
+      },
+      {
+        title: "Fan Ji La Zhi Roujiamo 樊记腊汁肉夹馍",
+        text: "No.53 Zhubashi Street, Beilin District. Nav: 西安市碑林区竹笆市53号. La zhi roujiamo, liangpi, soup. ¥20-50.",
+      },
+    ],
+  },
+  {
+    number: 2,
+    time: "07:40",
+    end: "09:00",
+    title: "Taxi / DiDi to Terracotta Warriors",
+    description: "Recommended: Taxi / DiDi, 60-80 min. Budget route: Metro Line 2 → Line 1 → Line 9 → Huaqingchi Exit C → Bus 613 / 602.",
+    transport: { mode: "Taxi / DiDi", detail: "From city center", time: "60-80 min", Icon: Car },
+    routeCard: {
+      title: "Budget Route",
+      note: "Metro + local bus",
+      steps: [
+        { title: "Yongningmen / Zhonglou" },
+        { title: "Line 2 to Beidajie" },
+        { title: "Line 1 to Fangzhicheng" },
+        { title: "Line 9 to Huaqingchi" },
+        { title: "Bus 613 / 602" },
+      ],
+      tip: "Budget route can take 90-120 min. Use it for the return if you want to save money.",
+    },
+  },
+  {
+    number: 3,
+    time: "09:00",
+    end: "12:00",
+    title: "Emperor Qinshihuang’s Mausoleum Site Museum / Terracotta Warriors",
+    description: "Visit Pits 1 → 3 → 2, then check the Bronze Chariot Exhibition Hall if open and time allows. Official guide or audio guide recommended.",
+    transport: { mode: "Museum visit", detail: "Timed-entry ticket", time: "2.5-3 hours", Icon: Landmark },
+  },
+  {
+    number: 4,
+    time: "12:00",
+    end: "13:30",
+    title: "Return to Bell Tower / South Gate Area",
+    description: "Taxi / DiDi: 60-90 min. Metro + local bus: 90-120 min.",
+    transport: { mode: "Taxi / Metro", detail: "Back to city center", time: "60-120 min", Icon: Car },
+  },
+  {
+    number: 5,
+    time: "13:30",
+    end: "14:30",
+    title: "Lunch near Bell Tower / Muslim Quarter",
+    description: "Choose one of the lunch options on the right.",
+    transport: { mode: "Food", detail: "Central area", time: "60 min", Icon: Utensils },
+  },
+  {
+    number: 6,
+    time: "14:30",
+    end: "15:00",
+    title: "Transfer to Yongning Gate",
+    description: "Walk / Metro / Taxi depending on your lunch location. Usually 10-30 min.",
+    transport: { mode: "Walk / Metro / Taxi", detail: "From lunch area", time: "10-30 min", Icon: Footprints },
+  },
+  {
+    number: 7,
+    time: "15:00",
+    end: "17:00",
+    title: "Xi’an City Wall",
+    suffix: "(Yongning Gate)",
+    description: "Walk or bike a short section. Recommended time: 1.5-2 hours. First-time visitors do not need to circle the entire wall.",
+    transport: { mode: "City wall", detail: "Yongning Gate", time: "1.5-2 hours", Icon: Landmark },
+  },
+  {
+    number: 8,
+    time: "17:00",
+    end: "18:00",
+    title: "Bell Tower & Drum Tower",
+    description: "Exterior night views are enough for many first-time visitors. No need to go inside if the day feels long.",
+    transport: { mode: "Walk / Metro", detail: "City center", time: "10-15 min", Icon: Landmark },
+  },
+  {
+    number: 9,
+    time: "18:00",
+    end: "20:00",
+    title: "Dinner",
+    suffix: "(City Center)",
+    description: "Choose based on your budget and taste.",
+    transport: { mode: "Food", detail: "Central restaurants", time: "90-120 min", Icon: Utensils },
+  },
+  {
+    number: 10,
+    time: "20:00",
+    end: "21:30",
+    title: "Evening Plan",
+    suffix: "(Choose One)",
+    description: "Muslim Quarter / Sajinqiao / Optional Datang Everbright City.",
+    transport: { mode: "Walk / Taxi / Metro", detail: "Night plan", time: "10-30 min", Icon: Map },
+    chips: [
+      { title: "Muslim Quarter", text: "Easy if you want classic first-time Xi’an night energy and snacks." },
+      { title: "Sajinqiao / Sajin Bridge 洒金桥", text: "Better for street-food lovers who want a more local snack route." },
+      { title: "Optional Datang Everbright City", text: "Use only if you still have energy and want a brighter night scene." },
+    ],
+  },
+  {
+    number: 11,
+    time: "21:30",
+    end: "22:00",
+    title: "Return to Hotel",
+    description: "Walk / Metro / Taxi.",
+    transport: { mode: "Hotel return", detail: "End of day", time: "10-30 min", Icon: Hotel },
+  },
+];
+
+const xianLunchOptions = [
+  {
+    label: "Classic Old Brand",
+    name: "Tongshengxiang 同盛祥",
+    type: "Old Brand Paomo",
+    address: "No.5 West Street, Lianhu District, Xi’an",
+    chineseAddress: "西安市莲湖区西大街5号",
+    recommended: "Paomo, liangpi, sweet garlic, sour plum drink",
+    bestFor: "First-time visitors, beef / lamb paomo",
+    cost: "¥50-100",
+    level: "Mid-range",
+  },
+  {
+    label: "Budget Local Pick",
+    name: "Ma Hong Xiaochao Paomo 马洪小炒泡馍馆",
+    type: "Local snack pick",
+    address: "No.46 Hongbu Street, Lianhu District",
+    chineseAddress: "西安市莲湖区红埠街46号",
+    recommended: "Beef xiaochao paomo, lamb paomo, liangpi",
+    bestFor: "Budget travelers, local flavor",
+    cost: "¥30-60",
+    level: "Budget",
+  },
+  {
+    label: "Comfortable Restaurant",
+    name: "Chang’an Dapaidang 长安大牌档之上元灯会（南大街店）",
+    type: "Shaanxi cuisine",
+    address: "No.39 South Street, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区南大街39号",
+    recommended: "Hulu chicken, biangbiang noodles, Guanzhong small dishes, local desserts",
+    bestFor: "Families, groups, good atmosphere",
+    cost: "¥70-120",
+    level: "Mid-range",
+  },
+];
+
+const xianDinnerOptions = [
+  {
+    label: "Budget Local Pick",
+    name: "Ma Hong Xiaochao Paomo 马洪小炒泡馍馆",
+    address: "No.46 Hongbu Street, Lianhu District",
+    chineseAddress: "西安市莲湖区红埠街46号",
+    recommended: "Beef xiaochao paomo, lamb paomo, liangpi",
+    cost: "¥30-60",
+    level: "Budget",
+  },
+  {
+    label: "Classic Old Brand",
+    name: "Tongshengxiang 同盛祥",
+    address: "No.5 West Street, Lianhu District, Xi’an",
+    chineseAddress: "西安市莲湖区西大街5号",
+    recommended: "Paomo, liangpi, sweet garlic, sour plum drink",
+    cost: "¥50-100",
+    level: "Mid-range",
+  },
+  {
+    label: "Comfortable Restaurant",
+    name: "Chang’an Dapaidang 长安大牌档之上元灯会（南大街店）",
+    address: "No.39 South Street, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区南大街39号",
+    recommended: "Hulu chicken, biangbiang noodles, Shaanxi small dishes",
+    cost: "¥70-120",
+    level: "Mid-range",
+  },
+  {
+    label: "Premium Dinner",
+    name: "Xi’an Fanzhuang 西安饭庄",
+    address: "No.110 South Street, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区南大街110号",
+    recommended: "Hulu chicken, warm mixed kidney slices, Shaanxi snacks",
+    cost: "¥100-200+",
+    level: "Premium",
+  },
+];
+
+const xianHotels = [
+  {
+    label: "Budget Option",
+    name: "Hanting Hotel Xi’an Bell Tower South Gate New Branch",
+    chineseName: "汉庭酒店（西安钟楼南门新店）",
+    address: "No.71 Xiangzimiao Street, Nanmenli, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区南门里湘子庙街71号",
+    bestFor: "Budget travelers, short stays",
+    positioning: "Budget / Practical",
+  },
+  {
+    label: "Mid-range Option",
+    name: "Campanile Hotel Xi’an Bell Tower Muslim Quarter",
+    chineseName: "康铂酒店（西安钟楼回民街店）",
+    address: "No.8 Zhengxue Street, Beilin District, Xi’an",
+    chineseAddress: "西安市碑林区正学街8号",
+    bestFor: "First-time visitors, couples, friends",
+    positioning: "Mid-range / Convenient",
+  },
+  {
+    label: "Premium Option",
+    name: "Sofitel Xi’an People’s Grand Hotel",
+    chineseName: "西安索菲特人民大厦",
+    address: "No.319 Dongxin Street, Xincheng District, Xi’an",
+    chineseAddress: "西安市新城区东新街319号",
+    bestFor: "Families, premium comfort",
+    positioning: "Premium / Luxury",
+  },
+];
+
+const xianAirportOptions = [
+  {
+    title: "Best Option: Taxi / DiDi",
+    image: xianAirportImage,
+    alt: "Airport arrival and taxi transfer illustration",
+    time: "45-70 min",
+    bestFor: "First-time visitors, families, late arrivals, travelers with luggage.",
+    route: "Xi’an Xianyang International Airport → Bell Tower / South Gate hotel",
+  },
+  {
+    title: "Budget Option: Metro",
+    image: xianAirportImage,
+    alt: "Metro and airport transport illustration",
+    time: "about 60-80 min",
+    bestFor: "Budget travelers with light luggage.",
+    route: "Airport Line / Metro Line 14 → Xi’an North Railway Station → Metro Line 2 → Zhonglou or Yongningmen → Walk or taxi to hotel",
+  },
+];
+
+const xianQuickNotes = [
+  {
+    title: "Terracotta Warriors",
+    text: "Official name: Emperor Qinshihuang’s Mausoleum Site Museum / Terracotta Warriors. Book in advance. Bring the passport used for booking.",
+    Icon: Landmark,
+  },
+  {
+    title: "City Wall",
+    text: "Enter from Yongning Gate. Walk or bike a short section.",
+    Icon: Route,
+  },
+  {
+    title: "Transport",
+    text: "Taxi to Terracotta Warriors in the morning. Metro + local bus for return if you want to save money.",
+    Icon: TrainFront,
+  },
+  {
+    title: "Food",
+    text: "Try paomo for one meal and Shaanxi dishes for another.",
+    Icon: Utensils,
+  },
+];
+
+const xianCtaFeatures = [
+  { label: "2-3 Day Routes", Icon: Route },
+  { label: "Food Map", Icon: Map },
+  { label: "Transport Guide", Icon: Car },
+  { label: "Attraction Tips", Icon: Landmark },
+  { label: "Hotel Area Notes", Icon: Hotel },
+  { label: "Backup Plans", Icon: ClipboardCheck },
+  { label: "Printable PDFs", Icon: Info },
+];
 ---
 
 <BaseLayout
   title={`${city.name} 1-Day Itinerary for First-Time Visitors`}
   description={`A free ${city.name} 1-day itinerary for first-time visitors with simple timing, booking reminders, food notes, and backup planning.`}
-  headerCtaLabel={isBeijing || isShanghai ? "Unlock All Guides - $9.90" : undefined}
+  headerCtaLabel={isBeijing || isShanghai || isXian ? "Unlock All Guides - $9.90" : undefined}
 >
   {isBeijing ? (
     <div class="beijing-guide">
@@ -1075,6 +1500,306 @@ const shanghaiImportantGroups = [
         </div>
         <div class="bj-cta-features" aria-label="Included guide details">
           {ctaFeatures.map(({ label, Icon }) => (
+            <span><Icon size={24} /> {label}</span>
+          ))}
+        </div>
+        <div class="bj-cta-action">
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock All Guides - $9.90</a>
+          <small>Instant access · Printable PDFs · Easy to use</small>
+        </div>
+      </section>
+    </div>
+  ) : isXian ? (
+    <div class="beijing-guide xian-guide">
+      <section class="bj-hero" aria-labelledby="xian-itinerary-title">
+        <div class="bj-container bj-hero__inner">
+          <div class="bj-hero__copy">
+            <p class="bj-eyebrow">FREE 1-DAY GUIDE</p>
+            <h1 id="xian-itinerary-title">Xi’an <span class="bj-nowrap">1-Day</span><br />Itinerary</h1>
+            <p class="bj-subtitle">Terracotta Warriors × City Wall × Bell & Drum Tower × Local Food</p>
+            <p class="bj-lead">
+              The perfect one-day route for first-time visitors: Terracotta Warriors in the morning, City Wall in the afternoon, and authentic Xi’an food & night views in the evening.
+            </p>
+            <div class="bj-stat-row" aria-label="Route summary">
+              {xianStats.map(({ label, value, Icon }) => (
+                <div class="bj-stat">
+                  <span class="bj-stat__icon" aria-hidden="true"><Icon size={23} /></span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{value}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="bj-hero__image xian-hero__image">
+            <img src={xianIllustrationImage} alt="Xi’an City Wall and ancient gate at sunset" />
+            <span class="xian-image-label">Illustration</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bj-container xian-route-overview" aria-label="Route overview key stops">
+        <header class="bj-section-title bj-section-title--center">
+          <h2>Route Overview — Key Stops</h2>
+        </header>
+        <div class="xian-route-scroll">
+          <ol class="xian-route-map">
+            {xianRouteOverview.map((step, index) => {
+              const Icon = step.Icon;
+              return (
+                <li class="xian-route-node">
+                  <div class="xian-route-node__icon" aria-hidden="true"><Icon size={23} /></div>
+                  <strong>{step.number}</strong>
+                  <time>{step.time}</time>
+                  <h3>{step.title}</h3>
+                  <p>{step.detail}</p>
+                  {step.transport && <small>{step.transport}<br />{step.duration}</small>}
+                  {index < xianRouteOverview.length - 1 && <ArrowRight class="xian-route-arrow" size={16} aria-hidden="true" />}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      <section class="bj-container bj-prep-grid" aria-label="Before you go">
+        {xianPrepCards.map((card) => {
+          const Icon = card.Icon;
+          return (
+            <article class={`bj-prep-card bj-prep-card--${card.variant}`}>
+              <div class="bj-card-heading">
+                <span aria-hidden="true"><Icon size={22} /></span>
+                <h2>{card.title}</h2>
+              </div>
+              {card.columns && (
+                <div class="bj-booking-columns">
+                  {card.columns.map((column) => (
+                    <div>
+                      <h3>{column.title}</h3>
+                      {column.lines.map((line) => <p>{line}</p>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {card.checks && (
+                <ul class="bj-check-list">
+                  {card.checks.map((item) => (
+                    <li><Check size={15} /> {item}</li>
+                  ))}
+                </ul>
+              )}
+              {card.highlight && (
+                <div class="bj-season">
+                  <strong>{card.highlight}</strong>
+                  <p>{card.text}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section class="bj-container bj-main-grid" aria-label="Xi’an one-day itinerary details">
+        <article class="bj-panel bj-timeline-panel">
+          <header class="bj-section-title bj-section-title--center">
+            <h2>One-Day Itinerary <span>(Classic Route)</span></h2>
+          </header>
+
+          <div class="bj-timeline">
+            {xianStops.map((stop) => {
+              const TransportIcon = stop.transport.Icon;
+              return (
+                <section class="bj-stop">
+                  <div class="bj-stop__time">
+                    <strong>{stop.time}</strong>
+                    <span>-{stop.end}</span>
+                  </div>
+                  <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
+                  <div class="bj-stop__content">
+                    <h3>{stop.title} {stop.suffix && <span>{stop.suffix}</span>}</h3>
+                    {stop.description && <p>{stop.description}</p>}
+
+                    {stop.routeCard && (
+                      <div class="bj-route-card">
+                        <div class="bj-route-card__heading">
+                          <strong>{stop.routeCard.title}</strong>
+                          <span>({stop.routeCard.note})</span>
+                        </div>
+                        <div class="bj-route-card__steps">
+                          {stop.routeCard.steps.map((step, index) => (
+                            <>
+                              <div class="bj-route-step">
+                                <strong>{step.title}</strong>
+                              </div>
+                              {index < stop.routeCard.steps.length - 1 && <ArrowRight class="bj-route-arrow" size={15} aria-hidden="true" />}
+                            </>
+                          ))}
+                        </div>
+                        <p><strong>Tip:</strong> {stop.routeCard.tip}</p>
+                      </div>
+                    )}
+
+                    {stop.chips && (
+                      <div class="bj-choice-grid">
+                        {stop.chips.map((choice) => (
+                          <article class="bj-choice-card">
+                            <h4>{choice.title}</h4>
+                            <p>{choice.text}</p>
+                          </article>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <aside class="bj-transport-card">
+                    <TransportIcon size={22} />
+                    <strong>{stop.transport.mode}</strong>
+                    <span>{stop.transport.detail}</span>
+                    <small>{stop.transport.time}</small>
+                  </aside>
+                </section>
+              );
+            })}
+          </div>
+
+          <div class="bj-tip">
+            <Info size={18} />
+            <p><strong>Tip:</strong> Hours, queues, and prices can change. Check maps, Dianping, or ask your hotel before going.</p>
+          </div>
+        </article>
+
+        <aside class="bj-sidebar">
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Lunch Options <span>(Near Bell Tower / Muslim Quarter)</span></h2>
+            </header>
+            <p class="bj-note">Some lunch and dinner options overlap because they are reliable, central, and easy for first-time visitors.</p>
+            <div class="xian-card-grid xian-card-grid--three">
+              {xianLunchOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <div class="xian-card-image">
+                    <img src={xianFoodImage} alt={`${option.name} food illustration`} width="420" height="260" loading="lazy" decoding="async" />
+                    <span class="xian-image-label">Illustration</span>
+                  </div>
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Type:</strong> {option.type}</p>
+                  <p><strong>Address:</strong> {option.address}</p>
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Best for:</strong> {option.bestFor}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Dinner Options <span>(City Center)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--four">
+              {xianDinnerOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  <p><strong>Address:</strong> {option.address}</p>
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Snack Route: Sajinqiao / Dapiyuan 洒金桥 / 大皮院</h2>
+            </header>
+            <article class="xian-detail-card xian-detail-card--wide">
+              <p><strong>Best for:</strong> street-food lovers.</p>
+              <p><strong>Recommended:</strong> Roujiamo, paomo, liangpi, persimmon cake, sour plum drink, grilled beef or lamb.</p>
+              <p><strong>Avg. Cost:</strong> ¥30-80</p>
+              <p><strong>Price Level:</strong> Budget / Flexible</p>
+            </article>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Where to Stay <span>(Bell Tower / South Gate Area)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--three">
+              {xianHotels.map((hotel) => (
+                <article class="xian-detail-card">
+                  <div class="xian-card-image">
+                    <img src={xianHotelImage} alt={`${hotel.name} hotel illustration`} width="420" height="260" loading="lazy" decoding="async" />
+                    <span class="xian-image-label">Illustration</span>
+                  </div>
+                  <p class="bj-green-label">{hotel.label}</p>
+                  <h3>{hotel.name}</h3>
+                  <p>{hotel.chineseName}</p>
+                  <p><strong>Address:</strong> {hotel.address}</p>
+                  <p><strong>Chinese nav:</strong> {hotel.chineseAddress}</p>
+                  <p><strong>Best for:</strong> {hotel.bestFor}</p>
+                  <p><strong>Positioning:</strong> {hotel.positioning}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>From Xi’an Xianyang International Airport to Bell Tower / South Gate</h2>
+            </header>
+            <div class="bj-stack">
+              {xianAirportOptions.map((option) => (
+                <article class="bj-media-card bj-media-card--airport">
+                  <div class="xian-card-image">
+                    <img src={option.image} alt={option.alt} width="640" height="420" loading="lazy" decoding="async" />
+                    <span class="xian-image-label">Illustration</span>
+                  </div>
+                  <div>
+                    <h3>{option.title}</h3>
+                    <p><strong>Time:</strong> {option.time}</p>
+                    <p><strong>Best for:</strong> {option.bestFor}</p>
+                    <p><strong>Route:</strong> {option.route}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section bj-important">
+            <header class="bj-section-title">
+              <h2>Quick Practical Notes</h2>
+            </header>
+            <div class="bj-info-groups">
+              {xianQuickNotes.map((note) => {
+                const Icon = note.Icon;
+                return (
+                  <section class="bj-info-group">
+                    <span class="bj-info-icon" aria-hidden="true"><Icon size={21} /></span>
+                    <div>
+                      <h3>{note.title}</h3>
+                      <p>{note.text}</p>
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Xi’an guide">
+        <div>
+          <h2>Want the Full Xi’an Pack?</h2>
+          <p>Unlock the full Xi’an pack: 2-3 day routes, food map, hotel area notes, transport guide, attraction tips, backup plans, and printable PDFs.</p>
+        </div>
+        <div class="bj-cta-features xian-cta-features" aria-label="Included guide details">
+          {xianCtaFeatures.map(({ label, Icon }) => (
             <span><Icon size={24} /> {label}</span>
           ))}
         </div>
@@ -1856,6 +2581,215 @@ const shanghaiImportantGroups = [
     text-align: center;
   }
 
+  .xian-guide .bj-hero h1 {
+    max-width: 520px;
+  }
+
+  .xian-guide .bj-subtitle,
+  .xian-guide .bj-lead {
+    max-width: 540px;
+  }
+
+  .xian-guide .bj-subtitle {
+    line-height: 1.32;
+    overflow-wrap: break-word;
+  }
+
+  .xian-guide .bj-main-grid {
+    grid-template-columns: minmax(420px, 0.88fr) minmax(0, 1.12fr);
+  }
+
+  .xian-guide .bj-hero__image img {
+    object-position: center;
+  }
+
+  .xian-hero__image {
+    box-shadow: 0 20px 50px rgba(70, 48, 24, 0.12);
+  }
+
+  .xian-route-overview {
+    margin-bottom: 18px;
+    padding: 20px 18px 18px;
+    border: 1px solid var(--bj-line);
+    border-radius: 18px;
+    background: rgba(255, 253, 248, 0.88);
+    box-shadow: 0 16px 38px rgba(66, 50, 29, 0.06);
+  }
+
+  .xian-route-scroll {
+    overflow-x: auto;
+    padding: 4px 4px 8px;
+    scrollbar-width: thin;
+  }
+
+  .xian-route-map {
+    display: grid;
+    grid-template-columns: repeat(9, minmax(118px, 1fr));
+    gap: 10px;
+    min-width: 1120px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .xian-route-node {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 5px;
+    min-height: 174px;
+    padding: 12px 9px 10px;
+    border: 1px solid rgba(118, 96, 68, 0.14);
+    border-radius: 999px 999px 16px 16px;
+    background: linear-gradient(180deg, rgba(255, 251, 244, 0.95), rgba(250, 244, 234, 0.78));
+    text-align: center;
+  }
+
+  .xian-route-node__icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(31, 122, 87, 0.22);
+    border-radius: 999px;
+    background: rgba(240, 249, 242, 0.9);
+    color: var(--bj-green);
+  }
+
+  .xian-route-node > strong {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--bj-red);
+    color: #fff;
+    font-size: 0.78rem;
+  }
+
+  .xian-route-node time {
+    color: var(--bj-red-dark);
+    font-size: 0.82rem;
+    font-weight: 900;
+  }
+
+  .xian-route-node h3 {
+    margin: 0;
+    font-size: 0.74rem;
+    line-height: 1.18;
+  }
+
+  .xian-route-node p,
+  .xian-route-node small {
+    margin: 0;
+    color: #4b433a;
+    font-size: 0.66rem;
+    line-height: 1.28;
+  }
+
+  .xian-route-arrow {
+    position: absolute;
+    top: 48px;
+    right: -14px;
+    z-index: 2;
+    color: #ba6a22;
+  }
+
+  .xian-card-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .xian-card-grid--three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .xian-card-grid--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xian-detail-card {
+    overflow: hidden;
+    padding: 11px;
+    border: 1px solid rgba(118, 96, 68, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 253, 248, 0.8);
+  }
+
+  .xian-detail-card h3 {
+    margin: 0 0 8px;
+    font-size: 0.96rem;
+    line-height: 1.12;
+  }
+
+  .xian-detail-card p {
+    margin: 0 0 6px;
+    color: #2d2822;
+    font-size: 0.76rem;
+    line-height: 1.36;
+  }
+
+  .xian-detail-card--wide {
+    padding: 15px;
+  }
+
+  .xian-card-image {
+    position: relative;
+    overflow: hidden;
+    margin: -2px -2px 10px;
+    border-radius: 11px;
+  }
+
+  .xian-card-image img {
+    display: block;
+    width: 100%;
+    height: 112px;
+    object-fit: cover;
+  }
+
+  .bj-media-card > .xian-card-image {
+    width: 150px;
+    height: 116px;
+    margin: 0;
+  }
+
+  .bj-media-card > .xian-card-image img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .xian-image-label {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 1;
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: rgba(19, 17, 14, 0.62);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  .xian-hero__image .xian-image-label {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .xian-guide .bj-info-group p {
+    margin: 0;
+    color: #2d2822;
+    font-size: 0.78rem;
+    line-height: 1.42;
+  }
+
+  .xian-cta-features {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
   @media (max-width: 1120px) {
     .bj-hero__inner,
     .bj-main-grid,
@@ -1877,6 +2811,10 @@ const shanghaiImportantGroups = [
 
     .bj-main-grid {
       gap: 20px;
+    }
+
+    .xian-guide .bj-main-grid {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -1907,8 +2845,29 @@ const shanghaiImportantGroups = [
     }
 
     .shanghai-guide .bj-lead,
-    .shanghai-guide .bj-subtitle {
+    .shanghai-guide .bj-subtitle,
+    .xian-guide .bj-lead,
+    .xian-guide .bj-subtitle {
       max-width: calc(100vw - 28px);
+    }
+
+    .xian-guide .bj-hero__copy,
+    .xian-guide .bj-subtitle,
+    .xian-guide .bj-lead {
+      min-width: 0;
+      max-width: calc(100vw - 72px);
+    }
+
+    .xian-guide .bj-subtitle {
+      display: block;
+      width: 300px;
+      font-size: clamp(1rem, 4.8vw, 1.18rem);
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+
+    .xian-guide .bj-lead {
+      width: 320px;
     }
 
     .shanghai-guide .sh-mobile-break {
@@ -1919,7 +2878,9 @@ const shanghaiImportantGroups = [
     .bj-booking-columns,
     .bj-food-grid,
     .bj-choice-grid,
-    .bj-cta-features {
+    .bj-cta-features,
+    .xian-card-grid--three,
+    .xian-card-grid--four {
       grid-template-columns: 1fr;
     }
 
@@ -1982,6 +2943,18 @@ const shanghaiImportantGroups = [
     .bj-bottom-cta {
       padding: 22px;
     }
+
+    .xian-route-overview {
+      padding: 16px 12px 14px;
+    }
+
+    .xian-route-map {
+      min-width: 980px;
+    }
+
+    .xian-route-node {
+      min-height: 164px;
+    }
   }
 
   @media (max-width: 460px) {
@@ -2010,6 +2983,11 @@ const shanghaiImportantGroups = [
 
     .bj-media-card img,
     .bj-food-card img {
+      width: 100%;
+      height: 150px;
+    }
+
+    .bj-media-card > .xian-card-image {
       width: 100%;
       height: 150px;
     }
