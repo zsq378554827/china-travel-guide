@@ -508,6 +508,7 @@ const shanghaiHotels = [
     image: "/images/shanghai/hotel-dayin-hostel.jpg",
     alt: "Dayin International Youth Hostel room",
     tags: ["Budget", "Central", "Practical"],
+    address: "No. 98 Liuhe Road, Huangpu District, Shanghai",
     price: "Dorm / basic room ¥150-450+; private room ¥400-700+",
     description: "Good for budget travelers near Nanjing East Road, People's Square, and the Bund.",
   },
@@ -517,6 +518,7 @@ const shanghaiHotels = [
     image: "/images/shanghai/hotel-central-shanghai.jpg",
     alt: "Central Hotel Shanghai exterior",
     tags: ["Mid-range", "Convenient", "Good Value"],
+    address: "No. 555 Jiujiang Road, Huangpu District, Shanghai 200001",
     price: "¥600-1000 per night",
     description: "A practical central hotel near Nanjing Road, People's Square, the Bund, and Shanghai Museum.",
   },
@@ -526,6 +528,7 @@ const shanghaiHotels = [
     image: "/images/shanghai/hotel-fairmont-peace.jpg",
     alt: "Fairmont Peace Hotel exterior",
     tags: ["Luxury", "Bund", "Historic Stay"],
+    address: "20 Nanjing Road East, Shanghai 200002, China",
     price: "¥2200-4000+ per night",
     description: "A historic luxury hotel on the Bund, facing the Huangpu River and Pudong skyline.",
   },
@@ -997,6 +1000,7 @@ const shanghaiImportantGroups = [
                     <div class="bj-mini-tags">
                       {hotel.tags.map((tag) => <span>{tag}</span>)}
                     </div>
+                    <p><strong>Address:</strong> {hotel.address}</p>
                     <p><strong>Price:</strong> {hotel.price}</p>
                     <p>{hotel.description}</p>
                   </div>
