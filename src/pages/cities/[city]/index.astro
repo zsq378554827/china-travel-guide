@@ -39,6 +39,7 @@ const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
 const isXian = city.id === "xian";
 const isGuilinYangshuo = city.id === "guilin-yangshuo";
+const isZhangjiajie = city.id === "zhangjiajie";
 
 const beijingGuideCards = [
   {
@@ -268,6 +269,63 @@ const guilinYangshuoHighlights = [
   { label: "West Street / Riverside Night View", Icon: Moon },
 ];
 
+const zhangjiajieGuideCards = [
+  {
+    status: "free",
+    title: "One-Day Itinerary",
+    description: "Time-based route with transport tips and key stops.",
+    image: "/images/cities/zhangjiajie-cover.jpg",
+    imagePosition: "center center",
+    alt: "Zhangjiajie sandstone peaks and misty mountain scenery",
+    href: "/cities/zhangjiajie/1-day-itinerary/",
+    Icon: CalendarDays,
+  },
+  {
+    status: "locked",
+    title: "Food Guide",
+    description: "Best local dishes and recommended areas.",
+    image: "/images/shanghai/food-shanghai-dinner.jpg",
+    imagePosition: "center center",
+    alt: "Local food representing Zhangjiajie food guide",
+    Icon: Utensils,
+  },
+  {
+    status: "locked",
+    title: "Transport Guide",
+    description: "How to get there, local transport, and ticket tips.",
+    image: "/images/zhangjiajie/zhangjiajie-hero-bailong.jpg",
+    imagePosition: "58% center",
+    alt: "Bailong Elevator and Zhangjiajie mountain transport",
+    Icon: TrainFront,
+  },
+  {
+    status: "locked",
+    title: "Booking Reminders",
+    description: "Tickets, ID, entry tips, and important notes.",
+    image: "/images/zhangjiajie/zhangjiajie-hero-bailong.jpg",
+    imagePosition: "64% center",
+    alt: "Bailong Elevator and Zhangjiajie park booking reminder image",
+    Icon: ClipboardCheck,
+  },
+  {
+    status: "locked",
+    title: "Quick Notes & Backup Plan",
+    description: "Avoid crowds, adjust timing, and solve common issues.",
+    image: "/images/shanghai/food-night-snack.jpg",
+    imagePosition: "center center",
+    alt: "Night walk image representing Zhangjiajie backup planning notes",
+    Icon: FileText,
+  },
+];
+
+const zhangjiajieHighlights = [
+  { label: "Yuanjiajie", Icon: Landmark },
+  { label: "Tianzi Mountain", Icon: MapPinned },
+  { label: "Bailong Elevator", Icon: Building2 },
+  { label: "Ten-Mile Gallery", Icon: Route },
+  { label: "Xibu Old Street / Night Walk", Icon: Moon },
+];
+
 const cityEntryConfig = isBeijing
   ? {
       headerCtaLabel: "Unlock - $9.90",
@@ -358,7 +416,32 @@ const cityEntryConfig = isBeijing
               "Get the full Guilin & Yangshuo plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
             packFeatures: beijingPackFeatures,
           }
-        : null;
+        : isZhangjiajie
+          ? {
+              headerCtaLabel: "Unlock Pack - $9.90",
+              pageClass: "beijing-city-page--zhangjiajie",
+              showIllustrationLabels: false,
+              heroAlt: "Zhangjiajie sandstone peaks and misty mountain scenery",
+              heroPosition: "center center",
+              breadcrumbName: "Zhangjiajie",
+              region: "HUNAN · CENTRAL CHINA",
+              title: "Zhangjiajie",
+              subtitle: "Avatar-style peaks, dramatic\nsandstone mountains, and\nunforgettable national park scenery.",
+              bestFor: "Nature lovers",
+              mustSee: "Yuanjiajie, Tianzi Mountain, Bailong Elevator, Ten-Mile Gallery",
+              primaryHref: "/cities/zhangjiajie/1-day-itinerary/",
+              unlockLabel: "Unlock Full Zhangjiajie Pack - $9.90",
+              guideCards: zhangjiajieGuideCards,
+              guideDescription: "The 1-day itinerary is free. The other guides are included in the full pack.",
+              lockedPackName: "Full Zhangjiajie Pack",
+              hint: "Click any locked guide to see what’s included in the Full Zhangjiajie Pack.",
+              highlights: zhangjiajieHighlights,
+              fullPackTitle: "Want the Full Zhangjiajie Pack?",
+              fullPackText:
+                "Get the full Zhangjiajie plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+              packFeatures: beijingPackFeatures,
+            }
+          : null;
 
 const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 ---
@@ -391,7 +474,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
           </p>
           <div class="beijing-city-pills" aria-label={`${cityEntryConfig.title} route summary`}>
             <span>Recommended: Full day</span>
-            <span>Best for: First-time visitors</span>
+            <span>Best for: {cityEntryConfig.bestFor ?? "First-time visitors"}</span>
             <span>Must-see: {cityEntryConfig.mustSee}</span>
           </div>
           <div class="beijing-city-actions">
@@ -406,7 +489,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
         <div class="container">
           <div class="beijing-section-heading">
             <h2 id="beijing-guide-cards-title">Explore the Free 1-Day Guide</h2>
-            <p>Only the 1-day itinerary is free. The other guides are included in the full pack.</p>
+            <p>{cityEntryConfig.guideDescription ?? "Only the 1-day itinerary is free. The other guides are included in the full pack."}</p>
           </div>
           <div class="beijing-guide-grid">
             {cityEntryConfig.guideCards.map((card) => {
