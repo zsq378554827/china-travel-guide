@@ -38,6 +38,7 @@ const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
 const isXian = city.id === "xian";
+const isChengdu = city.id === "chengdu";
 const isGuilinYangshuo = city.id === "guilin-yangshuo";
 const isZhangjiajie = city.id === "zhangjiajie";
 
@@ -269,6 +270,63 @@ const guilinYangshuoHighlights = [
   { label: "West Street / Riverside Night View", Icon: Moon },
 ];
 
+const chengduGuideCards = [
+  {
+    status: "free",
+    title: "One-Day Itinerary",
+    description: "Time-based route with transport tips and key stops.",
+    image: "/images/cities/chengdu-cover.jpg",
+    imagePosition: "center center",
+    alt: "Giant panda eating bamboo in Chengdu",
+    href: "/cities/chengdu/1-day-itinerary/",
+    Icon: CalendarDays,
+  },
+  {
+    status: "locked",
+    title: "Food Guide",
+    description: "Best local dishes and recommended areas.",
+    image: "/images/shanghai/food-shanghai-dinner.jpg",
+    imagePosition: "center center",
+    alt: "Spicy local dishes representing Chengdu food guide",
+    Icon: Utensils,
+  },
+  {
+    status: "locked",
+    title: "Transport Guide",
+    description: "Airport, railway, metro, bus, DiDi / taxi, and local transfer tips.",
+    image: "/images/shanghai/airport-pvg.jpg",
+    imagePosition: "center center",
+    alt: "City transport hub representing Chengdu transport guide",
+    Icon: TrainFront,
+  },
+  {
+    status: "locked",
+    title: "Booking Reminders",
+    description: "Tickets, ID, entry tips, and important notes.",
+    image: "/images/beijing-itinerary/beijing-airport-thumb.jpg",
+    imagePosition: "center center",
+    alt: "Ticket and transport planning image representing Chengdu booking reminders",
+    Icon: ClipboardCheck,
+  },
+  {
+    status: "locked",
+    title: "Quick Notes & Backup Plan",
+    description: "Avoid crowds, adjust timing, and solve common issues.",
+    image: "/images/cities/chengdu-cover.jpg",
+    imagePosition: "30% center",
+    alt: "Chengdu panda garden scene representing backup planning notes",
+    Icon: FileText,
+  },
+];
+
+const chengduHighlights = [
+  { label: "Chengdu Panda Base", Icon: Landmark },
+  { label: "Jinli Ancient Street", Icon: Building2 },
+  { label: "Wuhou Shrine", Icon: MapPinned },
+  { label: "Sichuan Food Experience", Icon: Utensils },
+  { label: "People’s Park Tea Culture", Icon: Moon },
+];
+
 const zhangjiajieGuideCards = [
   {
     status: "free",
@@ -393,7 +451,31 @@ const cityEntryConfig = isBeijing
             "Get the full Xi’an plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
           packFeatures: beijingPackFeatures,
         }
-      : isGuilinYangshuo
+      : isChengdu
+        ? {
+            headerCtaLabel: "Unlock Pack - $9.90",
+            pageClass: "beijing-city-page--chengdu",
+            showIllustrationLabels: false,
+            heroAlt: "Giant panda eating bamboo in Chengdu",
+            heroPosition: "center center",
+            breadcrumbName: "Chengdu",
+            region: "SICHUAN · SOUTHWEST CHINA",
+            title: "Chengdu",
+            subtitle: "Pandas, spicy food, tea culture,\nand a relaxed city vibe.",
+            mustSee: "Panda Base, Wuhou Shrine, Jinli Ancient Street",
+            primaryHref: "/cities/chengdu/1-day-itinerary/",
+            unlockLabel: "Unlock Full Chengdu Pack - $9.90",
+            guideCards: chengduGuideCards,
+            guideDescription: "The 1-day itinerary is free. The other guides are included in the full pack.",
+            lockedPackName: "Full Chengdu Pack",
+            hint: "Click any locked guide to see what’s included in the Full Chengdu Pack.",
+            highlights: chengduHighlights,
+            fullPackTitle: "Want the Full Chengdu Pack?",
+            fullPackText:
+              "Get the full Chengdu plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+            packFeatures: beijingPackFeatures,
+          }
+        : isGuilinYangshuo
         ? {
             headerCtaLabel: "Unlock Pack - $9.90",
             pageClass: "beijing-city-page--guilin-yangshuo",
