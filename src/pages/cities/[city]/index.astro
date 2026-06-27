@@ -37,6 +37,7 @@ const { city } = Astro.props;
 const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
+const isXian = city.id === "xian";
 
 const beijingGuideCards = [
   {
@@ -152,6 +153,63 @@ const shanghaiHighlights = [
   { label: "Huangpu River Night View", Icon: Moon },
 ];
 
+const xianGuideCards = [
+  {
+    status: "free",
+    title: "One-Day Itinerary",
+    description: "Time-based route with transport tips and key stops.",
+    image: "/images/cities/xian-cover.jpg",
+    imagePosition: "center center",
+    alt: "Terracotta Warriors and Xi'an ancient city wall at sunset",
+    href: "/cities/xian/1-day-itinerary/",
+    Icon: CalendarDays,
+  },
+  {
+    status: "locked",
+    title: "Food Guide",
+    description: "Best local dishes and recommended areas.",
+    image: "/images/beijing-itinerary/zhajiangmian-thumb.jpg",
+    imagePosition: "center center",
+    alt: "Local noodle dish representing Xi'an food guide",
+    Icon: Utensils,
+  },
+  {
+    status: "locked",
+    title: "Transport Guide",
+    description: "Subway, bus, DiDi, walking, and ticket tips.",
+    image: "/images/cities/xian-cover.jpg",
+    imagePosition: "72% center",
+    alt: "Xi'an ancient city wall transport planning image",
+    Icon: TrainFront,
+  },
+  {
+    status: "locked",
+    title: "Booking Reminders",
+    description: "Tickets, ID, entry tips, and important notes.",
+    image: "/images/cities/xian-cover.jpg",
+    imagePosition: "82% center",
+    alt: "Xi'an city wall and attraction booking reminder image",
+    Icon: ClipboardCheck,
+  },
+  {
+    status: "locked",
+    title: "Quick Notes & Backup Plan",
+    description: "Avoid crowds, adjust timing, and solve common issues.",
+    image: "/images/cities/xian-cover.jpg",
+    imagePosition: "35% center",
+    alt: "Xi'an sunset scene for backup planning notes",
+    Icon: FileText,
+  },
+];
+
+const xianHighlights = [
+  { label: "Terracotta Warriors", Icon: Landmark },
+  { label: "Ancient City Wall", Icon: Building2 },
+  { label: "Bell & Drum Tower", Icon: MapPinned },
+  { label: "Local Food Experience", Icon: Utensils },
+  { label: "Muslim Quarter Night View", Icon: Moon },
+];
+
 const cityEntryConfig = isBeijing
   ? {
       headerCtaLabel: "Unlock - $9.90",
@@ -196,7 +254,30 @@ const cityEntryConfig = isBeijing
           "Get the full Shanghai plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
         packFeatures: beijingPackFeatures,
       }
-    : null;
+    : isXian
+      ? {
+          headerCtaLabel: "Unlock Pack - $9.90",
+          pageClass: "beijing-city-page--xian",
+          showIllustrationLabels: false,
+          heroAlt: "Terracotta Warriors and Xi'an ancient city wall at sunset",
+          heroPosition: "center center",
+          breadcrumbName: "Xi’an",
+          region: "NORTHWEST CHINA",
+          title: "Xi’an",
+          subtitle: "Ancient capital, Terracotta Warriors,\nand rich Silk Road heritage.",
+          mustSee: "Terracotta Warriors, Ancient City Wall, Bell & Drum Tower",
+          primaryHref: "/cities/xian/1-day-itinerary/",
+          unlockLabel: "Unlock Full Xi’an Pack - $9.90",
+          guideCards: xianGuideCards,
+          lockedPackName: "Full Xi’an Pack",
+          hint: "Click any locked guide to see what’s included in the Full Xi’an Pack.",
+          highlights: xianHighlights,
+          fullPackTitle: "Want the Full Xi’an Pack?",
+          fullPackText:
+            "Get the full Xi’an plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+          packFeatures: beijingPackFeatures,
+        }
+      : null;
 
 const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 ---
@@ -209,7 +290,12 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
   {cityEntryConfig ? (
     <div class={`beijing-city-page ${cityEntryConfig.pageClass}`}>
       <section class="beijing-city-hero" aria-labelledby="beijing-city-title">
-        <img class="beijing-city-hero__image" src={city.image} alt={cityEntryConfig.heroAlt} />
+        <img
+          class="beijing-city-hero__image"
+          src={city.image}
+          alt={cityEntryConfig.heroAlt}
+          style={`object-position: ${cityEntryConfig.heroPosition ?? city.imagePosition ?? "center center"}`}
+        />
         <div class="beijing-city-hero__scrim" aria-hidden="true"></div>
         <div class="container beijing-city-hero__inner">
           <nav class="beijing-city-breadcrumb" aria-label="Breadcrumb">
@@ -246,6 +332,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
               const Icon = card.Icon;
               const isFree = card.status === "free";
               const href = isFree ? card.href : "#full-pack";
+              const imagePosition = "imagePosition" in card ? card.imagePosition : "center center";
               return (
                 <a
                   class={`beijing-guide-card ${isFree ? "beijing-guide-card--free" : "beijing-guide-card--locked"}`}
@@ -254,7 +341,13 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
                   aria-label={isFree ? `Open ${card.title}` : `${card.title} is included in the ${cityEntryConfig.lockedPackName}`}
                 >
                   <div class="beijing-guide-card__image">
-                    <img src={card.image} alt={card.alt} loading="lazy" decoding="async" />
+                    <img
+                      src={card.image}
+                      alt={card.alt}
+                      loading="lazy"
+                      decoding="async"
+                      style={`object-position: ${imagePosition}`}
+                    />
                     <span class={isFree ? "beijing-card-badge beijing-card-badge--free" : "beijing-card-badge beijing-card-badge--lock"}>
                       {isFree ? "FREE" : <LockKeyhole size={18} />}
                     </span>
