@@ -1660,8 +1660,8 @@ const chengduPrepCards = [
       {
         title: "Transport to Panda Base",
         lines: [
-          "Best: Taxi / DiDi, usually 30-45 min from the city center.",
-          "Budget: Metro Line 3 to Panda Avenue Station, then shuttle bus / Bus 408 / taxi to Panda Base South Gate.",
+          "Best option: Taxi / DiDi, usually 30-45 min from Tianfu Square / Chunxi Road / Wenshu Monastery.",
+          "Budget route: Metro Line 3 -> Panda Avenue Station -> Exit A -> Shuttle Bus 408 -> Panda Base South Gate.",
           "Metro + shuttle can take longer with waiting time.",
         ],
       },
@@ -1713,7 +1713,7 @@ const chengduStops = [
     time: "07:40",
     end: "08:20",
     title: "Taxi / DiDi to Panda Base",
-    description: "Best: Taxi / DiDi, 30-45 min. Budget: Metro Line 3 to Panda Avenue Station, then shuttle bus / Bus 408 / taxi.",
+    description: "Best option: Taxi / DiDi, usually 30-45 min from Tianfu Square / Chunxi Road / Wenshu Monastery. Budget route: Metro Line 3 -> Panda Avenue Station -> Exit A -> Shuttle Bus 408 -> Panda Base South Gate.",
     transport: { mode: "Taxi / DiDi", detail: "To Panda Base", time: "30-45 min", Icon: Car },
   },
   {
@@ -1838,7 +1838,7 @@ const chengduLunchOptions = [
   {
     label: "Option 3: Classic Sichuan Cuisine",
     name: "Chen Mapo Tofu 陈麻婆豆腐（总店）",
-    address: "No.51 Donghua Men Street, Qingyang District, Chengdu",
+    address: "No.51 Donghuamen Street, Qingyang District, Chengdu",
     chineseAddress: "成都市青羊区东华门街51号",
     bestFor: "classic Sichuan dishes",
     recommended: "mapo tofu, kung pao chicken, twice-cooked pork",
@@ -1871,7 +1871,7 @@ const chengduDinnerOptions = [
   {
     label: "Option 3: Classic Sichuan Cuisine",
     name: "Chen Mapo Tofu 陈麻婆豆腐（总店）",
-    address: "No.51 Donghua Men Street, Qingyang District, Chengdu",
+    address: "No.51 Donghuamen Street, Qingyang District, Chengdu",
     chineseAddress: "成都市青羊区东华门街51号",
     bestFor: "classic Sichuan dishes without doing hotpot",
     recommended: "mapo tofu, twice-cooked pork, kung pao chicken",
@@ -1880,9 +1880,9 @@ const chengduDinnerOptions = [
   },
   {
     label: "Option 4: Premium Sichuan Dinner",
-    name: "Huangcheng Laoma 皇城老妈（武侯祠店）",
-    address: "No.20 Section 2, South 2nd Ring Road, Wuhou District, Chengdu",
-    chineseAddress: "成都市武侯区二环路南二段20号",
+    name: "Huangcheng Laoma Hotpot 皇城老妈火锅（皇城店）",
+    address: "No.20 South Section 3, Second Ring Road, Wuhou District, Chengdu",
+    chineseAddress: "成都市武侯区二环路南三段20号",
     bestFor: "premium hotpot, families, high comfort",
     recommended: "premium hotpot, quality beef, mushroom soup base",
     cost: "¥180-320",
@@ -3183,7 +3183,7 @@ const chengduCtaFeatures = [
                 <section class="bj-stop">
                   <div class="bj-stop__time">
                     <strong>{stop.time}</strong>
-                    <span>-{stop.end}</span>
+                    <span>{stop.end === "onwards" ? "onwards" : `-${stop.end}`}</span>
                   </div>
                   <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
                   <div class="bj-stop__content">
@@ -3230,7 +3230,7 @@ const chengduCtaFeatures = [
 
           <section class="bj-panel bj-side-section">
             <header class="bj-section-title">
-              <h2>Dinner Options <span>(Chunxi Road / Wenshu Monastery / City Center Area)</span></h2>
+              <h2>Dinner Options <span>(City Center / Wuhou Shrine / Chunxi Road Area)</span></h2>
             </header>
             <div class="xian-card-grid xian-card-grid--four">
               {chengduDinnerOptions.map((option) => (
@@ -3301,32 +3301,34 @@ const chengduCtaFeatures = [
               })}
             </div>
           </section>
-
-          <section class="bj-panel bj-side-section">
-            <header class="bj-section-title">
-              <h2>Evening Choice <span>(20:00-21:00)</span></h2>
-            </header>
-            <div class="xian-card-grid xian-card-grid--three">
-              {chengduEveningChoices.map((option) => (
-                <article class="xian-detail-card">
-                  <h3>{option.name}</h3>
-                  <p>{option.text}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section class="bj-panel bj-side-section bj-important">
-            <header class="bj-section-title">
-              <h2>Quick Practical Notes</h2>
-            </header>
-            <ul class="bj-check-list">
-              {chengduQuickNotes.map((note) => (
-                <li><Check size={15} /> {note}</li>
-              ))}
-            </ul>
-          </section>
         </aside>
+      </section>
+
+      <section class="bj-container chengdu-lower-grid" aria-label="Chengdu evening and practical planning">
+        <section class="bj-panel bj-side-section">
+          <header class="bj-section-title">
+            <h2>Evening Choice <span>(20:00-21:00)</span></h2>
+          </header>
+          <div class="xian-card-grid xian-card-grid--three">
+            {chengduEveningChoices.map((option) => (
+              <article class="xian-detail-card">
+                <h3>{option.name}</h3>
+                <p>{option.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="bj-panel bj-side-section bj-important">
+          <header class="bj-section-title">
+            <h2>Quick Practical Notes</h2>
+          </header>
+          <ul class="bj-check-list">
+            {chengduQuickNotes.map((note) => (
+              <li><Check size={15} /> {note}</li>
+            ))}
+          </ul>
+        </section>
       </section>
 
       <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Chengdu guide">
@@ -4573,9 +4575,24 @@ const chengduCtaFeatures = [
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .chengdu-guide .xian-nav-names {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .chengdu-guide .bj-check-list li {
     align-items: flex-start;
     line-height: 1.38;
+  }
+
+  .chengdu-lower-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .chengdu-lower-grid .bj-panel {
+    margin: 0;
   }
 
   @media (max-width: 1120px) {
@@ -4610,7 +4627,8 @@ const chengduCtaFeatures = [
     .zhangjiajie-guide .bj-prep-grid,
     .chengdu-guide .bj-hero__inner,
     .chengdu-guide .bj-main-grid,
-    .chengdu-guide .bj-prep-grid {
+    .chengdu-guide .bj-prep-grid,
+    .chengdu-lower-grid {
       grid-template-columns: 1fr;
     }
 
@@ -4830,6 +4848,10 @@ const chengduCtaFeatures = [
 
     .chengdu-guide .xian-card-grid--three,
     .chengdu-guide .xian-card-grid--four {
+      grid-template-columns: 1fr;
+    }
+
+    .chengdu-guide .xian-nav-names {
       grid-template-columns: 1fr;
     }
   }
