@@ -38,6 +38,7 @@ const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
 const isShanghai = city.id === "shanghai";
 const isXian = city.id === "xian";
+const isGuilinYangshuo = city.id === "guilin-yangshuo";
 
 const beijingGuideCards = [
   {
@@ -210,6 +211,63 @@ const xianHighlights = [
   { label: "Muslim Quarter Night View", Icon: Moon },
 ];
 
+const guilinYangshuoGuideCards = [
+  {
+    status: "free",
+    title: "One-Day Itinerary",
+    description: "Time-based route with transport tips and key stops.",
+    image: "/images/cities/guilin-yangshuo-cover.jpg",
+    imagePosition: "center center",
+    alt: "Li River karst landscape near Guilin and Yangshuo",
+    href: "/cities/guilin-yangshuo/1-day-itinerary/",
+    Icon: CalendarDays,
+  },
+  {
+    status: "locked",
+    title: "Food Guide",
+    description: "Best local dishes and recommended areas.",
+    image: "/images/shanghai/food-shanghai-dinner.jpg",
+    imagePosition: "center center",
+    alt: "Local food representing Guilin and Yangshuo food guide",
+    Icon: Utensils,
+  },
+  {
+    status: "locked",
+    title: "Transport Guide",
+    description: "Cruise pier, taxi, railway station, and Yangshuo transfer tips.",
+    image: "/images/cities/guilin-yangshuo-cover.jpg",
+    imagePosition: "58% center",
+    alt: "Li River and Yangshuo transfer planning image",
+    Icon: TrainFront,
+  },
+  {
+    status: "locked",
+    title: "Booking Reminders",
+    description: "Tickets, pier notes, entry tips, and important notes.",
+    image: "/images/cities/guilin-yangshuo-cover.jpg",
+    imagePosition: "44% center",
+    alt: "Guilin and Yangshuo cruise booking reminder image",
+    Icon: ClipboardCheck,
+  },
+  {
+    status: "locked",
+    title: "Quick Notes & Backup Plan",
+    description: "Avoid crowds, adjust timing, and solve common issues.",
+    image: "/images/cities/guilin-yangshuo-cover.jpg",
+    imagePosition: "76% center",
+    alt: "Yangshuo riverside evening backup planning image",
+    Icon: FileText,
+  },
+];
+
+const guilinYangshuoHighlights = [
+  { label: "Li River Cruise", Icon: Landmark },
+  { label: "Yulong River", Icon: MapPinned },
+  { label: "Ten-Mile Gallery", Icon: Route },
+  { label: "Local Food Experience", Icon: Utensils },
+  { label: "West Street / Riverside Night View", Icon: Moon },
+];
+
 const cityEntryConfig = isBeijing
   ? {
       headerCtaLabel: "Unlock - $9.90",
@@ -277,7 +335,30 @@ const cityEntryConfig = isBeijing
             "Get the full Xi’an plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
           packFeatures: beijingPackFeatures,
         }
-      : null;
+      : isGuilinYangshuo
+        ? {
+            headerCtaLabel: "Unlock Pack - $9.90",
+            pageClass: "beijing-city-page--guilin-yangshuo",
+            showIllustrationLabels: false,
+            heroAlt: "Li River karst landscape near Guilin and Yangshuo",
+            heroPosition: "center center",
+            breadcrumbName: "Guilin & Yangshuo",
+            region: "SOUTH CHINA",
+            title: "Guilin & Yangshuo",
+            subtitle: "Li River, Yulong River, and\nstunning karst landscapes.",
+            mustSee: "Li River Cruise, Yulong River, Yangshuo West Street",
+            primaryHref: "/cities/guilin-yangshuo/1-day-itinerary/",
+            unlockLabel: "Unlock Full Guilin & Yangshuo Pack - $9.90",
+            guideCards: guilinYangshuoGuideCards,
+            lockedPackName: "Full Guilin & Yangshuo Pack",
+            hint: "Click any locked guide to see what’s included in the Full Guilin & Yangshuo Pack.",
+            highlights: guilinYangshuoHighlights,
+            fullPackTitle: "Want the Full Guilin & Yangshuo Pack?",
+            fullPackText:
+              "Get the full Guilin & Yangshuo plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+            packFeatures: beijingPackFeatures,
+          }
+        : null;
 
 const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 ---
@@ -554,6 +635,10 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
     font-size: clamp(5rem, 8vw, 7.8rem);
     line-height: 0.88;
     text-shadow: 0 7px 24px rgba(0, 0, 0, 0.36);
+  }
+
+  .beijing-city-page--guilin-yangshuo .beijing-city-hero h1 {
+    font-size: clamp(4.4rem, 6.2vw, 6.7rem);
   }
 
   .beijing-city-lead {
@@ -932,6 +1017,10 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
       font-size: clamp(4.4rem, 21vw, 5.5rem);
     }
 
+    .beijing-city-page--guilin-yangshuo .beijing-city-hero h1 {
+      font-size: clamp(3.5rem, 16vw, 4.6rem);
+    }
+
     .beijing-city-lead {
       font-size: 1.35rem;
     }
@@ -1024,6 +1113,10 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 
     .beijing-city-hero h1 {
       font-size: clamp(3.9rem, 19vw, 4.7rem);
+    }
+
+    .beijing-city-page--guilin-yangshuo .beijing-city-hero h1 {
+      font-size: clamp(3.1rem, 13vw, 3.8rem);
     }
 
     .beijing-city-lead {
