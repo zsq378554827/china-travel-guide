@@ -1,8 +1,6 @@
 ---
 import { Landmark } from "@lucide/astro";
 import { footerLinks, site } from "@data/site";
-
-const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
@@ -11,7 +9,7 @@ const year = new Date().getFullYear();
       <span class="brand-mark" aria-hidden="true"><Landmark size={22} stroke-width={2.4} /></span>
       <span>
         <span class="brand-title">{site.name}</span><br />
-        <span class="muted">© {year} {site.name}</span>
+        <span class="muted">First China Trip Made Simple</span>
       </span>
     </a>
     <nav class="footer-links" aria-label="Footer navigation">
