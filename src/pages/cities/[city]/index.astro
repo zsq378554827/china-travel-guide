@@ -752,7 +752,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 
   .beijing-full-pack__panel {
     display: grid;
-    grid-template-columns: minmax(250px, 0.95fr) minmax(0, 1.45fr) minmax(260px, 0.8fr);
+    grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
     align-items: center;
     gap: 28px;
     padding: 30px;
@@ -760,7 +760,8 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 
   .beijing-pack-features {
     display: grid;
-    grid-template-columns: repeat(7, minmax(72px, 1fr));
+    min-width: 0;
+    grid-template-columns: repeat(7, minmax(64px, 1fr));
     gap: 14px;
     text-align: center;
   }
@@ -780,8 +781,11 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 
   .beijing-full-pack__action {
     display: grid;
+    grid-column: 1 / -1;
     justify-items: stretch;
+    justify-self: center;
     gap: 12px;
+    width: min(420px, 100%);
   }
 
   .beijing-full-pack__action small {
