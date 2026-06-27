@@ -45,6 +45,7 @@ const isShanghai = city.id === "shanghai";
 const isXian = city.id === "xian";
 const isZhangjiajie = city.id === "zhangjiajie";
 const isChengdu = city.id === "chengdu";
+const isGuilinYangshuo = city.id === "guilin-yangshuo";
 
 const timeline = [
   ["Morning", `Start with the main landmark cluster for ${city.name}. Keep transport simple and arrive early.`],
@@ -2030,12 +2031,482 @@ const chengduCtaFeatures = [
   { label: "Backup Plans", Icon: ClipboardCheck },
   { label: "Printable PDFs", Icon: Info },
 ];
+
+const guilinHeroImage = "/images/cities/guilin-yangshuo-cover.jpg";
+
+const guilinStats = [
+  { label: "Recommended", value: "Full day, 13-14 hours", Icon: Clock3 },
+  { label: "Best for", value: "First-time visitors\nLandscape lovers\nPhotography", Icon: Users },
+  { label: "Transport", value: "Taxi / DiDi\nLi River cruise\nTaxi in Yangshuo", Icon: Bus },
+];
+
+const guilinHeroNotes = [
+  {
+    title: "This route assumes you stay in Guilin city center the night before and stay in Yangshuo after the trip.",
+    Icon: Navigation,
+  },
+  {
+    title: "This is a full-day river-and-countryside route with fixed cruise timing. It may feel rushed for slow travelers.",
+    Icon: Info,
+  },
+];
+
+const guilinRouteOverview = [
+  {
+    number: 1,
+    time: "07:15",
+    title: "Breakfast",
+    detail: "Guilin hotel area",
+    transport: "Walk",
+    duration: "5-10 min",
+    Icon: Utensils,
+  },
+  {
+    number: 2,
+    time: "07:50",
+    title: "Leave for Cruise Pier",
+    detail: "Taxi / DiDi",
+    transport: "Taxi / DiDi",
+    duration: "45-60 min",
+    Icon: Car,
+  },
+  {
+    number: 3,
+    time: "09:00-13:00",
+    title: "Li River Cruise",
+    detail: "Guilin to Yangshuo",
+    transport: "Cruise",
+    duration: "3.5-4.5h",
+    Icon: Route,
+  },
+  {
+    number: 4,
+    time: "13:00-13:30",
+    title: "Arrive in Yangshuo",
+    detail: "Transfer to West Street area",
+    transport: "Walk / Taxi",
+    duration: "5-15 min",
+    Icon: Navigation,
+  },
+  {
+    number: 5,
+    time: "13:30-14:15",
+    title: "Simple Lunch / Coffee Break",
+    detail: "West Street area",
+    transport: "Food / Cafe",
+    duration: "",
+    Icon: Coffee,
+  },
+  {
+    number: 6,
+    time: "14:15-15:00",
+    title: "Transfer to Jima Pier",
+    detail: "Confirm raft ticket first",
+    transport: "Taxi / DiDi",
+    duration: "20-30 min",
+    Icon: Car,
+  },
+  {
+    number: 7,
+    time: "15:00-16:20",
+    title: "Yulong River Bamboo Raft or Ten-Mile Gallery",
+    detail: "Scenic area",
+    transport: "Raft / Scenic",
+    duration: "",
+    Icon: Route,
+  },
+  {
+    number: 8,
+    time: "16:20-17:20",
+    title: "Moon Hill / Countryside Photo Stop",
+    detail: "Photo stop",
+    transport: "Walk / Taxi",
+    duration: "10-20 min",
+    Icon: Mountain,
+  },
+  {
+    number: 9,
+    time: "17:20-18:00",
+    title: "Return to Yangshuo Town",
+    detail: "Head back to town",
+    transport: "Taxi / DiDi",
+    duration: "20-30 min",
+    Icon: Car,
+  },
+  {
+    number: 10,
+    time: "18:00",
+    title: "Dinner",
+    detail: "Yangshuo town",
+    transport: "Food",
+    duration: "",
+    Icon: Utensils,
+  },
+  {
+    number: 11,
+    time: "20:00",
+    title: "West Street / Riverside / Optional Show",
+    detail: "Night plan",
+    transport: "Night walk",
+    duration: "",
+    Icon: Map,
+  },
+  {
+    number: 12,
+    time: "21:30+",
+    title: "Return to Hotel",
+    detail: "End of day",
+    transport: "Hotel",
+    duration: "",
+    Icon: Hotel,
+  },
+];
+
+const guilinPrepCards = [
+  {
+    title: "Must: Book Before You Go",
+    Icon: ShieldCheck,
+    variant: "red",
+    columns: [
+      {
+        title: "Li River Cruise Tickets",
+        lines: [
+          "Book in advance. Bring the passport used for booking.",
+          "Choose morning Guilin -> Yangshuo cruise.",
+          "Confirm whether you depart from Mopanshan Pier or Zhujiang Pier.",
+          "3-star cruises usually use Mopanshan Pier.",
+          "4-star cruises usually use Zhujiang Pier.",
+          "Always follow your ticket confirmation.",
+          "Platforms: Trip.com, Klook, GetYourGuide, hotel / local travel desk, or official Chinese platforms.",
+        ],
+      },
+      {
+        title: "Yulong River Bamboo Raft",
+        lines: [
+          "Best short route: Jima Pier -> Gongnong Bridge.",
+          "Chinese nav: 骥马码头 -> 工农桥.",
+          "Time: around 70-90 min.",
+          "Price: around ¥320 per raft, depending on route and platform.",
+          "Usually max 2 people per raft.",
+          "Rafting may change or close due to weather, water level, local rules, or same-day ticket availability.",
+        ],
+      },
+      {
+        title: "Reference",
+        lines: [
+          "Cruise: morning departure, around 3.5-4.5 hours.",
+          "Raft: book in advance or confirm same day.",
+          "Local transport: Taxi / DiDi.",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Important Reminders",
+    Icon: ClipboardCheck,
+    variant: "green",
+    checks: [
+      "Bring the passport used for booking.",
+      "Confirm the exact cruise pier before leaving Guilin.",
+      "Leave early; the pier is outside Guilin city.",
+      "Use Alipay / WeChat Pay, mobile data, and a map app.",
+      "Carry some cash as backup.",
+      "Bamboo rafting depends on weather and water conditions.",
+      "If arriving late in Yangshuo, skip rafting and do Ten-Mile Gallery / Moon Hill photo stops instead.",
+      "Travel light or send luggage to your Yangshuo hotel.",
+    ],
+  },
+  {
+    title: "Best Travel Seasons",
+    Icon: CalendarDays,
+    variant: "red",
+    highlight: "Mar-May / Sep-Nov",
+    text: "Spring and autumn are best for clear views and comfortable weather. Summer is green but hot, humid, and rainy. Winter is quieter and often misty.",
+  },
+];
+
+const guilinStops = [
+  {
+    number: 1,
+    time: "07:15",
+    end: "07:45",
+    title: "Breakfast near Guilin Hotel",
+    description: "Keep it simple. Guilin rice noodles or hotel breakfast.",
+    transport: { mode: "Food", detail: "Near hotel", time: "30 min", Icon: Utensils },
+  },
+  {
+    number: 2,
+    time: "07:50",
+    end: "08:45",
+    title: "Taxi / DiDi to Cruise Pier",
+    description: "Confirm your pier: Mopanshan Pier or Zhujiang Pier.",
+    transport: { mode: "Taxi / DiDi", detail: "To pier", time: "45-60 min", Icon: Car },
+  },
+  {
+    number: 3,
+    time: "09:00",
+    end: "13:00",
+    title: "Li River Cruise to Yangshuo",
+    description: "The core highlight: karst mountains, river scenery, classic Guilin landscapes.",
+    transport: { mode: "Cruise", detail: "Li River", time: "3.5-4.5h", Icon: Route },
+  },
+  {
+    number: 4,
+    time: "13:00",
+    end: "13:30",
+    title: "Arrive in Yangshuo",
+    description: "Walk or short taxi to West Street / town center.",
+    transport: { mode: "Walk / Taxi", detail: "West Street", time: "5-15 min", Icon: Footprints },
+  },
+  {
+    number: 5,
+    time: "13:30",
+    end: "14:15",
+    title: "Simple Lunch / Coffee Break",
+    description: "Take a short rest with local food or coffee. If your cruise includes lunch, keep this stop short: coffee, fruit, or a light snack only.",
+    transport: { mode: "Food / Cafe", detail: "Yangshuo", time: "45 min", Icon: Coffee },
+  },
+  {
+    number: 6,
+    time: "14:15",
+    end: "15:00",
+    title: "Transfer to Jima Pier",
+    description: "Taxi / DiDi to Jima Pier. Confirm raft ticket first.",
+    transport: { mode: "Taxi / DiDi", detail: "To Jima Pier", time: "20-30 min", Icon: Car },
+  },
+  {
+    number: 7,
+    time: "15:00",
+    end: "16:20",
+    title: "Yulong River Bamboo Raft or Ten-Mile Gallery",
+    description: "Best raft route: Jima Pier -> Gongnong Bridge. If rafting is unavailable, do Ten-Mile Gallery / countryside photo stops instead.",
+    transport: { mode: "Raft / Scenic", detail: "Yulong River", time: "80 min", Icon: Route },
+  },
+  {
+    number: 8,
+    time: "16:20",
+    end: "17:20",
+    title: "Moon Hill / Countryside Photo Stop",
+    description: "Do not climb Moon Hill on this one-day route. Use it as a quick photo stop only.",
+    transport: { mode: "Walk / Taxi", detail: "Photo stop", time: "10-20 min", Icon: Mountain },
+  },
+  {
+    number: 9,
+    time: "17:20",
+    end: "18:00",
+    title: "Return to Yangshuo Town",
+    description: "Head back to town, check in briefly, or go directly to dinner.",
+    transport: { mode: "Taxi / DiDi", detail: "To town", time: "20-30 min", Icon: Car },
+  },
+  {
+    number: 10,
+    time: "18:00",
+    end: "20:00",
+    title: "Dinner",
+    description: "Choose beer fish, local dishes, or a relaxed riverside dinner.",
+    transport: { mode: "Food", detail: "Yangshuo town", time: "2 hours", Icon: Utensils },
+  },
+  {
+    number: 11,
+    time: "20:00",
+    end: "21:30",
+    title: "West Street / Riverside / Optional Show",
+    description: "West Street night walk, Impression Liu Sanjie, or a relaxed riverside evening.",
+    transport: { mode: "Night walk", detail: "Riverside", time: "90 min", Icon: Map },
+  },
+  {
+    number: 12,
+    time: "21:30",
+    end: "onwards",
+    title: "Return to Hotel",
+    description: "Stay in Yangshuo tonight if possible.",
+    transport: { mode: "Hotel", detail: "End of day", time: "Flexible", Icon: Hotel },
+  },
+];
+
+const guilinLunchOptions = [
+  {
+    label: "Option 1: Cruise Boat Lunch",
+    bestFor: "saving time",
+    recommended: "simple onboard meal, fruit, bottled drink",
+    cost: "included or depends on package",
+    level: "Practical",
+  },
+  {
+    label: "Option 2: West Street Quick Meal",
+    bestFor: "quick local noodles, dumplings, and snacks",
+    area: "West Street",
+    cost: "¥20-60",
+    level: "Budget / Flexible",
+  },
+  {
+    label: "Option 3: Riverside Cafe / Light Meal",
+    bestFor: "coffee, tea, fruit, or a light meal before the afternoon plan",
+    area: "riverside cafes",
+    cost: "¥40-100",
+    level: "Flexible",
+  },
+];
+
+const guilinDinnerOptions = [
+  {
+    label: "Option 1: Da Shi Fu Beer Fish",
+    name: "Da Shi Fu Beer Fish 大师傅啤酒鱼",
+    address: "No.47 Diecui Road, Yangshuo",
+    chineseAddress: "阳朔县叠翠路47号",
+    recommended: "beer fish, stuffed snails, local vegetables",
+    cost: "¥80-150",
+    level: "Mid-range",
+  },
+  {
+    label: "Option 2: Liu Jie Beer Fish",
+    name: "Liu Jie Beer Fish 刘姐啤酒鱼",
+    address: "Building F, Sunshine 100, West Street, Yangshuo",
+    chineseAddress: "阳朔西街阳光100 F栋附近",
+    recommended: "beer fish, river fish, stir-fried vegetables",
+    cost: "¥80-150",
+    level: "Mid-range",
+  },
+  {
+    label: "Option 3: Yangshuo Mountain Retreat Restaurant",
+    name: "Yangshuo Mountain Retreat Restaurant 阳朔胜地酒店餐厅",
+    area: "Yulong River Scenic Area",
+    chineseAddress: "阳朔遇龙河景区 / 阳朔胜地酒店",
+    recommended: "local dishes, riverside dinner, Chinese & Western food",
+    cost: "¥100-200",
+    level: "Comfortable",
+    note: "Confirm location before going. Better for travelers already near Yulong River.",
+  },
+  {
+    label: "Option 4: Banyan Tree Yangshuo",
+    name: "Banyan Tree Yangshuo 阳朔悦榕庄",
+    address: "No.168 Zhendong Street, Fuli Town, Yangshuo",
+    chineseAddress: "阳朔县福利镇正东街168号",
+    recommended: "hotel Chinese dining, premium dinner",
+    cost: "¥250-500+",
+    level: "Premium",
+    note: "This is outside West Street. Use taxi / hotel car.",
+  },
+];
+
+const guilinNavigationNames = [
+  ["Guilin city center", "桂林市中心"],
+  ["Mopanshan Pier", "磨盘山码头"],
+  ["Zhujiang Pier", "竹江码头"],
+  ["Li River", "漓江"],
+  ["Longtoushan Pier", "龙头山码头"],
+  ["Yangshuo West Street", "阳朔西街"],
+  ["Yulong River", "遇龙河"],
+  ["Jima Pier", "骥马码头"],
+  ["Gongnong Bridge", "工农桥"],
+  ["Ten-Mile Gallery", "十里画廊"],
+  ["Moon Hill", "月亮山"],
+  ["Impression Liu Sanjie", "印象刘三姐"],
+];
+
+const guilinHotels = [
+  {
+    label: "Budget Option",
+    name: "Guilin Central Wada Hostel",
+    chineseName: "桂林中心瓦当青年旅舍",
+    address: "No.3 Renmin Road, Guilin",
+    chineseAddress: "桂林市人民路3号",
+    bestFor: "before the cruise",
+    positioning: "Budget / Practical",
+  },
+  {
+    label: "Mid-range Option",
+    name: "The Bamboo Leaf Yangshuo",
+    chineseName: "阳朔边城漓谷度假山庄",
+    address: "No.48 Shibanqiao Village, Yangshuo",
+    chineseAddress: "阳朔县石板桥村48号",
+    bestFor: "after the route",
+    positioning: "Mid-range / Scenic boutique",
+  },
+  {
+    label: "Premium Option",
+    name: "Banyan Tree Yangshuo",
+    chineseName: "阳朔悦榕庄",
+    address: "No.168 Zhendong Street, Fuli Town, Yangshuo",
+    chineseAddress: "阳朔县福利镇正东街168号",
+    bestFor: "premium stay after the route",
+    positioning: "Premium / Resort",
+  },
+];
+
+const guilinTransfers = [
+  {
+    title: "A. From Guilin Liangjiang Airport / KWL to Guilin City Hotel",
+    Icon: Navigation,
+    best: "Taxi / DiDi",
+    time: "35-50 min",
+    budget: "Airport shuttle bus, 50-70 min depending on route and hotel location",
+  },
+  {
+    title: "B. From Guilin City Hotel to Li River Cruise Pier",
+    Icon: Car,
+    best: "Taxi / DiDi or cruise transfer",
+    time: "45-60 min",
+    budget: "Confirm whether your cruise departs from Mopanshan Pier or Zhujiang Pier. Always follow your ticket confirmation.",
+  },
+  {
+    title: "C. From Yangshuo Railway Station to Yangshuo Town",
+    Icon: TrainFront,
+    best: "Taxi / DiDi",
+    time: "45-60 min",
+    budget: "Yangshuo Railway Station is not in Yangshuo town center. Plan transfer time.",
+  },
+  {
+    title: "D. After the Trip: Yangshuo to Guilin Airport / Guilin City",
+    Icon: Bus,
+    best: "Taxi / private transfer",
+    time: "70-100 min depending on destination",
+    budget: "Bus may be available but should be confirmed locally.",
+  },
+];
+
+const guilinEveningChoices = [
+  {
+    name: "Option A: West Street Night Walk",
+    text: "Best for local snacks, shops, lights, and easy walking. Area: Yangshuo West Street.",
+  },
+  {
+    name: "Option B: Impression Liu Sanjie",
+    text: "Best for outdoor performance. Book in advance and confirm show time.",
+  },
+  {
+    name: "Option C: Riverside Relaxed Evening",
+    text: "Best for a relaxed hotel / riverside evening after a long day.",
+  },
+];
+
+const guilinQuickNotes = [
+  "Best route: Guilin hotel -> Li River Cruise -> Yangshuo -> Yulong River -> West Street.",
+  "Stay in Guilin the night before and Yangshuo the night after.",
+  "Confirm the exact cruise pier before leaving Guilin.",
+  "Do not add Elephant Trunk Hill or Reed Flute Cave unless you skip Yangshuo countryside.",
+  "Yulong River rafting depends on weather and water conditions.",
+  "If arriving late in Yangshuo, skip rafting and do Ten-Mile Gallery / Moon Hill photo stops.",
+  "West Street is touristy but convenient for first-time visitors.",
+  "Use taxi / DiDi for Yangshuo countryside transfers.",
+  "Set up Alipay / WeChat Pay, mobile data, and a map app before the trip.",
+];
+
+const guilinCtaFeatures = [
+  { label: "2-3 Day Routes", Icon: Route },
+  { label: "Food Map", Icon: Map },
+  { label: "Transport Guide", Icon: Car },
+  { label: "Attraction Tips", Icon: Mountain },
+  { label: "Hotel Area Notes", Icon: Hotel },
+  { label: "Backup Plans", Icon: ClipboardCheck },
+  { label: "Printable PDFs", Icon: Info },
+];
 ---
 
 <BaseLayout
   title={`${city.name} 1-Day Itinerary for First-Time Visitors`}
   description={`A free ${city.name} 1-day itinerary for first-time visitors with simple timing, booking reminders, food notes, and backup planning.`}
-  headerCtaLabel={isBeijing || isShanghai || isXian || isZhangjiajie || isChengdu ? "Unlock All Guides - $9.90" : undefined}
+  headerCtaLabel={isBeijing || isShanghai || isXian || isZhangjiajie || isChengdu || isGuilinYangshuo ? "Unlock All Guides - $9.90" : undefined}
 >
   {isBeijing ? (
     <div class="beijing-guide">
@@ -3381,6 +3852,282 @@ const chengduCtaFeatures = [
         </div>
       </section>
     </div>
+  ) : isGuilinYangshuo ? (
+    <div class="beijing-guide xian-guide guilin-guide">
+      <section class="bj-hero" aria-labelledby="guilin-itinerary-title">
+        <div class="bj-container bj-hero__inner">
+          <div class="bj-hero__copy">
+            <p class="bj-eyebrow">FREE 1-DAY GUIDE</p>
+            <h1 id="guilin-itinerary-title">Guilin / Yangshuo <span class="bj-nowrap">1-Day</span><br />Itinerary</h1>
+            <p class="bj-subtitle">Li River Cruise × Karst Peaks × Yulong River × West Street × Local Food</p>
+            <p class="bj-lead">
+              A classic one-day route for first-time visitors: cruise from Guilin to Yangshuo in the morning, enjoy karst scenery and countryside highlights in the afternoon, and finish with local food and West Street at night.
+            </p>
+            <div class="bj-stat-row" aria-label="Route summary">
+              {guilinStats.map(({ label, value, Icon }) => (
+                <div class="bj-stat">
+                  <span class="bj-stat__icon" aria-hidden="true"><Icon size={23} /></span>
+                  <span>
+                    <strong>{label}</strong>
+                    <small>{value}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div class="zh-route-notes" aria-label="Important route notes">
+              {guilinHeroNotes.map(({ title, Icon }) => (
+                <div class="zh-route-note">
+                  <span aria-hidden="true"><Icon size={20} /></span>
+                  <p>{title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="bj-hero__image xian-hero__image">
+            <img src={guilinHeroImage} alt="Guilin and Yangshuo karst mountains with river cruise and bamboo raft" />
+            <span class="xian-image-label">Illustration</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bj-container xian-route-overview" aria-label="Guilin and Yangshuo route overview key stops">
+        <header class="bj-section-title bj-section-title--center">
+          <h2>One-Day Route Overview <span>Key Stops</span></h2>
+        </header>
+        <div class="xian-route-scroll">
+          <ol class="xian-route-map guilin-route-map">
+            {guilinRouteOverview.map((step, index) => {
+              const Icon = step.Icon;
+              return (
+                <li class="xian-route-node">
+                  <div class="xian-route-node__icon" aria-hidden="true"><Icon size={23} /></div>
+                  <strong>{step.number}</strong>
+                  <time>{step.time}</time>
+                  <h3>{step.title}</h3>
+                  <p>{step.detail}</p>
+                  {step.transport && <small>{step.transport}<br />{step.duration}</small>}
+                  {index < guilinRouteOverview.length - 1 && <ArrowRight class="xian-route-arrow" size={16} aria-hidden="true" />}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      <section class="bj-container bj-prep-grid" aria-label="Before you go">
+        {guilinPrepCards.map((card) => {
+          const Icon = card.Icon;
+          return (
+            <article class={`bj-prep-card bj-prep-card--${card.variant}`}>
+              <div class="bj-card-heading">
+                <span aria-hidden="true"><Icon size={22} /></span>
+                <h2>{card.title}</h2>
+              </div>
+              {card.columns && (
+                <div class="bj-booking-columns">
+                  {card.columns.map((column) => (
+                    <div>
+                      <h3>{column.title}</h3>
+                      {column.lines.map((line) => <p>{line}</p>)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {card.checks && (
+                <ul class="bj-check-list">
+                  {card.checks.map((item) => (
+                    <li><Check size={15} /> {item}</li>
+                  ))}
+                </ul>
+              )}
+              {card.highlight && (
+                <div class="bj-season">
+                  <strong>{card.highlight}</strong>
+                  <p>{card.text}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section class="bj-container bj-main-grid" aria-label="Guilin and Yangshuo one-day itinerary details">
+        <article class="bj-panel bj-timeline-panel">
+          <header class="bj-section-title bj-section-title--center">
+            <h2>One-Day Itinerary <span>(Classic Route)</span></h2>
+          </header>
+
+          <div class="bj-timeline">
+            {guilinStops.map((stop) => {
+              const TransportIcon = stop.transport.Icon;
+              return (
+                <section class="bj-stop">
+                  <div class="bj-stop__time">
+                    <strong>{stop.time}</strong>
+                    <span>{stop.end === "onwards" ? "onwards" : `-${stop.end}`}</span>
+                  </div>
+                  <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
+                  <div class="bj-stop__content">
+                    <h3>{stop.title}</h3>
+                    {stop.description && <p>{stop.description}</p>}
+                  </div>
+                  <aside class="bj-transport-card">
+                    <TransportIcon size={22} />
+                    <strong>{stop.transport.mode}</strong>
+                    <span>{stop.transport.detail}</span>
+                    <small>{stop.transport.time}</small>
+                  </aside>
+                </section>
+              );
+            })}
+          </div>
+
+          <div class="bj-tip">
+            <Info size={18} />
+            <p><strong>Tip:</strong> Boat schedules, raft rules, and weather can change. Check maps, cruise schedule, and your booking platform before going.</p>
+          </div>
+        </article>
+
+        <aside class="bj-sidebar">
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Lunch Options <span>(Yangshuo)</span></h2>
+            </header>
+            <p class="bj-note">If your cruise includes lunch, keep this stop short: coffee, fruit, or a light snack only.</p>
+            <div class="xian-card-grid xian-card-grid--three">
+              {guilinLunchOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <p><strong>Best for:</strong> {option.bestFor}</p>
+                  {option.recommended && <p><strong>Recommended:</strong> {option.recommended}</p>}
+                  {option.area && <p><strong>Area:</strong> {option.area}</p>}
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Dinner Options <span>(Yangshuo Town / West Street Area)</span></h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--four">
+              {guilinDinnerOptions.map((option) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{option.label}</p>
+                  <h3>{option.name}</h3>
+                  {option.address && <p><strong>Address:</strong> {option.address}</p>}
+                  {option.area && <p><strong>Area:</strong> {option.area}</p>}
+                  <p><strong>Chinese nav:</strong> {option.chineseAddress}</p>
+                  <p><strong>Recommended:</strong> {option.recommended}</p>
+                  <p><strong>Avg. Cost:</strong> {option.cost}</p>
+                  <p><strong>Price Level:</strong> {option.level}</p>
+                  {option.note && <p><strong>Note:</strong> {option.note}</p>}
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Chinese Navigation Names <span>English → Chinese</span></h2>
+            </header>
+            <dl class="xian-nav-names">
+              {guilinNavigationNames.map(([english, chinese]) => (
+                <div>
+                  <dt>{english}</dt>
+                  <dd>{chinese}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>Where to Stay <span>Night before: Guilin city center / After trip: Yangshuo</span></h2>
+            </header>
+            <p class="bj-note">Stay in Guilin the night before the cruise. Stay in Yangshuo after the route.</p>
+            <div class="xian-card-grid xian-card-grid--three">
+              {guilinHotels.map((hotel) => (
+                <article class="xian-detail-card">
+                  <p class="bj-green-label">{hotel.label}</p>
+                  <h3>{hotel.name}</h3>
+                  <p>{hotel.chineseName}</p>
+                  <p><strong>Address:</strong> {hotel.address}</p>
+                  <p><strong>Chinese nav:</strong> {hotel.chineseAddress}</p>
+                  <p><strong>Best for:</strong> {hotel.bestFor}</p>
+                  <p><strong>Positioning:</strong> {hotel.positioning}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="bj-panel bj-side-section">
+            <header class="bj-section-title">
+              <h2>From Airport / Railway Station to Hotel</h2>
+            </header>
+            <div class="xian-card-grid xian-card-grid--four">
+              {guilinTransfers.map((option) => {
+                const TransferIcon = option.Icon;
+                return (
+                  <article class="xian-detail-card">
+                    <span class="xian-icon-card" aria-hidden="true"><TransferIcon size={34} /></span>
+                    <h3>{option.title}</h3>
+                    <p><strong>Best:</strong> {option.best}</p>
+                    <p><strong>Time:</strong> {option.time}</p>
+                    <p><strong>Budget / note:</strong> {option.budget}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <section class="bj-container guilin-lower-grid" aria-label="Guilin and Yangshuo evening and practical planning">
+        <section class="bj-panel bj-side-section">
+          <header class="bj-section-title">
+            <h2>Evening Choice <span>(20:00-21:30)</span></h2>
+          </header>
+          <div class="xian-card-grid xian-card-grid--three">
+            {guilinEveningChoices.map((option) => (
+              <article class="xian-detail-card">
+                <h3>{option.name}</h3>
+                <p>{option.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section class="bj-panel bj-side-section bj-important">
+          <header class="bj-section-title">
+            <h2>Quick Practical Notes</h2>
+          </header>
+          <ul class="bj-check-list">
+            {guilinQuickNotes.map((note) => (
+              <li><Check size={15} /> {note}</li>
+            ))}
+          </ul>
+        </section>
+      </section>
+
+      <section class="bj-container bj-bottom-cta" aria-label="Unlock complete Guilin and Yangshuo guide">
+        <div>
+          <h2>Want the Full Guilin / Yangshuo Pack?</h2>
+          <p>Unlock the full Guilin / Yangshuo pack: 2-3 day routes, food map, hotel area notes, transport guide, attraction tips, backup plans, and printable PDFs.</p>
+        </div>
+        <div class="bj-cta-features xian-cta-features" aria-label="Included guide details">
+          {guilinCtaFeatures.map(({ label, Icon }) => (
+            <span><Icon size={24} /> {label}</span>
+          ))}
+        </div>
+        <div class="bj-cta-action">
+          <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock All Guides - $9.90</a>
+          <small>Instant access · Printable PDFs · Easy to use</small>
+        </div>
+      </section>
+    </div>
   ) : (
     <>
       <section class="subpage-hero">
@@ -4644,6 +5391,82 @@ const chengduCtaFeatures = [
     margin: 0;
   }
 
+  .guilin-guide .bj-hero__inner {
+    grid-template-columns: minmax(520px, 0.44fr) minmax(0, 0.56fr);
+  }
+
+  .guilin-guide .bj-hero h1 {
+    max-width: 660px;
+    font-size: clamp(3.85rem, 4.7vw, 5.2rem);
+  }
+
+  .guilin-guide .bj-subtitle {
+    max-width: 520px;
+    line-height: 1.28;
+  }
+
+  .guilin-guide .bj-lead {
+    max-width: 560px;
+  }
+
+  .guilin-guide .bj-stat-row {
+    grid-template-columns: repeat(3, minmax(0, max-content));
+    gap: 18px;
+  }
+
+  .guilin-guide .bj-stat small {
+    white-space: pre-line;
+  }
+
+  .guilin-guide .bj-hero__image {
+    width: min(820px, 62vw);
+  }
+
+  .guilin-guide .bj-hero__image img {
+    object-position: center;
+  }
+
+  .guilin-guide .guilin-route-map {
+    grid-template-columns: repeat(12, minmax(108px, 1fr));
+    min-width: 1420px;
+  }
+
+  .guilin-guide .xian-route-node {
+    min-height: 188px;
+  }
+
+  .guilin-guide .bj-booking-columns {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .guilin-guide .bj-main-grid {
+    grid-template-columns: minmax(430px, 0.86fr) minmax(0, 1.14fr);
+  }
+
+  .guilin-guide .xian-card-grid--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .guilin-guide .xian-nav-names {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .guilin-guide .bj-check-list li {
+    align-items: flex-start;
+    line-height: 1.38;
+  }
+
+  .guilin-lower-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .guilin-lower-grid .bj-panel {
+    margin: 0;
+  }
+
   @media (max-width: 1120px) {
     .bj-hero__inner,
     .bj-main-grid,
@@ -4677,12 +5500,17 @@ const chengduCtaFeatures = [
     .chengdu-guide .bj-hero__inner,
     .chengdu-guide .bj-main-grid,
     .chengdu-guide .bj-prep-grid,
-    .chengdu-lower-grid {
+    .guilin-guide .bj-hero__inner,
+    .guilin-guide .bj-main-grid,
+    .guilin-guide .bj-prep-grid,
+    .chengdu-lower-grid,
+    .guilin-lower-grid {
       grid-template-columns: 1fr;
     }
 
     .zhangjiajie-guide .bj-hero__image,
-    .chengdu-guide .bj-hero__image {
+    .chengdu-guide .bj-hero__image,
+    .guilin-guide .bj-hero__image {
       width: 100% !important;
       max-width: none;
     }
@@ -4721,7 +5549,9 @@ const chengduCtaFeatures = [
     .zhangjiajie-guide .bj-lead,
     .zhangjiajie-guide .bj-subtitle,
     .chengdu-guide .bj-lead,
-    .chengdu-guide .bj-subtitle {
+    .chengdu-guide .bj-subtitle,
+    .guilin-guide .bj-lead,
+    .guilin-guide .bj-subtitle {
       max-width: calc(100vw - 28px);
     }
 
@@ -4733,7 +5563,10 @@ const chengduCtaFeatures = [
     .zhangjiajie-guide .bj-lead,
     .chengdu-guide .bj-hero__copy,
     .chengdu-guide .bj-subtitle,
-    .chengdu-guide .bj-lead {
+    .chengdu-guide .bj-lead,
+    .guilin-guide .bj-hero__copy,
+    .guilin-guide .bj-subtitle,
+    .guilin-guide .bj-lead {
       min-width: 0;
       max-width: calc(100vw - 72px);
     }
@@ -4792,6 +5625,26 @@ const chengduCtaFeatures = [
     }
 
     .chengdu-guide .bj-hero__image {
+      width: 100% !important;
+      max-width: none;
+    }
+
+    .guilin-guide .bj-hero h1 {
+      font-size: clamp(2.9rem, 12.5vw, 3.6rem);
+      letter-spacing: -0.055em;
+    }
+
+    .guilin-guide .bj-subtitle {
+      display: block;
+      width: 330px;
+      font-size: clamp(0.96rem, 4.5vw, 1.12rem);
+    }
+
+    .guilin-guide .bj-lead {
+      width: 330px;
+    }
+
+    .guilin-guide .bj-hero__image {
       width: 100% !important;
       max-width: none;
     }
@@ -4899,12 +5752,22 @@ const chengduCtaFeatures = [
       min-width: 1180px;
     }
 
+    .guilin-guide .guilin-route-map {
+      min-width: 1220px;
+    }
+
     .chengdu-guide .xian-card-grid--three,
     .chengdu-guide .xian-card-grid--four {
       grid-template-columns: 1fr;
     }
 
     .chengdu-guide .xian-nav-names {
+      grid-template-columns: 1fr;
+    }
+
+    .guilin-guide .xian-card-grid--three,
+    .guilin-guide .xian-card-grid--four,
+    .guilin-guide .xian-nav-names {
       grid-template-columns: 1fr;
     }
   }
