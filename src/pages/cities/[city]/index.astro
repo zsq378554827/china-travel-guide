@@ -36,6 +36,7 @@ type Props = {
 const { city } = Astro.props;
 const cityAttractions = getAttractionsByCity(city.id);
 const isBeijing = city.id === "beijing";
+const isShanghai = city.id === "shanghai";
 
 const beijingGuideCards = [
   {
@@ -98,33 +99,135 @@ const beijingPackFeatures = [
   { label: "Backup Plans", Icon: ClipboardCheck },
   { label: "Printable PDFs", Icon: FileText },
 ];
+
+const shanghaiGuideCards = [
+  {
+    status: "free",
+    title: "One-Day Itinerary",
+    description: "Time-based route with transport tips and key stops.",
+    image: "/images/cities/shanghai-cover.jpg",
+    alt: "Shanghai skyline along the Huangpu River",
+    href: "/cities/shanghai/1-day-itinerary/",
+    Icon: CalendarDays,
+  },
+  {
+    status: "locked",
+    title: "Food Guide",
+    description: "Best local dishes and recommended areas.",
+    image: "/images/shanghai/food-xiaolongbao.jpg",
+    alt: "Shanghai xiaolongbao and local dishes",
+    Icon: Utensils,
+  },
+  {
+    status: "locked",
+    title: "Transport Guide",
+    description: "Subway, bus, DiDi, walking, and ticket tips.",
+    image: "/images/shanghai/airport-pvg.jpg",
+    alt: "Shanghai transport hub illustration",
+    Icon: TrainFront,
+  },
+  {
+    status: "locked",
+    title: "Booking Reminders",
+    description: "Tickets, ID, entry tips, and important notes.",
+    image: "/images/shanghai/shanghai-hero-bund.jpg",
+    alt: "Shanghai attraction booking reminder illustration",
+    Icon: ClipboardCheck,
+  },
+  {
+    status: "locked",
+    title: "Quick Notes & Backup Plan",
+    description: "Avoid crowds, adjust timing, and solve common issues.",
+    image: "/images/cities/shanghai-cover.jpg",
+    alt: "Shanghai night skyline backup planning illustration",
+    Icon: FileText,
+  },
+];
+
+const shanghaiHighlights = [
+  { label: "The Bund", Icon: Building2 },
+  { label: "Yu Garden", Icon: Landmark },
+  { label: "Shanghai Tower / Lujiazui View", Icon: MapPinned },
+  { label: "Local Food Experience", Icon: Utensils },
+  { label: "Huangpu River Night View", Icon: Moon },
+];
+
+const cityEntryConfig = isBeijing
+  ? {
+      headerCtaLabel: "Unlock - $9.90",
+      pageClass: "",
+      heroAlt: city.imageAlt,
+      breadcrumbName: "Beijing",
+      region: "NORTH CHINA",
+      title: "Beijing",
+      subtitle: "Imperial landmarks, hutongs,\nand the Great Wall.",
+      mustSee: "Forbidden City, Temple of Heaven, Mutianyu Great Wall",
+      primaryHref: "/cities/beijing/1-day-itinerary/",
+      unlockLabel: "Unlock Full Beijing Pack - $9.90",
+      guideCards: beijingGuideCards,
+      lockedPackName: "Full Beijing Pack",
+      hint: "Click any locked guide to see what’s included in the Full Beijing Pack.",
+      highlights: beijingHighlights,
+      fullPackTitle: "Want the Full Beijing Pack?",
+      fullPackText:
+        "Get the full Beijing plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+      packFeatures: beijingPackFeatures,
+    }
+  : isShanghai
+    ? {
+        headerCtaLabel: "Unlock Pack - $9.90",
+        pageClass: "beijing-city-page--shanghai",
+        heroAlt: "Shanghai skyline along the Huangpu River",
+        breadcrumbName: "Shanghai",
+        region: "EAST CHINA",
+        title: "Shanghai",
+        subtitle: "Modern skyline, historic charm,\nand world-class food.",
+        mustSee: "The Bund, Yu Garden, Lujiazui Skyline",
+        primaryHref: "/cities/shanghai/1-day-itinerary/",
+        unlockLabel: "Unlock Full Shanghai Pack - $9.90",
+        guideCards: shanghaiGuideCards,
+        lockedPackName: "Full Shanghai Pack",
+        hint: "Click any locked guide to see what’s included in the Full Shanghai Pack.",
+        highlights: shanghaiHighlights,
+        fullPackTitle: "Want the Full Shanghai Pack?",
+        fullPackText:
+          "Get the full Shanghai plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+        packFeatures: beijingPackFeatures,
+      }
+    : null;
+
+const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 ---
 
 <BaseLayout
   title={`${city.name} Travel Guide for First-Time Visitors`}
   description={`${city.name} first-time visitor overview with free 1-day guide, must-see spots, practical tips, and full pack preview.`}
-  headerCtaLabel={isBeijing ? "Unlock - $9.90" : undefined}
+  headerCtaLabel={cityEntryConfig?.headerCtaLabel}
 >
-  {isBeijing ? (
-    <div class="beijing-city-page">
+  {cityEntryConfig ? (
+    <div class={`beijing-city-page ${cityEntryConfig.pageClass}`}>
       <section class="beijing-city-hero" aria-labelledby="beijing-city-title">
-        <img class="beijing-city-hero__image" src={city.image} alt={city.imageAlt} />
+        <img class="beijing-city-hero__image" src={city.image} alt={cityEntryConfig.heroAlt} />
         <div class="beijing-city-hero__scrim" aria-hidden="true"></div>
         <div class="container beijing-city-hero__inner">
           <nav class="beijing-city-breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a><span>/</span><a href="/#cities">Cities</a><span>/</span><span>Beijing</span>
+            <a href="/">Home</a><span>/</span><a href="/#cities">Cities</a><span>/</span><span>{cityEntryConfig.breadcrumbName}</span>
           </nav>
-          <p class="beijing-city-region">NORTH CHINA</p>
-          <h1 id="beijing-city-title">Beijing</h1>
-          <p class="beijing-city-lead">Imperial landmarks, hutongs,<br />and the Great Wall.</p>
-          <div class="beijing-city-pills" aria-label="Beijing route summary">
+          <p class="beijing-city-region">{cityEntryConfig.region}</p>
+          <h1 id="beijing-city-title">{cityEntryConfig.title}</h1>
+          <p class="beijing-city-lead">
+            {cityEntrySubtitleLines.map((line, index) => (
+              <>{line}{index < cityEntrySubtitleLines.length - 1 && <><br />{" "}</>}</>
+            ))}
+          </p>
+          <div class="beijing-city-pills" aria-label={`${cityEntryConfig.title} route summary`}>
             <span>Recommended: Full day</span>
             <span>Best for: First-time visitors</span>
-            <span>Must-see: Forbidden City, Temple of Heaven, Mutianyu Great Wall</span>
+            <span>Must-see: {cityEntryConfig.mustSee}</span>
           </div>
           <div class="beijing-city-actions">
-            <a class="button button-primary beijing-city-primary" href="/cities/beijing/1-day-itinerary/">Read the free 1-day guide</a>
-            <a class="button beijing-city-secondary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock Full Beijing Pack - $9.90</a>
+            <a class="button button-primary beijing-city-primary" href={cityEntryConfig.primaryHref}>Read the free 1-day guide</a>
+            <a class="button beijing-city-secondary" href={checkoutUrl} data-analytics-event="checkout_click">{cityEntryConfig.unlockLabel}</a>
           </div>
           <span class="illustration-label">Illustration</span>
         </div>
@@ -137,7 +240,7 @@ const beijingPackFeatures = [
             <p>Only the 1-day itinerary is free. The other guides are included in the full pack.</p>
           </div>
           <div class="beijing-guide-grid">
-            {beijingGuideCards.map((card) => {
+            {cityEntryConfig.guideCards.map((card) => {
               const Icon = card.Icon;
               const isFree = card.status === "free";
               const href = isFree ? card.href : "#full-pack";
@@ -146,7 +249,7 @@ const beijingPackFeatures = [
                   class={`beijing-guide-card ${isFree ? "beijing-guide-card--free" : "beijing-guide-card--locked"}`}
                   href={href}
                   data-analytics-event={isFree ? "city_click" : "unlock_click"}
-                  aria-label={isFree ? `Open ${card.title}` : `${card.title} is included in the Full Beijing Pack`}
+                  aria-label={isFree ? `Open ${card.title}` : `${card.title} is included in the ${cityEntryConfig.lockedPackName}`}
                 >
                   <div class="beijing-guide-card__image">
                     <img src={card.image} alt={card.alt} loading="lazy" decoding="async" />
@@ -167,7 +270,7 @@ const beijingPackFeatures = [
               );
             })}
           </div>
-          <p class="beijing-card-hint"><Info size={17} /> Click any locked guide to see what’s included in the Full Beijing Pack.</p>
+          <p class="beijing-card-hint"><Info size={17} /> {cityEntryConfig.hint}</p>
         </div>
       </section>
 
@@ -179,7 +282,7 @@ const beijingPackFeatures = [
               <p>A full-day route with an early start.</p>
             </div>
             <div class="beijing-highlight-list">
-              {beijingHighlights.map(({ label, Icon }) => (
+              {cityEntryConfig.highlights.map(({ label, Icon }) => (
                 <div class="beijing-highlight-item">
                   <span><Icon size={36} /></span>
                   <strong>{label}</strong>
@@ -194,16 +297,16 @@ const beijingPackFeatures = [
         <div class="container">
           <div class="beijing-full-pack__panel">
             <div>
-              <h2 id="beijing-full-pack-title">Want the Full Beijing Pack?</h2>
-              <p>Get the full Beijing plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.</p>
+              <h2 id="beijing-full-pack-title">{cityEntryConfig.fullPackTitle}</h2>
+              <p>{cityEntryConfig.fullPackText}</p>
             </div>
-            <div class="beijing-pack-features" aria-label="Full Beijing Pack includes">
-              {beijingPackFeatures.map(({ label, Icon }) => (
+            <div class="beijing-pack-features" aria-label={`${cityEntryConfig.lockedPackName} includes`}>
+              {cityEntryConfig.packFeatures.map(({ label, Icon }) => (
                 <span><Icon size={26} /> {label}</span>
               ))}
             </div>
             <div class="beijing-full-pack__action">
-              <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock Full Beijing Pack - $9.90</a>
+              <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">{cityEntryConfig.unlockLabel}</a>
               <small>Instant access · Printable PDFs · Easy to use</small>
             </div>
           </div>
