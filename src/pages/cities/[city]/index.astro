@@ -156,6 +156,7 @@ const cityEntryConfig = isBeijing
   ? {
       headerCtaLabel: "Unlock - $9.90",
       pageClass: "",
+      showIllustrationLabels: false,
       heroAlt: city.imageAlt,
       breadcrumbName: "Beijing",
       region: "NORTH CHINA",
@@ -177,6 +178,7 @@ const cityEntryConfig = isBeijing
     ? {
         headerCtaLabel: "Unlock Pack - $9.90",
         pageClass: "beijing-city-page--shanghai",
+        showIllustrationLabels: false,
         heroAlt: "Shanghai skyline along the Huangpu River",
         breadcrumbName: "Shanghai",
         region: "EAST CHINA",
@@ -229,7 +231,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
             <a class="button button-primary beijing-city-primary" href={cityEntryConfig.primaryHref}>Read the free 1-day guide</a>
             <a class="button beijing-city-secondary" href={checkoutUrl} data-analytics-event="checkout_click">{cityEntryConfig.unlockLabel}</a>
           </div>
-          <span class="illustration-label">Illustration</span>
+          {cityEntryConfig.showIllustrationLabels && <span class="illustration-label">Illustration</span>}
         </div>
       </section>
 
@@ -256,7 +258,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
                     <span class={isFree ? "beijing-card-badge beijing-card-badge--free" : "beijing-card-badge beijing-card-badge--lock"}>
                       {isFree ? "FREE" : <LockKeyhole size={18} />}
                     </span>
-                    <span class="illustration-label illustration-label--card">Illustration</span>
+                    {cityEntryConfig.showIllustrationLabels && <span class="illustration-label illustration-label--card">Illustration</span>}
                   </div>
                   <div class="beijing-guide-card__body">
                     <Icon size={26} />
