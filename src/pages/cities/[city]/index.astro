@@ -298,7 +298,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
       <section class="beijing-full-pack" id="full-pack" aria-labelledby="beijing-full-pack-title">
         <div class="container">
           <div class="beijing-full-pack__panel">
-            <div>
+            <div class="beijing-full-pack__copy">
               <h2 id="beijing-full-pack-title">{cityEntryConfig.fullPackTitle}</h2>
               <p>{cityEntryConfig.fullPackText}</p>
             </div>
@@ -753,12 +753,20 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
   .beijing-full-pack__panel {
     display: grid;
     grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
+    grid-template-areas:
+      "copy features"
+      "action action";
     align-items: center;
     gap: 28px;
     padding: 30px;
   }
 
+  .beijing-full-pack__copy {
+    grid-area: copy;
+  }
+
   .beijing-pack-features {
+    grid-area: features;
     display: grid;
     min-width: 0;
     grid-template-columns: repeat(7, minmax(64px, 1fr));
@@ -780,8 +788,8 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
   }
 
   .beijing-full-pack__action {
+    grid-area: action;
     display: grid;
-    grid-column: 1 / -1;
     justify-items: stretch;
     justify-self: center;
     gap: 12px;
@@ -800,6 +808,10 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 
     .beijing-full-pack__panel {
       grid-template-columns: 1fr;
+      grid-template-areas:
+        "copy"
+        "features"
+        "action";
     }
 
     .beijing-pack-features {
