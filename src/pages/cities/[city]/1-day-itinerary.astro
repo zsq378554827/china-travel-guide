@@ -1152,15 +1152,24 @@ const zhangjiajieRouteOverview = [
   },
   {
     number: 7,
-    time: "14:00",
-    title: "Ten-Mile Gallery",
-    detail: "Walk or train",
-    transport: "Cableway down + park shuttle",
-    duration: "20-30 min",
-    Icon: TrainFront,
+    time: "13:15",
+    title: "Cableway Down",
+    detail: "To Ten-Mile Gallery",
+    transport: "Cableway + shuttle",
+    duration: "45 min",
+    Icon: CableCar,
   },
   {
     number: 8,
+    time: "14:00",
+    title: "Ten-Mile Gallery",
+    detail: "Walk or sightseeing train",
+    transport: "Walk / train",
+    duration: "60-90 min",
+    Icon: TrainFront,
+  },
+  {
+    number: 9,
     time: "15:30",
     title: "Return to Wulingyuan East Gate",
     detail: "Back to Sign Gate",
@@ -1169,7 +1178,7 @@ const zhangjiajieRouteOverview = [
     Icon: Bus,
   },
   {
-    number: 9,
+    number: 10,
     time: "18:00",
     title: "Dinner & Evening Plan",
     detail: "Wulingyuan",
@@ -1178,7 +1187,7 @@ const zhangjiajieRouteOverview = [
     Icon: Map,
   },
   {
-    number: 10,
+    number: 11,
     time: "20:30+",
     title: "Return to Hotel",
     detail: "End of day",
@@ -1198,10 +1207,9 @@ const zhangjiajiePrepCards = [
         title: "Forest Park Tickets",
         lines: [
           "Book in advance. Bring the passport used for booking.",
-          "Recommended options: Trip.com, Klook, GetYourGuide, or official Chinese platforms if available.",
-          "Official price reference: Forest Park ticket + eco-bus around ¥236.",
+          "Reference: Forest Park ticket + eco-bus around ¥236.",
           "Usually valid for 4 days.",
-          "Usually not included: Bailong Elevator, Tianzi Mountain Cableway, Ten-Mile Gallery sightseeing train.",
+          "Not usually included: Bailong Elevator, Tianzi Mountain Cableway, Ten-Mile Gallery train.",
         ],
       },
       {
@@ -1210,18 +1218,22 @@ const zhangjiajiePrepCards = [
           "Bailong Elevator: approx. ¥65 one way.",
           "Tianzi Mountain Cableway: approx. ¥72 one way.",
           "Ten-Mile Gallery sightseeing train: approx. ¥38 one way, optional.",
-          "Start early. Queues can be long on weekends, holidays, and summer months.",
+          "Start early. Queues can be long on weekends, holidays, and summer.",
         ],
       },
+    ],
+  },
+  {
+    title: "Cost Estimate",
+    Icon: Info,
+    variant: "green",
+    columns: [
       {
         title: "Estimated Scenic Cost Per Person",
         lines: [
-          "Forest Park ticket + eco-bus: around ¥236.",
-          "Bailong Elevator: around ¥65.",
-          "Tianzi Mountain Cableway: around ¥72.",
-          "Ten-Mile Gallery train: around ¥38 optional.",
           "Core scenic cost without train: around ¥373.",
           "With Ten-Mile Gallery train: around ¥411.",
+          "Prices can change. Confirm ticket rules, cableway, elevator, and train costs before going.",
         ],
       },
     ],
@@ -1396,13 +1408,14 @@ const zhangjiajieDinnerOptions = [
     level: "Budget / Mid-range",
   },
   {
-    label: "Classic Local Food",
-    name: "Suoxi Shanzhai 索溪山寨·湘西民间土菜",
-    address: "Near Jundi Road and Tuofeng Road, Wulingyuan District, Zhangjiajie",
-    chineseAddress: "张家界市武陵源区军邸路 / 驼峰路附近",
+    label: "Area / Backup",
+    name: "Wulingyuan Local Restaurant Area 武陵源本地餐馆区",
+    address: "Wuling Road / Xibu Street area, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区武陵路 / 溪布街一带",
     recommended: "Tujia dishes, Sanxiaguo, smoked pork, local vegetables",
     cost: "¥70-120",
-    level: "Mid-range",
+    level: "Flexible",
+    note: "Use this as an area backup if you cannot confirm a specific restaurant address on the day.",
   },
   {
     label: "Snack & Local Food Area",
@@ -1434,6 +1447,8 @@ const zhangjiajieNavigationNames = [
   ["Ten-Mile Gallery", "十里画廊"],
   ["Xibu Old Street", "溪布街"],
   ["Charming Xiangxi", "魅力湘西"],
+  ["Zhangjiajie Hehua Airport", "张家界荷花机场"],
+  ["Zhangjiajie West Railway Station", "张家界西站"],
 ];
 
 const zhangjiajieBackupRules = [
@@ -1445,17 +1460,18 @@ const zhangjiajieBackupRules = [
 
 const zhangjiajieQuickNotes = [
   "Best entry: Wulingyuan East Gate / Sign Gate.",
+  "Stay near Wulingyuan East Gate the night before.",
   "Start early: take Bailong Elevator up.",
   "Main one-day route: Yuanjiajie → Tianzi Mountain → Ten-Mile Gallery.",
   "Do not add Golden Whip Stream unless you have extra time.",
-  "Cloud and fog can hide views — stay flexible.",
+  "Cloud and fog can hide views; stay flexible.",
   "Check last shuttle, cableway, and elevator times before descending.",
   "Good evening area: Xibu Old Street / Charming Xiangxi.",
   "This is a full-day mountain route with many transfers. It may feel rushed for seniors, young children, or slow travelers.",
 ];
 
 const zhangjiajieSnackExperience = {
-  name: "Xibu Old Street / Charming Xiangxi Show",
+  name: "Xibu Old Street 溪布街",
   text: "Local snacks, handicrafts, relaxed evening walk, or the national cultural show “Charming Xiangxi”.",
   cost: "¥50-150",
   level: "Flexible",
@@ -1463,14 +1479,15 @@ const zhangjiajieSnackExperience = {
 
 const zhangjiajieHotels = [
   {
-    label: "Budget Option",
-    name: "Near East Gate Hotel / Wulingyuan Budget Hotel",
-    chineseName: "武陵源东门附近经济型酒店",
-    address: "Near Wulingyuan East Gate / Sign Gate, Wulingyuan District, Zhangjiajie",
-    chineseAddress: "张家界市武陵源区武陵源东门 / 标志门附近",
+    label: "Budget Area Recommendation",
+    name: "Stay near Wulingyuan East Gate / Sign Gate",
+    chineseName: "武陵源东门 / 标志门住宿区",
+    address: "Choose a hotel within walking distance of Wulingyuan East Gate / Sign Gate, Wulingyuan District, Zhangjiajie",
+    chineseAddress: "张家界市武陵源区武陵源东门 / 标志门步行范围内",
+    distance: "Aim for a 10-15 min walk or short taxi ride to the park entrance.",
     bestFor: "budget travelers",
     positioning: "Budget / Practical",
-    note: "Verify the exact hotel name and address before booking. Use a generic near-East-Gate recommendation if not verified.",
+    note: "Use this as an area recommendation until a verified hotel is selected.",
   },
   {
     label: "Mid-range Option",
@@ -1494,22 +1511,36 @@ const zhangjiajieHotels = [
 
 const zhangjiajieTransfers = [
   {
-    title: "Best Option: Taxi / DiDi",
+    title: "From Zhangjiajie Hehua Airport / DYG to Wulingyuan",
     Icon: Car,
-    time: "40-60 min",
+    bestOption: "Taxi / DiDi",
+    time: "about 50-60 min",
     bestFor: "first-time international visitors, families, lots of luggage",
-    route: "Airport / Station → Wulingyuan hotel",
-    text: "Taxi / DiDi is the best option for first-time international visitors. Use the bus route only in daytime and with light luggage.",
+    route: "DYG airport → Wulingyuan hotel",
+    budgetOption: "Bus + transfer. Use only in daytime, with light luggage. Confirm the current route at the airport or hotel.",
   },
   {
-    title: "Budget Option: Bus",
+    title: "From Zhangjiajie West Railway Station to Wulingyuan",
+    Icon: TrainFront,
+    bestOption: "Taxi / DiDi",
+    time: "about 40-60 min",
+    bestFor: "HSR arrivals, luggage, late arrivals",
+    route: "Zhangjiajie West Railway Station → Wulingyuan hotel",
+    budgetOption: "Station bus / tourism bus if available. Confirm at the station on arrival. Use only in daytime.",
+  },
+  {
+    title: "From Zhangjiajie City / Central Bus Station to Wulingyuan",
     Icon: Bus,
-    time: "about 1.5-2 hours",
-    bestFor: "budget travelers with light luggage and daytime arrival only",
-    route: "Airport Bus / Station Bus → Zhangjiajie City → Bus or taxi to Wulingyuan",
-    text: "Use this only if you arrive in daytime, travel light, and are comfortable with transfers.",
+    bestOption: "Bus or Taxi",
+    time: "about 50-90 min depending on route and waiting time",
+    bestFor: "budget travelers already in Zhangjiajie city",
+    route: "Zhangjiajie city area → Wulingyuan hotel",
+    budgetOption: "Use the bus only in daytime and confirm the current station / schedule before leaving.",
   },
 ];
+
+const zhangjiajieTransferNote =
+  "For first-time international visitors, Taxi / DiDi is the easiest option. Use buses only in daytime and with light luggage.";
 
 const zhangjiajieCtaFeatures = [
   { label: "2-3 Day Routes", Icon: Route },
@@ -2898,7 +2929,7 @@ const chengduCtaFeatures = [
                 <section class="bj-stop">
                   <div class="bj-stop__time">
                     <strong>{stop.time}</strong>
-                    <span>-{stop.end}</span>
+                    <span>{stop.end === "onwards" ? "onwards" : `-${stop.end}`}</span>
                   </div>
                   <div class="bj-stop__marker" aria-hidden="true">{stop.number}</div>
                   <div class="bj-stop__content">
@@ -2978,7 +3009,7 @@ const chengduCtaFeatures = [
 
           <section class="bj-panel bj-side-section bj-important">
             <header class="bj-section-title">
-              <h2>Backup Rules / Weather & Queue Plan</h2>
+              <h2>Weather & Queue Backup Plan</h2>
             </header>
             <ul class="bj-check-list">
               {zhangjiajieBackupRules.map((rule) => (
@@ -3000,7 +3031,7 @@ const chengduCtaFeatures = [
 
           <section class="bj-panel bj-side-section">
             <header class="bj-section-title">
-              <h2>Snack & Evening Experience</h2>
+              <h2>Snack & Local Food Area</h2>
             </header>
             <article class="xian-detail-card xian-detail-card--wide">
               <h3>{zhangjiajieSnackExperience.name}</h3>
@@ -3022,6 +3053,7 @@ const chengduCtaFeatures = [
                   <p>{hotel.chineseName}</p>
                   <p><strong>Address:</strong> {hotel.address}</p>
                   <p><strong>Chinese nav:</strong> {hotel.chineseAddress}</p>
+                  {hotel.distance && <p><strong>Distance / convenience:</strong> {hotel.distance}</p>}
                   <p><strong>Best for:</strong> {hotel.bestFor}</p>
                   <p><strong>Positioning:</strong> {hotel.positioning}</p>
                   {hotel.note && <p><strong>Note:</strong> {hotel.note}</p>}
@@ -3032,7 +3064,7 @@ const chengduCtaFeatures = [
 
           <section class="bj-panel bj-side-section">
             <header class="bj-section-title">
-              <h2>From Zhangjiajie Hehua Airport or Railway Station to Wulingyuan</h2>
+              <h2>From Airport / Railway Station / City Bus Station to Wulingyuan</h2>
             </header>
             <div class="bj-stack">
               {zhangjiajieTransfers.map((option) => {
@@ -3042,15 +3074,17 @@ const chengduCtaFeatures = [
                     <span class="xian-icon-card" aria-hidden="true"><TransferIcon size={34} /></span>
                     <div>
                       <h3>{option.title}</h3>
+                      <p><strong>Best Option:</strong> {option.bestOption}</p>
                       <p><strong>Time:</strong> {option.time}</p>
                       <p><strong>Best for:</strong> {option.bestFor}</p>
                       <p><strong>Route:</strong> {option.route}</p>
-                      <p>{option.text}</p>
+                      <p><strong>Budget Option:</strong> {option.budgetOption}</p>
                     </div>
                   </article>
                 );
               })}
             </div>
+            <p class="bj-note">{zhangjiajieTransferNote}</p>
           </section>
         </aside>
       </section>
@@ -4408,6 +4442,7 @@ const chengduCtaFeatures = [
 
   .zhangjiajie-guide .bj-hero__inner {
     grid-template-columns: minmax(500px, 0.43fr) minmax(0, 0.57fr);
+    min-height: 350px;
   }
 
   .zhangjiajie-guide .bj-hero h1 {
@@ -4435,10 +4470,23 @@ const chengduCtaFeatures = [
 
   .zhangjiajie-guide .bj-hero__image {
     width: min(820px, 63vw);
+    height: 350px;
   }
 
   .zhangjiajie-guide .bj-hero__image img {
     object-position: center;
+  }
+
+  .zhangjiajie-guide .bj-hero {
+    padding: 24px 0 14px;
+  }
+
+  .zhangjiajie-guide .zh-route-notes {
+    margin-top: 12px;
+  }
+
+  .zhangjiajie-guide .zh-route-note {
+    padding: 10px;
   }
 
   .zh-route-notes {
@@ -4478,8 +4526,8 @@ const chengduCtaFeatures = [
   }
 
   .zhangjiajie-guide .zh-route-map {
-    grid-template-columns: repeat(10, minmax(108px, 1fr));
-    min-width: 1180px;
+    grid-template-columns: repeat(11, minmax(108px, 1fr));
+    min-width: 1280px;
   }
 
   .zhangjiajie-guide .xian-route-node {
@@ -4487,19 +4535,20 @@ const chengduCtaFeatures = [
   }
 
   .zhangjiajie-guide .bj-prep-grid {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr) minmax(0, 0.85fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
   }
 
   .zhangjiajie-guide .bj-booking-columns {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
 
   .zhangjiajie-guide .bj-booking-columns > div + div {
-    border-top: 1px solid var(--bj-line);
-    border-left: 0;
-    padding-top: 12px;
-    padding-left: 0;
+    border-top: 0;
+    border-left: 1px solid var(--bj-line);
+    padding-top: 0;
+    padding-left: 12px;
   }
 
   .zhangjiajie-guide .bj-main-grid {
@@ -4840,6 +4889,10 @@ const chengduCtaFeatures = [
 
     .zhangjiajie-guide .zh-route-map {
       min-width: 1120px;
+    }
+
+    .zhangjiajie-guide .xian-card-grid--four {
+      grid-template-columns: 1fr;
     }
 
     .chengdu-guide .chengdu-route-map {
