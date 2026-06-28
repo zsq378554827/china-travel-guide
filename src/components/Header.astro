@@ -7,6 +7,23 @@ type Props = {
 };
 
 const { ctaLabel = "Unlock - $9.90" } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const isActiveLink = (label: string, href: string) => {
+  if (label === "Cities") return currentPath.startsWith("/cities/");
+  if (label === "Travel Prep") {
+    return (
+      currentPath.startsWith("/travel-prep/") ||
+      currentPath === "/how-to-pay-in-china/" ||
+      currentPath === "/china-travel-checklist/" ||
+      currentPath === "/arrival-checklist/"
+    );
+  }
+  if (label === "Arrival Pack") return currentPath === "/unlock/";
+  if (href.startsWith("/#")) return currentPath === "/" && Astro.url.hash === href.slice(1);
+
+  return currentPath === href;
+};
 ---
 
 <header class="site-header">
@@ -19,7 +36,7 @@ const { ctaLabel = "Unlock - $9.90" } = Astro.props;
       </span>
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
-      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      {navLinks.map((link) => <a class:list={{ "is-active": isActiveLink(link.label, link.href) }} href={link.href}>{link.label}</a>)}
     </nav>
     <div class="header-actions">
       <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">{ctaLabel}</a>

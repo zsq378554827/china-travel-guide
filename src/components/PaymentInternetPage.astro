@@ -1,0 +1,404 @@
+---
+import {
+  BadgeDollarSign,
+  Banknote,
+  BatteryCharging,
+  ChevronRight,
+  CircleCheck,
+  CircleAlert,
+  CreditCard,
+  Download,
+  Globe,
+  LockKeyhole,
+  MapPinned,
+  Plane,
+  QrCode,
+  ShieldCheck,
+  Signal,
+  Smartphone,
+  Wifi,
+} from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { checkoutUrl } from "@data/site";
+
+const prepCards = [
+  {
+    title: "Set up a payment app",
+    text: "Install and verify Alipay or WeChat Pay.",
+    Icon: Smartphone,
+  },
+  {
+    title: "Prepare an international bank card",
+    text: "Visa / Mastercard may work at hotels, airports, larger stores, and some official counters. Use as backup.",
+    Icon: CreditCard,
+  },
+  {
+    title: "Bring small RMB cash as backup",
+    text: "Useful for taxis, vendors, small shops, and emergencies.",
+    Icon: Banknote,
+  },
+  {
+    title: "Get a mobile data plan",
+    text: "Choose roaming, eSIM, or a local SIM that fits your itinerary.",
+    Icon: Signal,
+  },
+];
+
+const paymentSetups = [
+  {
+    title: "Alipay",
+    iconClass: "pi-app-icon pi-app-icon--blue",
+    iconText: "支",
+    bestFor: "Most shops, taxis, restaurants, attractions",
+    note:
+      "International card linking may depend on card issuer, card type, verification status, and current app rules.",
+  },
+  {
+    title: "WeChat Pay",
+    iconClass: "pi-app-icon pi-app-icon--green",
+    iconText: "✓",
+    bestFor: "Many local shops, taxis, street vendors",
+    note:
+      "Some WeChat Pay features or mini-program payments may require extra verification or may not work with every international card.",
+  },
+  {
+    title: "Bank Card Backup",
+    Icon: CreditCard,
+    bestFor: "Hotels, larger stores, online bookings",
+    note: "Some merchants may not accept foreign cards or Amex / JCB.",
+  },
+  {
+    title: "Cash Backup",
+    Icon: BadgeDollarSign,
+    bestFor: "Taxis, small vendors, rural areas, emergencies",
+    note: "Carry around ¥300–800 for short-term backup use. Do not carry too much cash.",
+  },
+];
+
+const paySteps = [
+  { title: "Show your QR code", text: "Merchant scans your payment code.", Icon: QrCode },
+  { title: "Scan the merchant QR code", text: "You scan the code to pay.", Icon: Smartphone },
+  { title: "Pay by bank card", text: "Insert, tap, or enter your card.", Icon: CreditCard },
+  { title: "Pay with cash", text: "Hand over cash when needed.", Icon: Banknote },
+];
+
+const internetOptions = [
+  {
+    title: "International Roaming",
+    Icon: Globe,
+    best: "Short trips, quick and easy",
+    pros: "Keep your number, easy to activate, works as soon as you land.",
+    watch: "Usually more expensive. Speed may be limited by your carrier.",
+  },
+  {
+    title: "Travel eSIM",
+    Icon: Smartphone,
+    best: "Travelers who want convenience",
+    pros: "Easy to buy online, activated before you fly, no physical SIM needed.",
+    watch: "Coverage, speed, and app access may vary by provider and plan.",
+  },
+  {
+    title: "Local SIM",
+    Icon: CreditCard,
+    best: "Longer stays, better value",
+    pros: "Local rates, usually faster and more stable. May include calls & SMS.",
+    watch: "May require passport registration and extra setup time. Availability at airports may vary.",
+  },
+];
+
+const setupPlan = [
+  {
+    number: "1",
+    title: "Before Departure",
+    Icon: Plane,
+    items: ["Install Alipay & WeChat", "Add cards and verify", "Choose internet option", "Save hotel address offline"],
+  },
+  {
+    number: "2",
+    title: "At the Airport",
+    Icon: Wifi,
+    items: ["Connect to Wi-Fi", "Get SIM / activate eSIM / roaming", "Try payment apps", "Exchange a little RMB if needed"],
+  },
+  {
+    number: "3",
+    title: "First Night in China",
+    Icon: BatteryCharging,
+    items: ["Test payments in a store", "Check internet speed", "Save key info offline", "Charge devices & power bank"],
+  },
+];
+
+const commonProblems = [
+  {
+    title: "Payment app does not work",
+    text: "Check internet, app version, verification status, and card link. Try again later.",
+    Icon: CircleAlert,
+  },
+  {
+    title: "Card payment is not accepted",
+    text: "Try another card or method. Some places do not accept foreign cards.",
+    Icon: CircleAlert,
+  },
+  {
+    title: "No internet after landing",
+    text: "Check settings. Reboot phone or reconnect SIM. Connect to airport Wi-Fi.",
+    Icon: Wifi,
+  },
+  {
+    title: "SMS verification does not arrive",
+    text: "Check roaming / SMS receiving, phone number format, or use backup payment first.",
+    Icon: Signal,
+  },
+];
+
+const checklist = [
+  "Alipay downloaded and set up",
+  "WeChat downloaded and set up",
+  "Backup bank card ready",
+  "Small RMB cash prepared",
+  "Roaming / eSIM / local SIM selected",
+  "SMS receiving ability checked",
+  "Hotel Chinese address saved offline",
+  "Charger packed",
+  "Power bank charged",
+  "Offline maps downloaded if needed",
+  "Backup payment method ready",
+];
+---
+
+<BaseLayout
+  title="Payment & Internet"
+  description="Set up mobile payment, backup cards, cash, roaming, eSIM, and local SIM options before your first trip to China."
+  headerCtaLabel="Unlock Pack - $9.90"
+>
+  <div class="payment-internet-page" data-payment-internet>
+    <section class="pi-hero">
+      <div class="container pi-hero__inner">
+        <div class="pi-hero__copy">
+          <p class="pi-eyebrow">TRAVEL PREP · PAYMENT & INTERNET</p>
+          <h1>Set up payment and mobile data before your first trip to China.</h1>
+          <p class="pi-lead">
+            Mobile payment is widely used in China. Prepare more than one payment option and a reliable data connection before you arrive so you can pay, navigate, and communicate with confidence.
+          </p>
+          <div class="pi-hero-cards" aria-label="Payment and internet essentials">
+            <article>
+              <Smartphone size={34} stroke-width={2.2} aria-hidden="true" />
+              <strong>Mobile Payment</strong>
+              <span>Essential for daily life</span>
+            </article>
+            <article>
+              <CreditCard size={34} stroke-width={2.2} aria-hidden="true" />
+              <strong>Backup Card</strong>
+              <span>For extra peace of mind</span>
+            </article>
+            <article>
+              <Wifi size={36} stroke-width={2.2} aria-hidden="true" />
+              <strong>Internet Plan</strong>
+              <span>Stay connected anywhere</span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pi-hero__visual" aria-label="Mobile payment, bank card, eSIM, and scan to pay illustration">
+          <div class="pi-ink-mountain pi-ink-mountain--one"></div>
+          <div class="pi-ink-mountain pi-ink-mountain--two"></div>
+          <div class="pi-bank-card">
+            <span class="pi-chip"></span>
+            <strong>1234 5678 9012 3456</strong>
+            <small>CARDHOLDER</small>
+            <b>VISA</b>
+          </div>
+          <div class="pi-phone">
+            <span class="pi-phone__speaker"></span>
+            <div class="pi-pay-tile pi-pay-tile--alipay">支 <small>Alipay</small></div>
+            <div class="pi-pay-tile pi-pay-tile--wechat">✓ <small>WeChat Pay</small></div>
+            <div class="pi-phone__nav"><span>Scan</span><span>Pay</span><span>Me</span></div>
+          </div>
+          <div class="pi-esim">
+            <strong>eSIM</strong>
+            <span></span>
+          </div>
+          <div class="pi-qr-sign">
+            <Wifi size={56} stroke-width={2.4} aria-hidden="true" />
+            <strong>Scan to Pay</strong>
+            <QrCode size={76} stroke-width={1.7} aria-hidden="true" />
+          </div>
+          <div class="pi-rmb pi-rmb--one">¥100</div>
+          <div class="pi-rmb pi-rmb--two">¥50</div>
+        </div>
+      </div>
+    </section>
+
+    <main class="pi-main">
+      <section class="pi-section">
+        <div class="container">
+          <h2>1. What to Prepare Before You Fly</h2>
+          <div class="pi-card-grid pi-card-grid--four">
+            {prepCards.map((card) => {
+              const Icon = card.Icon;
+              return (
+                <article class="pi-card pi-card--icon-row">
+                  <Icon size={34} stroke-width={2.2} aria-hidden="true" />
+                  <div>
+                    <h3>{card.title}</h3>
+                    <p>{card.text}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="pi-section">
+        <div class="container">
+          <h2>2. Recommended Payment Setup</h2>
+          <div class="pi-card-grid pi-card-grid--four">
+            {paymentSetups.map((card) => {
+              const Icon = card.Icon;
+              return (
+                <article class="pi-card pi-payment-card">
+                  {Icon ? <Icon size={42} stroke-width={2.1} aria-hidden="true" /> : <span class={card.iconClass}>{card.iconText}</span>}
+                  <h3>{card.title}</h3>
+                  <p><strong>Best for:</strong> {card.bestFor}</p>
+                  <p><strong>Note:</strong> {card.note}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="pi-section">
+        <div class="container">
+          <h2>3. How to Pay in China</h2>
+          <div class="pi-pay-flow">
+            {paySteps.map((step, index) => {
+              const Icon = step.Icon;
+              return (
+                <>
+                  <article class="pi-card pi-flow-card">
+                    <Icon size={38} stroke-width={2.1} aria-hidden="true" />
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.text}</p>
+                    </div>
+                  </article>
+                  {index < paySteps.length - 1 && <ChevronRight class="pi-flow-arrow" size={28} stroke-width={2.4} aria-hidden="true" />}
+                </>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="pi-section">
+        <div class="container">
+          <h2>4. Internet Options</h2>
+          <div class="pi-card-grid pi-card-grid--three">
+            {internetOptions.map((option) => {
+              const Icon = option.Icon;
+              return (
+                <article class="pi-card pi-internet-card">
+                  <Icon size={42} stroke-width={2.1} aria-hidden="true" />
+                  <h3>{option.title}</h3>
+                  <p><strong>Best for:</strong> {option.best}</p>
+                  <p><strong>Pros:</strong> {option.pros}</p>
+                  <p><strong>Watch out:</strong> {option.watch}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="pi-section">
+        <div class="container">
+          <h2>5. Simple Setup Plan</h2>
+          <div class="pi-plan">
+            {setupPlan.map((step, index) => {
+              const Icon = step.Icon;
+              return (
+                <article class="pi-plan-step">
+                  <span class="pi-plan-step__icon"><Icon size={40} stroke-width={2.1} aria-hidden="true" /></span>
+                  <div>
+                    <span class="pi-plan-step__number">{step.number}</span>
+                    <h3>{step.title}</h3>
+                    <ul>
+                      {step.items.map((item) => <li>{item}</li>)}
+                    </ul>
+                  </div>
+                  {index < setupPlan.length - 1 && <span class="pi-plan-step__line" aria-hidden="true"></span>}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="pi-section">
+        <div class="container pi-problem-check-grid">
+          <div>
+            <h2>6. Common Problems</h2>
+            <div class="pi-problem-grid">
+              {commonProblems.map((problem) => {
+                const Icon = problem.Icon;
+                return (
+                  <article class="pi-card pi-problem-card">
+                    <Icon size={34} stroke-width={2.2} aria-hidden="true" />
+                    <h3>{problem.title}</h3>
+                    <p>{problem.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
+          <aside class="pi-card pi-final-checklist">
+            <h2>7. Final Payment & Internet Checklist</h2>
+            <ul>
+              {checklist.map((item) => (
+                <li>
+                  <label>
+                    <input type="checkbox" />
+                    <span>{item}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pi-section pi-section--last">
+        <div class="container">
+          <div class="pi-bottom-cta">
+            <div class="pi-pack-art" aria-hidden="true">
+              <div class="pi-pack-book">
+                <span>ARRIVAL</span>
+                <strong>PACK</strong>
+              </div>
+              <div class="pi-pack-phone"><MapPinned size={34} stroke-width={2.1} /></div>
+              <div class="pi-pack-pdf">PDF</div>
+            </div>
+            <div class="pi-bottom-cta__copy">
+              <h2>Want the full offline pack?</h2>
+              <p>Unlock the Arrival Pack to get 1 / 2 / 3-day routes, arrival checklists, payment notes, hotel address backups, ticket reminders, backup plans, and printable PDFs.</p>
+              <div class="pi-trust-row">
+                <span><CircleCheck size={18} stroke-width={2.2} /> Instant access</span>
+                <span><Download size={18} stroke-width={2.2} /> Printable PDFs</span>
+                <span><ShieldCheck size={18} stroke-width={2.2} /> Easy to use offline</span>
+              </div>
+            </div>
+            <div class="pi-bottom-cta__action">
+              <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">
+                <LockKeyhole size={18} stroke-width={2.2} aria-hidden="true" />
+                Unlock Arrival Pack - $9.90
+              </a>
+              <small>Secure payment · One-time purchase · Instant access</small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>
