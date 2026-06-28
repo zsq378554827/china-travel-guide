@@ -1,0 +1,589 @@
+---
+import {
+  BusFront,
+  CalendarCheck,
+  CalendarDays,
+  Car,
+  ChevronRight,
+  CircleQuestionMark,
+  ClipboardCheck,
+  FileText,
+  Footprints,
+  IdCard,
+  Landmark,
+  LockKeyhole,
+  MapPin,
+  Moon,
+  Plane,
+  ShieldCheck,
+  ShoppingCart,
+  Smartphone,
+  Sun,
+  TicketCheck,
+  TrainFront,
+} from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const arrivalPackHref = "/unlock/";
+
+const onThisPage = [
+  { number: "1", label: "Before You Go", href: "#before-you-go" },
+  { number: "2", label: "Getting Around the City", href: "#getting-around" },
+  { number: "3", label: "Traveling Between Cities", href: "#between-cities" },
+  { number: "4", label: "High-Speed Train Tickets", href: "#train-tickets" },
+  { number: "5", label: "Attraction Tickets & Booking", href: "#attraction-tickets" },
+  { number: "6", label: "Simple Booking Strategy", href: "#booking-strategy" },
+  { number: "7", label: "Common Problems", href: "#common-problems" },
+  { number: "8", label: "Final Transport & Ticket Checklist", href: "#final-checklist" },
+];
+
+const beforeYouGo = [
+  {
+    title: "City-to-city transport confirmed",
+    text: "High-speed train / flight / private car",
+    Icon: TrainFront,
+  },
+  {
+    title: "Exact station / airport / entrance confirmed",
+    text: "Don’t just look at the city name",
+    Icon: Landmark,
+  },
+  {
+    title: "Passport name & number match tickets",
+    text: "Identity information must match",
+    Icon: IdCard,
+  },
+  {
+    title: "Train / flight order saved",
+    text: "Double-check before departure",
+    Icon: TicketCheck,
+  },
+  {
+    title: "Attraction reservations confirmed",
+    text: "Some attractions need advance booking",
+    Icon: CalendarCheck,
+  },
+  {
+    title: "Passport original ready",
+    text: "Required for entry and ticket checks",
+    Icon: IdCard,
+  },
+];
+
+const cityTransport = [
+  {
+    title: "Subway",
+    Icon: TrainFront,
+    rows: [
+      ["Best for", "Big cities, between attractions, avoiding traffic"],
+      ["Pros", "Clear routes, affordable, not affected by traffic jams"],
+      ["Notes", "Crowded at rush hour, transfers may need long walks, not convenient with large luggage"],
+      ["Tip", "Great for short distances in downtown areas."],
+    ],
+  },
+  {
+    title: "Taxi / DiDi",
+    Icon: Car,
+    rows: [
+      ["Best for", "Airport / train station to hotel, with luggage, early or late trips, tight-schedule day tours"],
+      ["Pros", "Door-to-door, convenient, good for first-time visitors"],
+      ["Notes", "Traffic jams possible, some drivers may not speak English"],
+      ["Tip", "Save your destination’s Chinese address."],
+    ],
+  },
+  {
+    title: "Walking",
+    Icon: Footprints,
+    rows: [
+      ["Best for", "Old towns, streets, night markets, around attractions, short distances in city center"],
+      ["Pros", "Flexible, great for photos, discover nearby spots"],
+      ["Notes", "Distances may be longer than expected, hot in summer, cold in winter, scenic areas require lots of walking"],
+      ["Tip", "Keep energy for each day, don’t overplan."],
+    ],
+  },
+  {
+    title: "Bus",
+    Icon: BusFront,
+    rows: [
+      ["Best for", "Budget travelers, short routes, areas without subway access"],
+      ["Pros", "Cheap, wide coverage"],
+      ["Notes", "Routes and stops are not very intuitive for first-time visitors"],
+      ["Tip", "Use as a backup option, not the main choice."],
+    ],
+  },
+];
+
+const betweenCities = [
+  {
+    title: "High-Speed Train",
+    Icon: TrainFront,
+    rows: [
+      ["Best for", "2–6 hours between major cities"],
+      ["Pros", "Many trains, on time, stations close to city centers"],
+      ["Notes", "Real-name tickets, passport needed for purchase and entry"],
+      ["Tip", "Book early on holidays, bring your passport on travel day."],
+    ],
+  },
+  {
+    title: "Flight",
+    Icon: Plane,
+    rows: [
+      ["Best for", "Long distance, no good train options, cross-regional travel"],
+      ["Pros", "Saves long travel time"],
+      ["Notes", "Far from city, need extra time for check-in and security, higher delay risk"],
+      ["Tip", "If train is under 5–6 hours, compare first; choose flight for longer distances."],
+    ],
+  },
+  {
+    title: "Private Car / Transfer",
+    Icon: Car,
+    rows: [
+      ["Best for", "Great Wall, rural areas, scenic spots, late-night airport arrival, families"],
+      ["Pros", "Convenient, no transfers"],
+      ["Notes", "More expensive, confirm price, vehicle, waiting time, and pickup point in advance"],
+      ["Tip", "Good for solving complex routes, not recommended for every trip."],
+    ],
+  },
+];
+
+const trainTicketCards = [
+  {
+    title: "How to Buy",
+    Icon: ShoppingCart,
+    items: [
+      "12306 Official Website / App",
+      "Train Station Ticket Window",
+      "Self-service Ticket Machines",
+      "Authorized Ticket Agents",
+      "Trusted Travel Platforms",
+    ],
+    note: "First-time visitors can use official channels or major travel platforms.",
+  },
+  {
+    title: "What to Confirm When Buying",
+    Icon: ClipboardCheck,
+    items: [
+      "Departure City",
+      "Arrival City",
+      "Exact Station Name",
+      "Date & Time",
+      "Passenger Name",
+      "Passport Number",
+      "Document Type",
+      "Seat Class",
+      "Change & Refund Rules",
+    ],
+    note: "Always confirm the exact station. Don’t just look at “Beijing” or “Shanghai”.",
+  },
+  {
+    title: "On the Day of Travel",
+    Icon: TrainFront,
+    items: [
+      "Passport original",
+      "Ticket order info",
+      "Train number and seat",
+      "Departure station name",
+      "Waiting area and gate",
+      "Enough arrival time",
+    ],
+    note: "E-tickets are widely used on Chinese trains. Keep your order info and passport ready.",
+  },
+];
+
+const attractionCards = [
+  {
+    title: "What May Need Advance Booking",
+    Icon: TicketCheck,
+    items: [
+      "Palace museums, popular historical sites",
+      "Popular shows",
+      "Panda bases, popular natural scenic areas",
+      "Cableways, elevators, boats",
+      "Holiday popular attractions",
+      "Real-name entry places",
+    ],
+    note: "Rules vary. Some support passport booking, others need official platforms, travel platforms, or on-site purchase.",
+  },
+  {
+    title: "What to Confirm Before Booking",
+    Icon: ClipboardCheck,
+    items: [
+      "Need advance booking?",
+      "Need passport number?",
+      "Need real name?",
+      "Date or time slot?",
+      "Closed days?",
+      "Last entry time?",
+      "Need internal transport, cableway, boat, show tickets?",
+    ],
+    note: "Don’t just buy the “entrance ticket”. Scenic areas often have extra internal transport.",
+  },
+  {
+    title: "What to Bring on Entry Day",
+    Icon: IdCard,
+    items: [
+      "Passport original",
+      "Ticket order screenshot",
+      "Reservation QR code",
+      "Entry time info",
+      "Entrance name",
+      "Chinese attraction name",
+      "Booking platform order no.",
+    ],
+    note: "If booked with passport, bring the same passport original, not just a photo.",
+  },
+];
+
+const bookingStrategy = [
+  {
+    title: "7–14 Days Before Departure",
+    Icon: CalendarDays,
+    items: ["Confirm intercity transport", "Confirm popular attraction booking", "Check Chinese holidays", "Adjust route order"],
+  },
+  {
+    title: "3–7 Days Before Departure",
+    Icon: CalendarCheck,
+    items: ["Buy or confirm train tickets", "Book attractions", "Confirm shows, cableways, boats or park transport", "Save order screenshots"],
+  },
+  {
+    title: "The Night Before",
+    Icon: Moon,
+    items: [
+      "Confirm tomorrow’s first stop",
+      "Confirm departure time and transport",
+      "Save ticket QR codes",
+      "Passport with you",
+      "Save destination address",
+      "Check weather and opening hours",
+    ],
+  },
+  {
+    title: "The Morning of Travel",
+    Icon: Sun,
+    items: ["Phone battery", "Power bank", "Passport", "Ticket screenshots", "Train / flight orders", "Hotel address", "Backup transport plan"],
+  },
+];
+
+const commonProblems = [
+  {
+    title: "Bought the wrong train station ticket",
+    text:
+      "Check if change is possible; confirm correct station; if not enough time, take a taxi / DiDi to the right station; always use the full station name when booking.",
+  },
+  {
+    title: "Passport number entered wrong",
+    text:
+      "Contact the booking platform ASAP; follow platform rules to fix or rebook; don’t wait until entry day; confirm name and passport number before booking again.",
+  },
+  {
+    title: "Attraction fully booked",
+    text:
+      "Change date or time slot; choose another attraction; ask hotel if any official channels are available; don’t buy from unreliable sellers.",
+  },
+  {
+    title: "Can’t catch the train on the day",
+    text:
+      "Check if change is possible; if not, buy the next train; adjust hotel and attraction bookings; plan intercity transfers with more time.",
+  },
+  {
+    title: "Can’t find the attraction entrance",
+    text:
+      "Open the Chinese attraction name; search the exact entrance; show Chinese address to staff; confirm “Visitor Center”, “South Gate”, “East Gate” in advance.",
+  },
+];
+
+const checklist = [
+  "City-to-city transport confirmed",
+  "Train / flight date & time confirmed",
+  "Exact station / airport name confirmed",
+  "Passport name & ticket info match",
+  "Train tickets saved",
+  "Attraction reservations confirmed",
+  "Ticket QR codes / screenshots saved",
+  "Entrance & opening hours confirmed",
+  "Tomorrow’s first stop confirmed",
+  "Hotel to first stop time confirmed",
+  "Destination address saved in Chinese",
+  "Backup transport plan ready",
+  "Passport original with you",
+  "Phone & power bank charged",
+];
+
+const relatedGuides = [
+  { title: "Arrival Checklist", href: "/arrival-checklist/", Icon: CalendarCheck },
+  { title: "Payment & Internet", href: "/travel-prep/payment-internet/", Icon: Smartphone },
+  { title: "Travel Apps", href: "/china-travel-apps/", Icon: Smartphone },
+  { title: "Emergency Help", href: "/china-travel-checklist/#emergency", Icon: ShieldCheck },
+  { title: "Offline PDF Pack", href: arrivalPackHref, Icon: FileText },
+];
+---
+
+<BaseLayout
+  title="Transport & Tickets"
+  description="Figure out city transport, high-speed trains, and attraction reservations so your first trip to China is smooth and easy."
+  headerCtaLabel="Unlock Pack - $9.90"
+  headerCtaHref={arrivalPackHref}
+>
+  <div class="transport-tickets-page">
+    <section class="tt-hero">
+      <div class="container tt-hero__grid">
+        <div class="tt-hero__copy">
+          <h1>TRANSPORT &amp; TICKETS</h1>
+          <p class="tt-hero__dek">Figure out city transport, high-speed trains, and attraction reservations so your first trip to China is smooth and easy.</p>
+          <p class="tt-hero__body">
+            For first-time visitors, the most common problems are not “no transport”, but wrong stations, passport mistakes, missed reservations, and forgetting your passport on the day of travel. This page helps you prepare transport and tickets with confidence.
+          </p>
+        </div>
+
+        <div class="tt-hero-art" aria-label="High-speed train, passport, ticket, and city transport illustration">
+          <div class="tt-skyline" aria-hidden="true"></div>
+          <div class="tt-train" aria-hidden="true">
+            <span class="tt-train__window"></span>
+            <span class="tt-train__stripe"></span>
+          </div>
+          <div class="tt-map-pin" aria-hidden="true"><MapPin size={42} stroke-width={2.4} /></div>
+          <div class="tt-passport" aria-hidden="true">
+            <strong>护照</strong>
+            <IdCard size={54} stroke-width={1.8} />
+            <span>PASSPORT</span>
+          </div>
+          <div class="tt-ticket" aria-hidden="true">
+            <TrainFront size={48} stroke-width={2} />
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="tt-pagoda" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <aside class="tt-hero__side" aria-label="Page navigation and station name tip">
+          <nav class="tt-side-card tt-on-page" aria-label="On this page">
+            <h2>ON THIS PAGE</h2>
+            <ol>
+              {onThisPage.map((item) => (
+                <li>
+                  <a href={item.href}>
+                    <span>{item.number}</span>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          <div class="tt-side-card tt-station-tip">
+            <h2>STATION NAME TIP</h2>
+            <p>Many cities have multiple train stations or airport terminals. Always confirm the full station or airport name before booking and traveling.</p>
+            <ul>
+              <li>Beijing South</li>
+              <li>Shanghai Hongqiao</li>
+              <li>Xi’an North</li>
+              <li>Chengdu East</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main class="tt-main">
+      <section class="tt-section" id="before-you-go">
+        <div class="container">
+          <h2>1. BEFORE YOU GO — CONFIRM THESE 6 THINGS</h2>
+          <div class="tt-grid tt-grid--six">
+            {beforeYouGo.map((card) => {
+              const Icon = card.Icon;
+              return (
+                <article class="tt-mini-card">
+                  <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="tt-section" id="getting-around">
+        <div class="container">
+          <h2>2. GETTING AROUND THE CITY</h2>
+          <div class="tt-grid tt-grid--four tt-equal-panel">
+            {cityTransport.map((card) => {
+              const Icon = card.Icon;
+              return (
+                <article class="tt-info-card">
+                  <header>
+                    <Icon size={36} stroke-width={2.1} aria-hidden="true" />
+                    <h3>{card.title}</h3>
+                  </header>
+                  {card.rows.map(([label, text]) => (
+                    <p><strong>{label}:</strong> {text}</p>
+                  ))}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="tt-section" id="between-cities">
+        <div class="container">
+          <h2>3. TRAVELING BETWEEN CITIES</h2>
+          <div class="tt-grid tt-grid--three tt-equal-panel">
+            {betweenCities.map((card) => {
+              const Icon = card.Icon;
+              return (
+                <article class="tt-info-card">
+                  <header>
+                    <Icon size={38} stroke-width={2.1} aria-hidden="true" />
+                    <h3>{card.title}</h3>
+                  </header>
+                  {card.rows.map(([label, text]) => (
+                    <p><strong>{label}:</strong> {text}</p>
+                  ))}
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="tt-section tt-two-up" id="train-tickets">
+        <div class="container tt-two-up__grid">
+          <div>
+            <h2>4. HIGH-SPEED TRAIN TICKETS — WHAT TO KNOW</h2>
+            <div class="tt-grid tt-grid--two">
+              {trainTicketCards.map((card) => {
+                const Icon = card.Icon;
+                return (
+                  <article class="tt-list-card">
+                    <header>
+                      <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                      <h3>{card.title}</h3>
+                    </header>
+                    <ul>
+                      {card.items.map((item) => <li>{item}</li>)}
+                    </ul>
+                    <p class="tt-note">{card.note}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
+          <div id="attraction-tickets">
+            <h2>5. ATTRACTION TICKETS &amp; BOOKING</h2>
+            <div class="tt-grid tt-grid--three">
+              {attractionCards.map((card) => {
+                const Icon = card.Icon;
+                return (
+                  <article class="tt-list-card">
+                    <header>
+                      <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                      <h3>{card.title}</h3>
+                    </header>
+                    <ul>
+                      {card.items.map((item) => <li>{item}</li>)}
+                    </ul>
+                    <p class="tt-note">{card.note}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tt-section" id="booking-strategy">
+        <div class="container">
+          <h2>6. SIMPLE BOOKING STRATEGY</h2>
+          <div class="tt-grid tt-grid--four tt-strategy">
+            {bookingStrategy.map((step) => {
+              const Icon = step.Icon;
+              return (
+                <article class="tt-list-card">
+                  <header>
+                    <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                    <h3>{step.title}</h3>
+                  </header>
+                  <ul>
+                    {step.items.map((item) => <li>{item}</li>)}
+                  </ul>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section class="tt-section tt-bottom-grid" id="common-problems">
+        <div class="container tt-bottom-grid__inner">
+          <div>
+            <h2>7. COMMON PROBLEMS</h2>
+            <div class="tt-accordion">
+              {commonProblems.map((problem, index) => (
+                <details class="tt-accordion-item" open={index === 0}>
+                  <summary>
+                    <span><CircleQuestionMark size={18} stroke-width={2.2} aria-hidden="true" /></span>
+                    <strong>Problem {index + 1}: {problem.title}</strong>
+                    <ChevronRight size={18} stroke-width={2.4} aria-hidden="true" />
+                  </summary>
+                  <p>{problem.text}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+
+          <aside class="tt-pack-card">
+            <div>
+              <h3>Want the full route &amp; ticket reminders offline?</h3>
+              <p>Unlock the Arrival Pack to get 1 / 2 / 3-day routes, transport guides, attraction ticket reminders, hotel address notes, backup plans, and printable PDFs.</p>
+            </div>
+            <div class="tt-pack-art" aria-hidden="true">
+              <ClipboardCheck size={56} stroke-width={1.8} />
+              <span></span>
+            </div>
+            <a class="button button-primary" href={arrivalPackHref} data-analytics-event="unlock_click">
+              <LockKeyhole size={18} stroke-width={2.2} aria-hidden="true" />
+              Unlock Arrival Pack - $9.90
+            </a>
+            <small>Instant access · Printable PDFs · Works offline</small>
+          </aside>
+        </div>
+      </section>
+
+      <section class="tt-section" id="final-checklist">
+        <div class="container">
+          <h2>8. FINAL TRANSPORT &amp; TICKET CHECKLIST</h2>
+          <div class="tt-checklist">
+            {checklist.map((item) => (
+              <label>
+                <input type="checkbox" />
+                <span>{item}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="tt-section tt-related-section">
+        <div class="container">
+          <h2>9. RELATED TRAVEL PREP GUIDES</h2>
+          <div class="tt-related">
+            {relatedGuides.map((guide) => {
+              const Icon = guide.Icon;
+              return (
+                <a class="tt-related-card" href={guide.href}>
+                  <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                  <span>{guide.title}</span>
+                </a>
+              );
+            })}
+          </div>
+          <p class="tt-related-note">This page focuses only on transport &amp; tickets, not other topics.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>

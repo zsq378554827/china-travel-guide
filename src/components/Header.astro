@@ -4,9 +4,10 @@ import { checkoutUrl, navLinks } from "@data/site";
 
 type Props = {
   ctaLabel?: string;
+  ctaHref?: string;
 };
 
-const { ctaLabel = "Unlock - $9.90" } = Astro.props;
+const { ctaLabel = "Unlock - $9.90", ctaHref = checkoutUrl } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const isActiveLink = (label: string, href: string) => {
@@ -39,7 +40,7 @@ const isActiveLink = (label: string, href: string) => {
       {navLinks.map((link) => <a class:list={{ "is-active": isActiveLink(link.label, link.href) }} href={link.href}>{link.label}</a>)}
     </nav>
     <div class="header-actions">
-      <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">{ctaLabel}</a>
+      <a class="button button-primary" href={ctaHref} data-analytics-event="checkout_click">{ctaLabel}</a>
     </div>
   </div>
 </header>
