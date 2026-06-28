@@ -42,7 +42,7 @@ const heroCities = cities.map((city) => ({
       </div>
 
       <div class="home-mini-cards" aria-label="Free guide and travel prep summary">
-        <article class="home-mini-card">
+        <a class="home-mini-card" href="#cities" aria-label="Jump to free city guides">
           <h2><MapIcon size={22} /> Free City Guides</h2>
           <ul>
             <li>6 Top Cities</li>
@@ -50,8 +50,8 @@ const heroCities = cities.map((city) => ({
             <li>Culture & Highlights</li>
             <li>Curated for First-Time Visitors</li>
           </ul>
-        </article>
-        <article class="home-mini-card">
+        </a>
+        <a class="home-mini-card" href="#travel-prep" aria-label="Jump to travel prep hub">
           <h2><CircleCheck size={22} /> Travel Prep Hub</h2>
           <ul>
             <li>Arrival Checklist</li>
@@ -61,7 +61,7 @@ const heroCities = cities.map((city) => ({
             <li>Emergency Help</li>
             <li>Offline PDF Pack</li>
           </ul>
-        </article>
+        </a>
       </div>
 
       <p class="home-hero-note">
