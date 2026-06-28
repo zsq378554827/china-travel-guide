@@ -1,0 +1,350 @@
+---
+import {
+  Bed,
+  Briefcase,
+  ChevronDown,
+  CircleCheck,
+  ClipboardCheck,
+  Download,
+  FileText,
+  Hotel,
+  Image,
+  Info,
+  MapPinned,
+  Plane,
+  Printer,
+  ShieldCheck,
+  Smartphone,
+  User,
+} from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { checkoutUrl } from "@data/site";
+
+const steps = [
+  {
+    number: "1",
+    title: "Before You Fly",
+    icon: FileText,
+    bullets: [
+      "Passport valid for your full trip, ideally 6+ months.",
+      "Confirm visa, visa-free, or transit eligibility.",
+      "Save flight, first hotel, and emergency contact info.",
+    ],
+  },
+  {
+    number: "2",
+    title: "What to Keep in Your Carry-On",
+    icon: Briefcase,
+    bullets: [
+      "Passport, visa info, flight and hotel details.",
+      "Phone, charger, power bank, and cash backup.",
+      "Medicine in original packaging and insurance details.",
+    ],
+  },
+  {
+    number: "3",
+    title: "What to Save Offline",
+    icon: Image,
+    bullets: [
+      "Passport and visa photos, hotel Chinese address.",
+      "Flight and ticket screenshots, insurance details.",
+      "Important QR codes and first-day route.",
+    ],
+  },
+  {
+    number: "4",
+    title: "Information You May Need at Immigration",
+    icon: User,
+    bullets: [
+      "Purpose of visit, cities you plan to visit.",
+      "First hotel and contact information.",
+      "Return or onward ticket.",
+    ],
+  },
+  {
+    number: "5",
+    title: "Customs & Declaration Reminder",
+    icon: ShieldCheck,
+    bullets: [
+      "Know what can be brought in and what must be declared.",
+      "Declare truthfully if you carry items to declare.",
+      "Pay attention to cash, medicine, food, and restricted items.",
+    ],
+  },
+  {
+    number: "6",
+    title: "First Hour After Landing",
+    icon: Plane,
+    bullets: [
+      "Connect to airport Wi-Fi or mobile data, confirm phone works.",
+      "Open your first hotel's Chinese address.",
+      "Confirm how you will get to your hotel.",
+      "Check luggage and important items.",
+    ],
+  },
+  {
+    number: "7",
+    title: "First Night in China",
+    icon: Bed,
+    bullets: [
+      "Check in to hotel and organize your documents.",
+      "Confirm tomorrow's first stop and ticket needs.",
+      "Charge devices and prepare your bag.",
+    ],
+  },
+  {
+    number: "8",
+    title: "Common Mistakes to Avoid",
+    icon: ShieldCheck,
+    bullets: [
+      "Only saving English hotel address.",
+      "Keeping everything in email, not screenshots.",
+      "Not carrying passport or running out of battery.",
+    ],
+  },
+  {
+    number: "9",
+    title: "Final Checklist Before Departure",
+    icon: ClipboardCheck,
+    bullets: [
+      "Use the quick checklist on the right.",
+      "Make sure key screenshots are saved offline.",
+      "Keep your first hotel Chinese address ready.",
+    ],
+  },
+];
+
+const checklistGroups = [
+  {
+    title: "Documents",
+    icon: FileText,
+    items: [
+      "Passport validity checked, ideally 6+ months",
+      "Visa / visa-free eligibility confirmed",
+      "Return or onward ticket",
+    ],
+  },
+  {
+    title: "Hotel Information",
+    icon: Hotel,
+    items: [
+      "Hotel name & address in English",
+      "Hotel name & address in Chinese",
+      "Hotel phone number saved",
+    ],
+  },
+  {
+    title: "Offline Screenshots",
+    icon: Image,
+    items: [
+      "Passport & visa photos saved",
+      "Flight & hotel screenshots saved",
+      "First-day route & important QR codes saved",
+    ],
+  },
+  {
+    title: "Devices & Backup",
+    icon: Smartphone,
+    items: [
+      "Phone & charger packed",
+      "Power bank charged",
+      "Cash backup prepared",
+    ],
+  },
+  {
+    title: "Health & Insurance",
+    icon: ShieldCheck,
+    items: [
+      "Medicine in original packaging",
+      "Doctor's note / prescription if needed",
+      "Travel insurance details saved",
+    ],
+  },
+  {
+    title: "Tomorrow's Plan",
+    icon: ClipboardCheck,
+    items: [
+      "First stop confirmed",
+      "Ticket / booking requirements checked",
+      "Weather & clothing checked",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Arrival Checklist"
+  description="A practical China arrival checklist for first-time visitors covering documents, offline backups, immigration information, first-hour setup, and first-night checks."
+  headerCtaLabel="Unlock Arrival Pack - $9.90"
+>
+  <div class="arrival-checklist-page" data-arrival-checklist>
+    <section class="arrival-hero">
+      <div class="container arrival-hero__inner">
+        <div class="arrival-hero__copy">
+          <p class="eyebrow">ARRIVAL CHECKLIST</p>
+          <h1>Prepare for a smooth arrival <span>on your first trip to China.</span></h1>
+          <p class="lead">Use this step-by-step checklist before you fly, during immigration, and on your first night in China.</p>
+          <div class="arrival-focus-note">
+            <Info size={22} stroke-width={2.2} aria-hidden="true" />
+            <p>
+              <strong>This page focuses on arrival preparation only.</strong>
+              Payment, internet, transport, apps, and emergency help are covered in separate Travel Prep guides.
+            </p>
+          </div>
+        </div>
+
+        <div class="arrival-hero__art" aria-label="Passport, flight ticket, phone map, and hotel arrival illustration">
+          <div class="arrival-illustration">
+            <div class="arrival-cloud arrival-cloud--one"></div>
+            <div class="arrival-cloud arrival-cloud--two"></div>
+            <div class="arrival-passport">
+              <span>PASSPORT</span>
+              <span class="arrival-passport__globe"></span>
+            </div>
+            <div class="arrival-ticket">
+              <span></span>
+              <Plane size={26} stroke-width={2.1} aria-hidden="true" />
+            </div>
+            <div class="arrival-phone">
+              <MapPinned size={48} stroke-width={1.9} aria-hidden="true" />
+              <span class="arrival-phone__pin"></span>
+            </div>
+            <div class="arrival-hotel">
+              <span>HOTEL</span>
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+            <div class="arrival-checkmark">
+              <CircleCheck size={42} stroke-width={2.3} aria-hidden="true" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="arrival-main">
+      <div class="container arrival-main__grid">
+        <div class="arrival-steps" aria-label="Arrival preparation steps">
+          {steps.map((step) => {
+            const Icon = step.icon;
+            return (
+              <details class="arrival-step" open>
+                <summary class="arrival-step__summary">
+                  <span class="arrival-step__number">{step.number}</span>
+                  <span class="arrival-step__icon" aria-hidden="true"><Icon size={30} stroke-width={2.2} /></span>
+                  <span class="arrival-step__title">{step.title}</span>
+                  <ChevronDown class="arrival-step__chevron" size={24} stroke-width={2.2} aria-hidden="true" />
+                </summary>
+                <ul class="arrival-step__bullets">
+                  {step.bullets.map((item) => <li>{item}</li>)}
+                </ul>
+              </details>
+            );
+          })}
+        </div>
+
+        <aside class="arrival-quick" aria-label="Quick checklist">
+          <div class="arrival-quick__heading">
+            <h2>Quick Checklist</h2>
+            <p>Final Check Before You Go</p>
+          </div>
+          <div class="arrival-progress" aria-live="polite">
+            <strong data-checklist-count>0 / 18 completed</strong>
+            <span class="arrival-progress__track"><span class="arrival-progress__bar" data-checklist-bar></span></span>
+          </div>
+
+          <div class="arrival-check-groups">
+            {checklistGroups.map((group) => {
+              const Icon = group.icon;
+              return (
+                <details class="arrival-check-group" open>
+                  <summary>
+                    <span><Icon size={20} stroke-width={2.2} aria-hidden="true" /> {group.title} <small>(3)</small></span>
+                    <ChevronDown size={18} stroke-width={2.2} aria-hidden="true" />
+                  </summary>
+                  <ul class="arrival-check-list">
+                    {group.items.map((item) => (
+                      <li>
+                        <label>
+                          <input type="checkbox" data-checklist-box />
+                          <span>{item}</span>
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              );
+            })}
+          </div>
+
+          <div class="arrival-check-actions">
+            <button class="button button-secondary" type="button" data-print-checklist>
+              <Printer size={18} stroke-width={2.2} aria-hidden="true" />
+              Print Checklist
+            </button>
+            <button class="button button-primary" type="button" data-print-checklist>
+              <Download size={18} stroke-width={2.2} aria-hidden="true" />
+              Save as PDF
+            </button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="arrival-pack-cta-section">
+      <div class="container">
+        <div class="arrival-pack-cta">
+          <div class="arrival-pack-cta__copy">
+            <h2>Want the full offline arrival pack?</h2>
+            <p>Unlock the Arrival Pack to get 1 / 2 / 3-day routes, arrival checklists, hotel address notes, ticket reminders, backup plans, and printable PDFs.</p>
+          </div>
+          <div class="arrival-pack-cta__benefits">
+            <span><Smartphone size={28} stroke-width={2.2} aria-hidden="true" /> <strong>Use Offline Anytime</strong></span>
+            <span><FileText size={28} stroke-width={2.2} aria-hidden="true" /> <strong>Printable PDFs</strong></span>
+            <span><User size={28} stroke-width={2.2} aria-hidden="true" /> <strong>Perfect for First-Time Visitors</strong></span>
+          </div>
+          <div class="arrival-pack-cta__price">
+            <strong>$9.90 <span>USD</span></strong>
+            <small>One-time payment</small>
+            <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock Arrival Pack - $9.90</a>
+          </div>
+          <div class="arrival-pack-cta__mockup" aria-hidden="true">
+            <div class="arrival-pack-doc arrival-pack-doc--front">
+              <span>Arrival Pack</span>
+              <strong>China</strong>
+            </div>
+            <div class="arrival-pack-doc arrival-pack-doc--sheet"></div>
+            <div class="arrival-pack-phone"><MapPinned size={32} stroke-width={2.1} /></div>
+          </div>
+        </div>
+        <p class="arrival-policy-note">
+          <Info size={18} stroke-width={2.2} aria-hidden="true" />
+          Visa, entry, customs, and accommodation registration policies may change. Please follow the latest official regulations.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector("[data-arrival-checklist]");
+      if (!root) return;
+
+      const boxes = Array.from(root.querySelectorAll("[data-checklist-box]"));
+      const count = root.querySelector("[data-checklist-count]");
+      const bar = root.querySelector("[data-checklist-bar]");
+      const updateProgress = () => {
+        const done = boxes.filter((box) => box.checked).length;
+        if (count) count.textContent = `${done} / ${boxes.length} completed`;
+        if (bar) bar.style.width = boxes.length ? `${(done / boxes.length) * 100}%` : "0%";
+      };
+
+      boxes.forEach((box) => box.addEventListener("change", updateProgress));
+      root.querySelectorAll("[data-print-checklist]").forEach((button) => {
+        button.addEventListener("click", () => window.print());
+      });
+      updateProgress();
+    })();
+  </script>
+</BaseLayout>
