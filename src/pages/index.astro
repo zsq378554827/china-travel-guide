@@ -1,41 +1,24 @@
 ---
 import {
   CalendarDays,
+  ClipboardCheck,
   CreditCard,
-  Earth,
-  Plane,
+  FileText,
+  LayoutGrid,
+  Phone,
+  ShieldAlert,
   ShieldCheck,
   Ticket,
   TrainFront,
-  WalletCards,
+  Utensils,
+  Wifi,
 } from "@lucide/astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import CityCard from "@components/CityCard.astro";
-import FAQList from "@components/FAQList.astro";
 import GuideMockup from "@components/GuideMockup.astro";
 import HomeHero3D from "@components/home/HomeHero3D.astro";
 import { cities } from "@data/cities";
-import { setupGuides } from "@data/setupGuides";
 import { checkoutUrl, resolvedSiteUrl, site } from "@data/site";
-
-const homeFaq = [
-  {
-    question: "Are the 1-day guides free?",
-    answer: "Yes. The MVP keeps 1-day city guides free so first-time visitors can check the style and usefulness before buying.",
-  },
-  {
-    question: "Is the Arrival Pack a subscription?",
-    answer: "No. It is a one-time purchase for the current packs available at checkout.",
-  },
-  {
-    question: "Do I get future content?",
-    answer: "You get the current packs at the time of purchase. Future content is not included unless stated on the checkout page.",
-  },
-  {
-    question: "Can I use the guides offline?",
-    answer: "The Arrival Pack is designed as downloadable PDFs, so you can save city planning notes and setup checklists before traveling.",
-  },
-];
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -45,43 +28,74 @@ const jsonLd = {
   url: resolvedSiteUrl,
 };
 
-const setupIcons = {
-  "how-to-pay-in-china": CreditCard,
-  "can-foreigners-use-alipay-in-china": WalletCards,
-  "can-tourists-use-wechat-pay-in-china": WalletCards,
-  "china-public-transport-guide": TrainFront,
-  "china-high-speed-rail-guide": TrainFront,
-  "how-to-buy-train-tickets-in-china": Ticket,
-  "china-travel-apps": Earth,
-  "china-esim-sim-card-guide": Earth,
-  "china-vpn-internet-access-guide": ShieldCheck,
-  "china-ticket-booking-guide": CalendarDays,
-};
+const prepCards = [
+  {
+    title: "Arrival Checklist",
+    subtitle: "What to prepare",
+    href: "/china-travel-checklist/",
+    Icon: ClipboardCheck,
+  },
+  {
+    title: "Payment & Internet",
+    subtitle: "Payment & internet options",
+    href: "/how-to-pay-in-china/",
+    Icon: Wifi,
+  },
+  {
+    title: "Transport & Tickets",
+    subtitle: "Getting around & tickets",
+    href: "/china-public-transport-guide/",
+    Icon: TrainFront,
+  },
+  {
+    title: "Travel Apps",
+    subtitle: "Useful apps you’ll need",
+    href: "/china-travel-apps/",
+    Icon: Phone,
+  },
+  {
+    title: "Emergency Help",
+    subtitle: "Emergency contacts and common issues",
+    href: "/china-travel-checklist/#emergency",
+    Icon: ShieldAlert,
+  },
+  {
+    title: "Offline PDF Pack",
+    subtitle: "Download & print anytime",
+    href: "/unlock/",
+    Icon: FileText,
+  },
+];
 
-const homepageSetupGuides = setupGuides.filter(
-  (guide) =>
-    !["china-high-speed-rail-guide", "how-to-buy-train-tickets-in-china", "china-ticket-booking-guide"].includes(
-      guide.slug,
-    ),
-);
+const packItems = [
+  { title: "1 / 2 / 3-Day Routes", subtitle: "Six cities", Icon: CalendarDays },
+  { title: "Local Food Picks", subtitle: "With addresses", Icon: Utensils },
+  { title: "Attraction Ticket Guide", subtitle: "Step-by-step", Icon: Ticket },
+  { title: "Arrival Checklist", subtitle: "What to prepare", Icon: ClipboardCheck },
+  { title: "Payment & Internet", subtitle: "Ways to pay & connect", Icon: CreditCard },
+  { title: "Transport & Tickets", subtitle: "Getting around", Icon: TrainFront },
+  { title: "Travel Apps", subtitle: "Must-have apps", Icon: LayoutGrid },
+  { title: "Emergency Help", subtitle: "Contacts & tips", Icon: ShieldCheck },
+  { title: "Offline PDF", subtitle: "Printable & offline", Icon: FileText },
+];
 ---
 
 <BaseLayout
   title="China Travel Guides for First-Time Visitors"
-  description="Free first-day city guides, arrival setup tips, and a printable China Arrival Pack for first-time visitors."
+  description="Free city guides, arrival checklists, practical tips, and printable resources for first-time visitors to China."
   jsonLd={jsonLd}
+  headerCtaLabel="Unlock Pack · $9.90"
 >
   <HomeHero3D />
 
-  <section class="section" id="cities">
+  <section class="section home-city-section" id="cities">
     <div class="container">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Explore 6 Cities</p>
-          <h2>Start with a free city guide.</h2>
+          <h2>Browse Free City Guides.</h2>
         </div>
         <p class="muted">
-          The first batch focuses on Beijing, Shanghai, Xi'an, Chengdu, Zhangjiajie, and Guilin / Yangshuo.
+          First-time traveler favorites: Beijing, Shanghai, Xi’an, Chengdu, Zhangjiajie, Guilin / Yangshuo.
         </p>
       </div>
       <div class="city-grid">
@@ -90,130 +104,65 @@ const homepageSetupGuides = setupGuides.filter(
     </div>
   </section>
 
-  <section class="section-tight" id="arrival-checklist">
-    <div class="container split-section">
-      <div>
-        <p class="eyebrow">Arrival Checklist</p>
-        <h2>Set up the essentials before you land.</h2>
-        <p class="lead">
-          Keep the free web checklist short enough to act on, then use the Arrival Pack for printable, offline steps.
-        </p>
-        <div class="inline-actions" style="margin-top: 24px;">
-          <a class="button button-primary" href="/china-travel-checklist/">Read the free checklist</a>
-          <a class="text-link" href={checkoutUrl} data-analytics-event="checkout_click">Unlock the Arrival Pack</a>
-        </div>
-      </div>
-      <div class="checklist-grid" aria-label="Arrival checklist groups">
-        <div class="checklist-col">
-          <Plane size={30} />
-          <h3>Before You Fly</h3>
-          <ul>
-            <li>Passport and visa rules</li>
-            <li>Arrival card window</li>
-            <li>Hotel address saved</li>
-          </ul>
-        </div>
-        <div class="checklist-col">
-          <WalletCards size={30} />
-          <h3>Payments</h3>
-          <ul>
-            <li>Alipay setup</li>
-            <li>WeChat Pay backup</li>
-            <li>Small cash reserve</li>
-          </ul>
-        </div>
-        <div class="checklist-col">
-          <TrainFront size={30} />
-          <h3>Getting Around</h3>
-          <ul>
-            <li>Metro and taxi basics</li>
-            <li>High-speed rail timing</li>
-            <li>Chinese address backups</li>
-          </ul>
-        </div>
-        <div class="checklist-col">
-          <Ticket size={30} />
-          <h3>Tickets</h3>
-          <ul>
-            <li>Passport name match</li>
-            <li>Confirm booking codes</li>
-            <li>Backup options</li>
-          </ul>
-        </div>
-        <div class="checklist-col">
-          <ShieldCheck size={30} />
-          <h3>Emergency</h3>
-          <ul>
-            <li>Offline emergency card</li>
-            <li>Passport photo backup</li>
-            <li>Hotel contact in Chinese</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight" id="travel-setup">
-    <div class="container">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Travel Setup</p>
-          <h2>Free setup guides for the arrival problems that matter.</h2>
-        </div>
+  <section class="section-tight" id="travel-prep">
+    <div class="container travel-prep-panel">
+      <div class="travel-prep-copy">
+        <p class="eyebrow">Travel Prep Hub</p>
+        <h2>Put the most common arrival questions in one place.</h2>
         <p class="muted">
-          These SEO pages stay free and lead into the China Arrival Pack when visitors need printable,
-          step-by-step offline help.
+          Payment, internet, transport, apps, and emergencies — get ready before you land.
         </p>
       </div>
-      <div class="content-grid">
-        {homepageSetupGuides.map((guide) => {
-          const Icon = setupIcons[guide.slug as keyof typeof setupIcons] || Earth;
-          return (
-            <article class="content-card">
-              <Icon size={30} />
-              <h3>{guide.title}</h3>
-              <p class="muted">{guide.description}</p>
-              <a class="text-link" href={guide.href}>Read guide</a>
-            </article>
-          );
-        })}
+      <div class="travel-prep-grid" aria-label="Travel prep links">
+        {prepCards.map(({ title, subtitle, href, Icon }) => (
+          <a class="travel-prep-card" href={href}>
+            <Icon size={32} stroke-width={2.1} />
+            <strong>{title}</strong>
+            <span>{subtitle}</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container paper-card unlock-panel">
-      <GuideMockup compact />
-      <div>
+  <section class="section" id="arrival-pack">
+    <div class="container arrival-pack-panel">
+      <div class="arrival-pack-mockup">
         <p class="eyebrow">Arrival Pack</p>
-        <h2>Everything needed for a smoother first China trip.</h2>
-        <ul class="clean-list" style="margin: 22px 0;">
-          <li>2-day and 3-day itineraries for all 6 cities</li>
-          <li>China Arrival Setup Pack checklists</li>
-          <li>Printable city guides and offline PDFs</li>
-          <li>Backup routes and booking reminders</li>
-        </ul>
-        <p class="price">$9.90</p>
-        <div class="trust-row" style="margin: 14px 0 22px;">
-          <span class="pill">One-time purchase</span>
-          <span class="pill">Current packs</span>
-          <span class="pill">No subscription</span>
-          <span class="pill">Printable PDFs</span>
-        </div>
-        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock the $9.90 Arrival Pack</a>
+        <GuideMockup compact />
       </div>
-    </div>
-  </section>
 
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">FAQ</p>
-          <h2>Clear boundaries before checkout.</h2>
+      <div class="arrival-pack-includes">
+        <div class="arrival-pack-heading">
+          <span></span>
+          <strong>You’ll Get</strong>
+          <span></span>
+        </div>
+        <div class="arrival-pack-grid" aria-label="Arrival Pack includes">
+          {packItems.map(({ title, subtitle, Icon }) => (
+            <div class="arrival-pack-item">
+              <Icon size={26} />
+              <strong>{title}</strong>
+              <span>{subtitle}</span>
+            </div>
+          ))}
         </div>
       </div>
-      <FAQList items={homeFaq} />
+
+      <div class="arrival-pack-checkout">
+        <p class="arrival-pack-kicker">First-time visitors — get the essentials in one pack.</p>
+        <p class="price">$9.90 <span>USD</span></p>
+        <div class="trust-row">
+          <span class="pill">One-time purchase</span>
+          <span class="pill">No subscription</span>
+          <span class="pill">Printable PDF</span>
+          <span class="pill">1 / 2 / 3-day routes</span>
+        </div>
+        <a class="button button-primary arrival-pack-button" href={checkoutUrl} data-analytics-event="checkout_click">
+          Unlock Arrival Pack Now
+        </a>
+        <small>Secure payment · Instant access · Use anytime</small>
+      </div>
     </div>
   </section>
 </BaseLayout>

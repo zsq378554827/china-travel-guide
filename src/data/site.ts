@@ -14,16 +14,15 @@ export const checkoutUrl = import.meta.env.PUBLIC_CHECKOUT_URL || "/unlock/#chec
 export const navLinks = [
   { label: "Cities", href: "/#cities" },
   { label: "Free Guides", href: "/#cities" },
-  { label: "Travel Setup", href: "/china-travel-checklist/#setup-guides" },
-  { label: "Arrival Checklist", href: "/china-travel-checklist/" },
-  { label: "Arrival Pack", href: "/unlock/" },
+  { label: "Travel Prep", href: "/#travel-prep" },
+  { label: "Arrival Pack", href: "/#arrival-pack" },
 ];
 
 export const footerLinks = [
   { label: "Cities", href: "/#cities" },
   { label: "Free Guides", href: "/#cities" },
   { label: "Arrival Checklist", href: "/china-travel-checklist/" },
-  { label: "Travel Setup", href: "/china-travel-checklist/#setup-guides" },
+  { label: "Travel Prep", href: "/#travel-prep" },
   { label: "Arrival Pack", href: "/unlock/" },
   { label: "Payments", href: "/how-to-pay-in-china/" },
   { label: "Tickets", href: "/china-ticket-booking-guide/" },

@@ -1,8 +1,6 @@
 ---
-import { LockKeyhole, Map as MapIcon } from "@lucide/astro";
+import { CircleCheck, LockKeyhole, Map as MapIcon } from "@lucide/astro";
 import CityMapPin from "@components/home/CityMapPin.astro";
-import HeroFeatureGrid from "@components/home/HeroFeatureGrid.astro";
-import HomeValueStrip from "@components/home/HomeValueStrip.astro";
 import { cities } from "@data/cities";
 import { checkoutUrl } from "@data/site";
 
@@ -24,25 +22,51 @@ const heroCities = cities.map((city) => ({
 <section class="home-hero" aria-labelledby="home-hero-title">
   <div class="home-hero__inner">
     <div class="home-hero__copy">
-      <p class="home-hero__eyebrow">CHINA TRAVEL PLANS FOR FIRST-TIME VISITORS</p>
+      <p class="home-hero__eyebrow">Your First China Trip, Made Simple.</p>
       <h1 id="home-hero-title">
-        Your First Trip<br />
-        to <span>China,</span><br />
-        Made Simple.
+        Your First <span>China</span> Trip,<br />
+        Made Easy.
       </h1>
       <p class="home-hero__lead">
-        Free first-day city guides, arrival setup tips, and a printable China Arrival Pack for first-time visitors.
+        Free city guides, arrival checklists, practical tips, and printable resources — everything you need for a smooth and enjoyable trip to China.
       </p>
       <div class="home-hero__actions" aria-label="Homepage actions">
         <a class="button button-primary home-hero__primary" href="#cities">
           <MapIcon size={22} stroke-width={2.2} />
-          Explore Free City Guides
+          Browse Free City Guides
         </a>
         <a class="button home-hero__secondary" href={checkoutUrl} data-analytics-event="checkout_click">
           <LockKeyhole size={21} stroke-width={2.2} />
           Unlock the $9.90 Arrival Pack
         </a>
       </div>
+
+      <div class="home-mini-cards" aria-label="Free guide and travel prep summary">
+        <article class="home-mini-card">
+          <h2><MapIcon size={22} /> Free City Guides</h2>
+          <ul>
+            <li>6 Top Cities</li>
+            <li>Free 1-Day Guides</li>
+            <li>Culture & Highlights</li>
+            <li>Curated for First-Time Visitors</li>
+          </ul>
+        </article>
+        <article class="home-mini-card">
+          <h2><CircleCheck size={22} /> Travel Prep Hub</h2>
+          <ul>
+            <li>Arrival Checklist</li>
+            <li>Payment & Internet</li>
+            <li>Transport & Tickets</li>
+            <li>Travel Apps</li>
+            <li>Emergency Help</li>
+            <li>Offline PDF Pack</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="home-hero-note">
+        Free 1-day guides are available now. 2–3 day routes are included in the Arrival Pack.
+      </p>
     </div>
 
     <div class="home-map" aria-label="3D China travel map with clickable city links">
@@ -68,9 +92,5 @@ const heroCities = cities.map((city) => ({
         ))}
       </nav>
     </div>
-
-    <HeroFeatureGrid />
   </div>
-
-  <HomeValueStrip />
 </section>

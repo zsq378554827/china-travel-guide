@@ -22,8 +22,8 @@ const { city } = Astro.props;
     <div class="tag-list" aria-label={`${city.name} highlights`}>
       {city.bestFor.map((tag) => <span class="tag">{tag}</span>)}
     </div>
-    <a class="text-link" href={city.freeGuideHref}>
-      View free guide <ArrowRight size={17} />
+    <a class="text-link" href={city.href} data-analytics-event="city_click">
+      View Guide <ArrowRight size={17} />
     </a>
   </div>
 </article>
