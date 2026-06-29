@@ -1,0 +1,400 @@
+---
+import {
+  BatteryCharging,
+  BriefcaseMedical,
+  Car,
+  ChevronRight,
+  CircleCheck,
+  ClipboardCheck,
+  Contact,
+  Cross,
+  FileText,
+  Flame,
+  Hotel,
+  Info,
+  Languages,
+  LockKeyhole,
+  MapPin,
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+  Smartphone,
+  TriangleAlert,
+  Users,
+} from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const arrivalPackHref = "/unlock/";
+
+const heroCards = [
+  {
+    title: "Emergency Numbers",
+    text: "110 / 120 / 119 / 122",
+    small: "Know when to call.",
+    Icon: Phone,
+  },
+  {
+    title: "Who to Contact First",
+    text: "Police, hotel, platform, guide and more.",
+    small: "",
+    Icon: Users,
+  },
+  {
+    title: "Helpful Phrases",
+    text: "Simple Chinese phrases to show and say.",
+    small: "",
+    Icon: MessageCircle,
+  },
+];
+
+const emergencyNumbers = [
+  {
+    number: "110",
+    title: "Police",
+    color: "blue",
+    Icon: ShieldCheck,
+    bullets: ["Personal safety threats", "Theft, fraud, harassment", "Lost passport or valuables", "Need police assistance"],
+    phrase: "我要报警。",
+    translation: "I need to call the police.",
+  },
+  {
+    number: "120",
+    title: "Ambulance",
+    color: "red",
+    Icon: BriefcaseMedical,
+    bullets: ["Serious injury", "Sudden illness", "Breathing difficulty", "Chest pain, fainting", "Need an ambulance"],
+    phrase: "我需要救护车。",
+    translation: "I need an ambulance.",
+  },
+  {
+    number: "119",
+    title: "Fire",
+    color: "orange",
+    Icon: Flame,
+    bullets: ["Fire", "Smoke", "Danger in buildings", "Need fire rescue"],
+    phrase: "这里着火了。",
+    translation: "There is a fire here.",
+  },
+  {
+    number: "122",
+    title: "Traffic Accident",
+    color: "green",
+    Icon: Car,
+    bullets: ["Taxi / ride-hailing / car accident", "Collision on the road", "Need traffic accident handling"],
+    phrase: "发生交通事故了。",
+    translation: "There has been a traffic accident.",
+  },
+];
+
+const prepInfo = [
+  { title: "Where you are", Icon: MapPin },
+  { title: "What happened", Icon: Info },
+  { title: "Any injury?", Icon: Users },
+  { title: "Your hotel name", Icon: Hotel },
+  { title: "Hotel address (in Chinese)", Icon: Languages },
+  { title: "Your phone number or companion’s contact", Icon: Phone },
+];
+
+const saveInAdvance = [
+  "First hotel address (Chinese)",
+  "Hotel phone numbers",
+  "Passport photo",
+  "Travel insurance info",
+  "Emergency contacts",
+  "Embassy / Consulate contacts",
+];
+
+const phrases = [
+  ["请帮帮我。", "Please help me."],
+  ["我不会说中文。", "I don’t speak Chinese."],
+  ["请帮我联系酒店。", "Please help me contact my hotel."],
+  ["这是我的酒店地址。", "This is my hotel address."],
+  ["请帮我去这个地址。", "Please help me get to this address."],
+  ["我需要救护车。", "I need an ambulance."],
+  ["我要报警。", "I need to call the police."],
+  ["我的护照丢了。", "My passport is lost."],
+  ["我的手机丢了。", "My phone is lost."],
+  ["请帮我联系我的使领馆。", "Please help me contact my embassy or consulate."],
+];
+
+const commonProblems = [
+  {
+    title: "Lost Passport",
+    text: "Check nearby places. Report to police if lost. Contact your embassy.",
+    detail: "Keep a passport photo and your embassy or consulate contact saved offline before departure.",
+    Icon: Contact,
+  },
+  {
+    title: "Sick or Injured",
+    text: "Call 120 if serious. Ask hotel for help. Bring your passport and insurance.",
+    detail: "For non-urgent symptoms, ask your hotel to help find a nearby clinic or hospital.",
+    Icon: BriefcaseMedical,
+  },
+  {
+    title: "Phone Lost / No Power",
+    text: "Go back to last location. Contact hotel or companions. Use backup devices and find a place to charge.",
+    detail: "Keep hotel phone numbers and emergency contacts written down or printed, not only on your phone.",
+    Icon: BatteryCharging,
+  },
+  {
+    title: "Lost or Can’t Find Entrance",
+    text: "Show Chinese address to staff. Ask hotel for help. Check the map again and confirm the correct entrance.",
+    detail: "For attractions, the ticket entrance and scenic area entrance may be different. Confirm the exact gate.",
+    Icon: MapPin,
+  },
+];
+
+const finalChecklist = [
+  "110 / 120 / 119 / 122 saved",
+  "First hotel Chinese address saved",
+  "Hotel phone numbers saved",
+  "Passport photo saved",
+  "Travel insurance info saved",
+  "Emergency contacts saved",
+  "Embassy / Consulate contacts saved",
+  "Chinese help phrases screenshotted",
+  "“China Emergency” album created",
+  "Phone and power bank charged",
+];
+
+const relatedGuides = [
+  { title: "Arrival Checklist", href: "/arrival-checklist/", Icon: ClipboardCheck },
+  { title: "Payment & Internet", href: "/travel-prep/payment-internet/", Icon: Smartphone },
+  { title: "Transport & Tickets", href: "/travel-prep/transport-tickets/", Icon: Car },
+  { title: "Travel Apps", href: "/travel-prep/apps/", Icon: Smartphone },
+  { title: "Offline PDF Pack", href: arrivalPackHref, Icon: FileText },
+];
+---
+
+<BaseLayout
+  title="Emergency Help"
+  description="Save emergency numbers, hotel addresses, and simple Chinese phrases before your first trip to China."
+  headerCtaLabel="Unlock Pack - $9.90"
+  headerCtaHref={arrivalPackHref}
+>
+  <div class="emergency-help-page">
+    <section class="eh-hero">
+      <div class="container eh-hero__grid">
+        <div class="eh-hero__copy">
+          <p class="eh-eyebrow">TRAVEL PREP</p>
+          <h1>Emergency Help</h1>
+          <p class="eh-lead">Save emergency numbers, hotel addresses, and simple Chinese phrases before your first trip to China.</p>
+          <p class="eh-body">
+            Most problems are not life-threatening, but language, addresses, internet, orders, or documents can still cause stress. This page helps you know who to call, what to say, and what to prepare before anything goes wrong.
+          </p>
+        </div>
+
+        <div class="eh-hero-art" aria-label="Emergency help phone, medical kit, and important info checklist illustration">
+          <div class="eh-art-bg" aria-hidden="true"></div>
+          <div class="eh-clipboard" aria-hidden="true">
+            <strong>Important Info</strong>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="eh-phone" aria-hidden="true">
+            <span class="eh-phone__speaker"></span>
+            <ShieldCheck size={72} stroke-width={1.8} />
+            <strong>Emergency<br />Help</strong>
+            <span class="eh-phone__call"><Phone size={26} stroke-width={2.4} /></span>
+          </div>
+          <div class="eh-medkit" aria-hidden="true">
+            <Cross size={72} stroke-width={3} />
+          </div>
+        </div>
+
+        <aside class="eh-hero-cards" aria-label="Emergency help highlights">
+          {heroCards.map((card) => {
+            const Icon = card.Icon;
+            return (
+              <article class="eh-hero-card">
+                <span><Icon size={34} stroke-width={2.1} aria-hidden="true" /></span>
+                <div>
+                  <h2>{card.title}</h2>
+                  <p>{card.text}</p>
+                  {card.small && <small>{card.small}</small>}
+                </div>
+              </article>
+            );
+          })}
+        </aside>
+      </div>
+    </section>
+
+    <main class="eh-main">
+      <section class="eh-section">
+        <div class="container">
+          <h2>1. Emergency Numbers <span>(Mainland China)</span></h2>
+          <div class="eh-number-grid">
+            {emergencyNumbers.map((card) => {
+              const Icon = card.Icon;
+              return (
+                <article class={`eh-number-card eh-number-card--${card.color}`}>
+                  <header>
+                    <span class="eh-number-icon"><Icon size={42} stroke-width={2.1} aria-hidden="true" /></span>
+                    <div>
+                      <strong>{card.number}</strong>
+                      <h3>{card.title}</h3>
+                    </div>
+                  </header>
+                  <ul>
+                    {card.bullets.map((bullet) => <li>{bullet}</li>)}
+                  </ul>
+                  <div class="eh-phrase-box">
+                    <b>{card.phrase}</b>
+                    <span>{card.translation}</span>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <p class="eh-note">
+            <Info size={20} stroke-width={2.1} aria-hidden="true" />
+            <span>Note: The numbers above are for mainland China. If you travel to Hong Kong, Macau, or Taiwan, emergency numbers may be different. Please check in advance.</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="eh-section eh-section--two-col">
+        <div class="container eh-two-col">
+          <article class="eh-card eh-contact-card">
+            <h2>2. Who to Contact First</h2>
+            <div class="eh-contact-grid">
+              <div class="eh-contact-block">
+                <h3><TriangleAlert size={24} stroke-width={2.2} /> Serious Emergency</h3>
+                <p>For injury, theft, threats, fire, or traffic accidents, call the emergency number first.</p>
+                <div class="eh-hotline-buttons" aria-label="Emergency number quick list">
+                  <span>110</span>
+                  <span>120</span>
+                  <span>119</span>
+                  <span>122</span>
+                </div>
+              </div>
+              <div class="eh-contact-block">
+                <h3><Users size={24} stroke-width={2.2} /> Not Life-Threatening</h3>
+                <p>For non-urgent issues, contact one of these first.</p>
+                <ul>
+                  <li>Hotel front desk</li>
+                  <li>Travel companion</li>
+                  <li>Booking platform support</li>
+                  <li>Local staff</li>
+                  <li>Driver / Guide</li>
+                </ul>
+              </div>
+            </div>
+            <p class="eh-tip"><CircleCheck size={20} stroke-width={2.2} /> Tip: The hotel front desk is often the most helpful first contact for foreign travelers.</p>
+            <p class="eh-note eh-note--compact"><Info size={20} stroke-width={2.1} /> Contact your embassy or consulate for lost passport, serious legal issues, or major emergencies.</p>
+          </article>
+
+          <article class="eh-card eh-prepare-card">
+            <h2>3. Prepare This Information Before You Ask for Help</h2>
+            <p>Try to have these 6 pieces of information ready.</p>
+            <div class="eh-prep-grid">
+              {prepInfo.map((item) => {
+                const Icon = item.Icon;
+                return (
+                  <div>
+                    <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                    <span>{item.title}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <h3>Recommended to save in advance:</h3>
+            <ul class="eh-check-list">
+              {saveInAdvance.map((item) => (
+                <li><CircleCheck size={18} stroke-width={2.2} aria-hidden="true" /> {item}</li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="eh-section">
+        <div class="container eh-two-col">
+          <article class="eh-card eh-phrases-card">
+            <h2>4. Useful Chinese Phrases <span>(Save &amp; Show)</span></h2>
+            <div class="eh-phrase-table" role="table" aria-label="Useful Chinese emergency phrases">
+              {phrases.map(([zh, en]) => (
+                <div class="eh-phrase-row" role="row">
+                  <MessageCircle size={22} stroke-width={2.1} aria-hidden="true" />
+                  <strong>{zh}</strong>
+                  <span>{en}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article class="eh-card eh-problems-card">
+            <h2>5. Common Problems — What to Do</h2>
+            <div class="eh-problem-list">
+              {commonProblems.map((problem, index) => {
+                const Icon = problem.Icon;
+                return (
+                  <details class="eh-problem-item" open={index === 0}>
+                    <summary>
+                      <span class="eh-problem-icon"><Icon size={24} stroke-width={2.1} aria-hidden="true" /></span>
+                      <span>
+                        <strong>{problem.title}</strong>
+                        <small>{problem.text}</small>
+                      </span>
+                      <ChevronRight size={18} stroke-width={2.4} aria-hidden="true" />
+                    </summary>
+                    <p>{problem.detail}</p>
+                  </details>
+                );
+              })}
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="eh-section eh-section--last">
+        <div class="container eh-final-grid">
+          <article class="eh-card eh-final-card">
+            <h2>6. Final Emergency Checklist</h2>
+            <div class="eh-final-checklist">
+              {finalChecklist.map((item) => (
+                <label>
+                  <input type="checkbox" />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </div>
+          </article>
+
+          <article class="eh-card eh-related-card">
+            <h2>7. Related Travel Prep Guides</h2>
+            <nav aria-label="Related travel prep guides">
+              {relatedGuides.map((guide) => {
+                const Icon = guide.Icon;
+                return (
+                  <a href={guide.href}>
+                    <Icon size={23} stroke-width={2.1} aria-hidden="true" />
+                    <span>{guide.title}</span>
+                    <ChevronRight size={18} stroke-width={2.4} aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </nav>
+          </article>
+
+          <aside class="eh-card eh-pack-card">
+            <h2>Want your emergency info and key checklists offline?</h2>
+            <p>Unlock the Arrival Pack to get 1 / 2 / 3-day routes, hotel address notes in Chinese, emergency contacts, backup plans, travel checklists, and printable PDFs.</p>
+            <a class="button button-primary" href={arrivalPackHref} data-analytics-event="unlock_click">
+              <LockKeyhole size={18} stroke-width={2.2} aria-hidden="true" />
+              Unlock Arrival Pack - $9.90
+            </a>
+            <small>Instant access · Printable PDFs · Works offline</small>
+          </aside>
+        </div>
+      </section>
+
+      <p class="eh-footer-note">
+        <ShieldCheck size={16} stroke-width={2.1} aria-hidden="true" />
+        Travel smart. Prepare well. Enjoy China with confidence.
+      </p>
+    </main>
+  </div>
+</BaseLayout>
