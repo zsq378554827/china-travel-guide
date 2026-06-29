@@ -31,7 +31,7 @@ const pairLinks = attractions.filter((item) => item.cityId === city.id && item.s
 
 <BaseLayout
   title={`${attraction.name} Visitor Guide`}
-  description={`Practical ${attraction.name} guide for first-time China visitors: how long to spend, what to book, how to get there, mistakes to avoid, and backup plans.`}
+  description={`Practical ${attraction.name} guide for first-time China visitors: how long to spend, what to book, how to get there, mistakes to avoid, and quick backup notes.`}
 >
   <section class="subpage-hero">
     <div class="container subpage-hero__inner">
@@ -161,11 +161,11 @@ const pairLinks = attractions.filter((item) => item.cityId === city.id && item.s
   <section class="section-tight">
     <div class="container paper-card unlock-panel">
       <div>
-        <p class="eyebrow">Full city route</p>
+        <p class="eyebrow">Arrival Pack</p>
         <h2>Turn this attraction into a complete {city.name} day.</h2>
         <p class="muted">
-          Attraction pages stay free and practical. The full pack adds the complete 2-day and 3-day city route,
-          printable PDFs, booking reminders, and backup timing.
+          Attraction pages stay free and practical. The Arrival Pack adds the complete 2-day and 3-day city route,
+          downloadable PDFs, booking reminders, and quick backup timing.
         </p>
       </div>
       <div class="setup-card">
@@ -173,7 +173,7 @@ const pairLinks = attractions.filter((item) => item.cityId === city.id && item.s
           <li><a class="text-link" href={city.freeGuideHref}>Free {city.name} 1-day guide <ArrowRight size={16} /></a></li>
           <li><a class="text-link" href={city.twoDayHref}>Preview {city.name} 2-day guide <ArrowRight size={16} /></a></li>
           <li><a class="text-link" href={city.threeDayHref}>Preview {city.name} 3-day guide <ArrowRight size={16} /></a></li>
-          <li><a class="text-link" href="/unlock/">Unlock all current packs <ArrowRight size={16} /></a></li>
+          <li><a class="text-link" href="/unlock/">Unlock Arrival Pack - $9.90 <ArrowRight size={16} /></a></li>
         </ul>
       </div>
     </div>

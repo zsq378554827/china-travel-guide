@@ -41,6 +41,11 @@ const isXian = city.id === "xian";
 const isChengdu = city.id === "chengdu";
 const isGuilinYangshuo = city.id === "guilin-yangshuo";
 const isZhangjiajie = city.id === "zhangjiajie";
+const arrivalPackName = "Arrival Pack";
+const arrivalPackUnlockLabel = "Unlock Arrival Pack - $9.90";
+const arrivalPackHint = "Click any locked guide to see what’s included in the Arrival Pack.";
+const arrivalPackDescription = (cityName: string) =>
+  `Unlock the Arrival Pack to get the ${cityName} PDF, 2–3 day routes, food picks, transport notes, ticket reminders, hotel area notes, Chinese addresses, and backup notes.`;
 
 const beijingGuideCards = [
   {
@@ -78,7 +83,7 @@ const beijingGuideCards = [
   },
   {
     status: "locked",
-    title: "Quick Notes & Backup Plan",
+    title: "Quick Backup Notes",
     description: "Avoid crowds, adjust timing, and solve common issues.",
     image: "/images/cities/beijing-cover.jpg",
     alt: "Mutianyu Great Wall backup planning illustration",
@@ -96,12 +101,12 @@ const beijingHighlights = [
 
 const beijingPackFeatures = [
   { label: "2-3 Day Routes", Icon: Route },
-  { label: "Food Map", Icon: Map },
-  { label: "Transport Guide", Icon: TrainFront },
-  { label: "Attraction Tips", Icon: Star },
+  { label: "Local Food Picks", Icon: Map },
+  { label: "Transport Notes", Icon: TrainFront },
+  { label: "Attraction Ticket Notes", Icon: Star },
   { label: "Hotel Area Notes", Icon: Hotel },
-  { label: "Backup Plans", Icon: ClipboardCheck },
-  { label: "Printable PDFs", Icon: FileText },
+  { label: "Quick Backup Notes", Icon: ClipboardCheck },
+  { label: "Downloadable PDFs", Icon: FileText },
 ];
 
 const shanghaiGuideCards = [
@@ -140,7 +145,7 @@ const shanghaiGuideCards = [
   },
   {
     status: "locked",
-    title: "Quick Notes & Backup Plan",
+    title: "Quick Backup Notes",
     description: "Avoid crowds, adjust timing, and solve common issues.",
     image: "/images/cities/shanghai-cover.jpg",
     alt: "Shanghai night skyline backup planning illustration",
@@ -196,7 +201,7 @@ const xianGuideCards = [
   },
   {
     status: "locked",
-    title: "Quick Notes & Backup Plan",
+    title: "Quick Backup Notes",
     description: "Avoid crowds, adjust timing, and solve common issues.",
     image: "/images/cities/xian-cover.jpg",
     imagePosition: "35% center",
@@ -253,7 +258,7 @@ const guilinYangshuoGuideCards = [
   },
   {
     status: "locked",
-    title: "Quick Notes & Backup Plan",
+    title: "Quick Backup Notes",
     description: "Avoid crowds, adjust timing, and solve common issues.",
     image: "/images/cities/guilin-yangshuo-cover.jpg",
     imagePosition: "76% center",
@@ -310,7 +315,7 @@ const chengduGuideCards = [
   },
   {
     status: "locked",
-    title: "Quick Notes & Backup Plan",
+    title: "Quick Backup Notes",
     description: "Avoid crowds, adjust timing, and solve common issues.",
     image: "/images/cities/chengdu-cover.jpg",
     imagePosition: "30% center",
@@ -367,7 +372,7 @@ const zhangjiajieGuideCards = [
   },
   {
     status: "locked",
-    title: "Quick Notes & Backup Plan",
+    title: "Quick Backup Notes",
     description: "Avoid crowds, adjust timing, and solve common issues.",
     image: "/images/shanghai/food-night-snack.jpg",
     imagePosition: "center center",
@@ -386,7 +391,7 @@ const zhangjiajieHighlights = [
 
 const cityEntryConfig = isBeijing
   ? {
-      headerCtaLabel: "Unlock - $9.90",
+      headerCtaLabel: "Unlock Pack - $9.90",
       pageClass: "",
       showIllustrationLabels: false,
       heroAlt: city.imageAlt,
@@ -396,14 +401,13 @@ const cityEntryConfig = isBeijing
       subtitle: "Imperial landmarks, hutongs,\nand the Great Wall.",
       mustSee: "Forbidden City, Temple of Heaven, Mutianyu Great Wall",
       primaryHref: "/cities/beijing/1-day-itinerary/",
-      unlockLabel: "Unlock Full Beijing Pack - $9.90",
+      unlockLabel: arrivalPackUnlockLabel,
       guideCards: beijingGuideCards,
-      lockedPackName: "Full Beijing Pack",
-      hint: "Click any locked guide to see what’s included in the Full Beijing Pack.",
+      lockedPackName: arrivalPackName,
+      hint: arrivalPackHint,
       highlights: beijingHighlights,
-      fullPackTitle: "Want the Full Beijing Pack?",
-      fullPackText:
-        "Get the full Beijing plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+      fullPackTitle: "Get the full Beijing guide in the Arrival Pack",
+      fullPackText: arrivalPackDescription("Beijing"),
       packFeatures: beijingPackFeatures,
     }
   : isShanghai
@@ -418,14 +422,13 @@ const cityEntryConfig = isBeijing
         subtitle: "Modern skyline, historic charm,\nand world-class food.",
         mustSee: "The Bund, Yu Garden, Lujiazui Skyline",
         primaryHref: "/cities/shanghai/1-day-itinerary/",
-        unlockLabel: "Unlock Full Shanghai Pack - $9.90",
+        unlockLabel: arrivalPackUnlockLabel,
         guideCards: shanghaiGuideCards,
-        lockedPackName: "Full Shanghai Pack",
-        hint: "Click any locked guide to see what’s included in the Full Shanghai Pack.",
+        lockedPackName: arrivalPackName,
+        hint: arrivalPackHint,
         highlights: shanghaiHighlights,
-        fullPackTitle: "Want the Full Shanghai Pack?",
-        fullPackText:
-          "Get the full Shanghai plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+        fullPackTitle: "Get the full Shanghai guide in the Arrival Pack",
+        fullPackText: arrivalPackDescription("Shanghai"),
         packFeatures: beijingPackFeatures,
       }
     : isXian
@@ -441,14 +444,13 @@ const cityEntryConfig = isBeijing
           subtitle: "Ancient capital, Terracotta Warriors,\nand rich Silk Road heritage.",
           mustSee: "Terracotta Warriors, Ancient City Wall, Bell & Drum Tower",
           primaryHref: "/cities/xian/1-day-itinerary/",
-          unlockLabel: "Unlock Full Xi’an Pack - $9.90",
+          unlockLabel: arrivalPackUnlockLabel,
           guideCards: xianGuideCards,
-          lockedPackName: "Full Xi’an Pack",
-          hint: "Click any locked guide to see what’s included in the Full Xi’an Pack.",
+          lockedPackName: arrivalPackName,
+          hint: arrivalPackHint,
           highlights: xianHighlights,
-          fullPackTitle: "Want the Full Xi’an Pack?",
-          fullPackText:
-            "Get the full Xi’an plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+          fullPackTitle: "Get the full Xi’an guide in the Arrival Pack",
+          fullPackText: arrivalPackDescription("Xi’an"),
           packFeatures: beijingPackFeatures,
         }
       : isChengdu
@@ -464,15 +466,14 @@ const cityEntryConfig = isBeijing
             subtitle: "Pandas, spicy food, tea culture,\nand a relaxed city vibe.",
             mustSee: "Panda Base, Wuhou Shrine, Jinli Ancient Street",
             primaryHref: "/cities/chengdu/1-day-itinerary/",
-            unlockLabel: "Unlock Full Chengdu Pack - $9.90",
+            unlockLabel: arrivalPackUnlockLabel,
             guideCards: chengduGuideCards,
-            guideDescription: "The 1-day itinerary is free. The other guides are included in the full pack.",
-            lockedPackName: "Full Chengdu Pack",
-            hint: "Click any locked guide to see what’s included in the Full Chengdu Pack.",
+            guideDescription: "The 1-day itinerary is free. The other guides are included in the Arrival Pack.",
+            lockedPackName: arrivalPackName,
+            hint: arrivalPackHint,
             highlights: chengduHighlights,
-            fullPackTitle: "Want the Full Chengdu Pack?",
-            fullPackText:
-              "Get the full Chengdu plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+            fullPackTitle: "Get the full Chengdu guide in the Arrival Pack",
+            fullPackText: arrivalPackDescription("Chengdu"),
             packFeatures: beijingPackFeatures,
           }
         : isGuilinYangshuo
@@ -488,14 +489,13 @@ const cityEntryConfig = isBeijing
             subtitle: "Li River, Yulong River, and\nstunning karst landscapes.",
             mustSee: "Li River Cruise, Yulong River, Yangshuo West Street",
             primaryHref: "/cities/guilin-yangshuo/1-day-itinerary/",
-            unlockLabel: "Unlock Full Guilin & Yangshuo Pack - $9.90",
+            unlockLabel: arrivalPackUnlockLabel,
             guideCards: guilinYangshuoGuideCards,
-            lockedPackName: "Full Guilin & Yangshuo Pack",
-            hint: "Click any locked guide to see what’s included in the Full Guilin & Yangshuo Pack.",
+            lockedPackName: arrivalPackName,
+            hint: arrivalPackHint,
             highlights: guilinYangshuoHighlights,
-            fullPackTitle: "Want the Full Guilin & Yangshuo Pack?",
-            fullPackText:
-              "Get the full Guilin & Yangshuo plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+            fullPackTitle: "Get the full Guilin & Yangshuo guide in the Arrival Pack",
+            fullPackText: arrivalPackDescription("Guilin & Yangshuo"),
             packFeatures: beijingPackFeatures,
           }
         : isZhangjiajie
@@ -512,15 +512,14 @@ const cityEntryConfig = isBeijing
               bestFor: "Nature lovers",
               mustSee: "Yuanjiajie, Tianzi Mountain, Bailong Elevator, Ten-Mile Gallery",
               primaryHref: "/cities/zhangjiajie/1-day-itinerary/",
-              unlockLabel: "Unlock Full Zhangjiajie Pack - $9.90",
+              unlockLabel: arrivalPackUnlockLabel,
               guideCards: zhangjiajieGuideCards,
-              guideDescription: "The 1-day itinerary is free. The other guides are included in the full pack.",
-              lockedPackName: "Full Zhangjiajie Pack",
-              hint: "Click any locked guide to see what’s included in the Full Zhangjiajie Pack.",
+              guideDescription: "The 1-day itinerary is free. The other guides are included in the Arrival Pack.",
+              lockedPackName: arrivalPackName,
+              hint: arrivalPackHint,
               highlights: zhangjiajieHighlights,
-              fullPackTitle: "Want the Full Zhangjiajie Pack?",
-              fullPackText:
-                "Get the full Zhangjiajie plan with extra day routes, food picks, transport notes, hotel area notes, attraction tips, backup plans, and printable PDFs.",
+              fullPackTitle: "Get the full Zhangjiajie guide in the Arrival Pack",
+              fullPackText: arrivalPackDescription("Zhangjiajie"),
               packFeatures: beijingPackFeatures,
             }
           : null;
@@ -530,7 +529,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
 
 <BaseLayout
   title={`${city.name} Travel Guide for First-Time Visitors`}
-  description={`${city.name} first-time visitor overview with free 1-day guide, must-see spots, practical tips, and full pack preview.`}
+  description={`${city.name} first-time visitor overview with free 1-day guide, must-see spots, practical tips, and Arrival Pack preview.`}
   headerCtaLabel={cityEntryConfig?.headerCtaLabel}
 >
   {cityEntryConfig ? (
@@ -571,7 +570,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
         <div class="container">
           <div class="beijing-section-heading">
             <h2 id="beijing-guide-cards-title">Explore the Free 1-Day Guide</h2>
-            <p>{cityEntryConfig.guideDescription ?? "Only the 1-day itinerary is free. The other guides are included in the full pack."}</p>
+            <p>{cityEntryConfig.guideDescription ?? "Only the 1-day itinerary is free. The other guides are included in the Arrival Pack."}</p>
           </div>
           <div class="beijing-guide-grid">
             {cityEntryConfig.guideCards.map((card) => {
@@ -604,7 +603,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
                     <h3>{card.title}</h3>
                     <p>{card.description}</p>
                     <span class={isFree ? "beijing-guide-card__action" : "beijing-guide-card__action beijing-guide-card__action--locked"}>
-                      {isFree ? <>Open free guide <ArrowRight size={18} /></> : <><LockKeyhole size={15} /> Included in Full Pack</>}
+                      {isFree ? <>Open free guide <ArrowRight size={18} /></> : <><LockKeyhole size={15} /> Included in Arrival Pack</>}
                     </span>
                   </div>
                 </a>
@@ -648,7 +647,7 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
             </div>
             <div class="beijing-full-pack__action">
               <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">{cityEntryConfig.unlockLabel}</a>
-              <small>Instant access · Printable PDFs · Easy to use</small>
+              <small>Instant access · Downloadable PDFs · Easy to use</small>
             </div>
           </div>
         </div>
@@ -693,11 +692,11 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
           <article class="content-card">
             <LockKeyhole size={32} />
             <h2>2-Day / 3-Day previews</h2>
-            <p class="muted">Preview the paid route structure before unlocking the full current pack.</p>
+            <p class="muted">Preview the paid route structure before unlocking the Arrival Pack.</p>
             <div class="tag-list" style="margin-top: 12px;">
               <a class="tag" href={city.twoDayHref}>2-day preview</a>
               <a class="tag" href={city.threeDayHref}>3-day preview</a>
-              <a class="tag" href="/unlock/">Full pack</a>
+              <a class="tag" href="/unlock/">Arrival Pack</a>
             </div>
           </article>
         </div>
@@ -716,9 +715,9 @@ const cityEntrySubtitleLines = cityEntryConfig?.subtitle.split("\n") ?? [];
             <a class="text-link" href="/china-ticket-booking-guide/">Read ticket booking guide <ArrowRight size={16} /></a>
           </article>
           <article class="content-card">
-            <h2>Unlock current pack</h2>
-            <p class="muted">Get complete 2-day and 3-day city routes, printable PDFs, booking reminders, and backup plans.</p>
-            <a class="text-link" href="/unlock/">Preview all current packs <ArrowRight size={16} /></a>
+            <h2>Unlock Arrival Pack</h2>
+            <p class="muted">Get 2-day and 3-day routes, downloadable PDFs, booking reminders, and quick backup notes.</p>
+            <a class="text-link" href="/unlock/">Preview the Arrival Pack <ArrowRight size={16} /></a>
           </article>
         </div>
       </section>

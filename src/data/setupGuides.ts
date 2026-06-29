@@ -34,7 +34,7 @@ export const setupGuides: SetupGuide[] = [
     description:
       "A practical China payment setup guide for first-time visitors covering mobile wallets, card backups, cash, and common payment issues.",
     summary:
-      "Payment setup is one of the biggest friction points for first-time China trips. Use this free guide as a preflight checklist, then use the full setup pack for step-by-step screenshots and troubleshooting.",
+      "Payment setup is one of the biggest friction points for first-time China trips. Use this free guide as a preflight checklist, then use the Arrival Pack for step-by-step screenshots and troubleshooting.",
     basics: [
       "Set up at least one mobile wallet before arrival.",
       "Keep a backup card and small cash reserve.",
@@ -56,7 +56,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "Travel Apps", href: "/travel-prep/apps/" },
       { label: "China Travel Checklist", href: "/china-travel-checklist/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Shanghai guide to WeChat Pay / Alipay for overseas cards", href: "https://english.shanghai.gov.cn/en-BankingServices/20231215/fe3a293d065f40e0a7f740aa88edb050.html" },
@@ -87,7 +87,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "High-Speed Rail Guide", href: "/china-high-speed-rail-guide/" },
       { label: "How to Pay in China", href: "/how-to-pay-in-china/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Beijing new-arrival transportation guide", href: "https://english.beijing.gov.cn/latest/specials/essentialtipsfornewarrivals/transportation/202408/t20240830_3785706.html" },
@@ -126,7 +126,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "How to Pay in China", href: "/how-to-pay-in-china/" },
       { label: "Can tourists use WeChat Pay?", href: "/can-tourists-use-wechat-pay-in-china/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Alipay+ guide for paying in the Chinese mainland", href: "https://www.alipayplus.com/pay-in-the-chinese-mainland/" },
@@ -166,7 +166,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "How to Pay in China", href: "/how-to-pay-in-china/" },
       { label: "Can foreigners use Alipay?", href: "/can-foreigners-use-alipay-in-china/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "China government payment guide for overseas visitors", href: "https://english.www.gov.cn/news/202404/11/content_WS6617c858c6d0868f4e8e5f4d.html" },
@@ -197,7 +197,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "Public Transport Guide", href: "/china-public-transport-guide/" },
       { label: "Travel Apps", href: "/travel-prep/apps/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "12306 real-name ticketing FAQ", href: "https://www.12306.cn/en/faq.html" },
@@ -237,7 +237,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "China High-Speed Rail Guide", href: "/china-high-speed-rail-guide/" },
       { label: "China Public Transport Guide", href: "/china-public-transport-guide/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "12306 English website", href: "https://www.12306.cn/en/" },
@@ -268,7 +268,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "How to Pay in China", href: "/how-to-pay-in-china/" },
       { label: "Ticket Booking Guide", href: "/china-ticket-booking-guide/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Beijing mobile payment guide", href: "https://english.beijing.gov.cn/specials/aguidetoworkingandlivinginchinaasbusinessexpatriates2024/dailylifeservices/202404/t20240424_3635122.html" },
@@ -307,7 +307,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "Travel Apps", href: "/travel-prep/apps/" },
       { label: "China VPN and internet access guide", href: "/china-vpn-internet-access-guide/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Beijing essential tips for new arrivals", href: "https://english.beijing.gov.cn/latest/specials/essentialtipsfornewarrivals/" },
@@ -345,7 +345,7 @@ export const setupGuides: SetupGuide[] = [
     related: [
       { label: "China eSIM and SIM Card Guide", href: "/china-esim-sim-card-guide/" },
       { label: "Travel Apps", href: "/travel-prep/apps/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Beijing essential tips for new arrivals", href: "https://english.beijing.gov.cn/latest/specials/essentialtipsfornewarrivals/" },
@@ -358,7 +358,7 @@ export const setupGuides: SetupGuide[] = [
     h1: "China Ticket Booking Guide for Attractions and First-Time Visitors",
     eyebrow: "Tickets",
     description:
-      "A practical China attraction ticket booking guide covering passport names, QR codes, booking windows, confirmation screenshots, and backup plans.",
+      "A practical China attraction ticket booking guide covering passport names, QR codes, booking windows, confirmation screenshots, and quick backup notes.",
     summary:
       "For famous China attractions, ticket friction often comes from timing, passport-name rules, and confirmation details. This free guide keeps the basics visible before you build a full itinerary.",
     basics: ["Book high-demand attractions early when possible.", "Use passport details exactly as required.", "Save confirmation codes and QR screens offline.", "Check each attraction's current official booking channel before travel."],
@@ -370,11 +370,11 @@ export const setupGuides: SetupGuide[] = [
     ],
     commonIssues: ["Tickets can sell out.", "Some venues require real-name advance reservations.", "Name or passport mismatch can block entry.", "QR codes and booking screens may need internet or app access."],
     freeChecklist: ["Target attraction", "Official booking channel", "Booking window", "Passport name", "QR code screenshot", "Backup attraction"],
-    paidPreview: ["City-by-city booking reminders", "Passport-name checklist", "Ticket failure backup plans", "Attraction pairing table", "Printable booking tracker"],
+    paidPreview: ["City-by-city booking reminders", "Passport-name checklist", "Ticket failure quick backup notes", "Attraction pairing table", "Downloadable booking tracker"],
     related: [
       { label: "China Travel Checklist", href: "/china-travel-checklist/" },
       { label: "Forbidden City guide", href: "/attractions/forbidden-city/" },
-      { label: "Unlock the full setup pack", href: "/unlock/" },
+      { label: "Unlock Arrival Pack - $9.90", href: "/unlock/" },
     ],
     officialSources: [
       { label: "Palace Museum visitor reservation notice", href: "https://english.beijing.gov.cn/latest/news/202306/t20230629_3150036.html" },

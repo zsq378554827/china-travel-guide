@@ -86,7 +86,7 @@ gtag("config", "${gaMeasurementId}");`}
     eventName = "checkout_click";
   } else if (path === "/unlock/" && window.location.pathname !== "/unlock/") {
     eventName = "unlock_click";
-  } else if (text.indexOf("unlock all current packs") !== -1 || text.indexOf("buy") !== -1) {
+  } else if (text.indexOf("unlock arrival pack") !== -1 || text.indexOf("buy") !== -1) {
     eventName = "checkout_click";
   }
 

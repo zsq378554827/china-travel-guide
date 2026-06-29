@@ -16,7 +16,7 @@ const otherLabel = days === 2 ? "Preview the 3-day plan" : "Preview the 2-day pl
 const previewDays =
   days === 2
     ? [
-        { title: "Day 1: First-time highlights", text: `Use the free ${city.name} 1-day route as the base, with tighter timing, better food notes, and clearer backup options in the full pack.` },
+        { title: "Day 1: First-time highlights", text: `Use the free ${city.name} 1-day route as the base, with tighter timing, better food notes, and clearer backup options in the Arrival Pack.` },
         { title: "Day 2: Slower second layer", text: `Add a second route around ${city.mustSee}, with a lower-stress pace and fewer cross-city detours.` },
       ]
     : [
@@ -35,7 +35,7 @@ const included = [
 
 <BaseLayout
   title={`${city.name} ${dayLabel} Itinerary Preview`}
-  description={`Preview the ${city.name} ${dayLabel.toLowerCase()} itinerary structure for first-time visitors. The full route, printable PDF, booking reminders, and backup plans are in the current pack.`}
+  description={`Preview the ${city.name} ${dayLabel.toLowerCase()} itinerary structure for first-time visitors. The complete route, downloadable PDF, booking reminders, and quick backup notes are in the Arrival Pack.`}
 >
   <section class="subpage-hero">
     <div class="container subpage-hero__inner">
@@ -45,16 +45,16 @@ const included = [
       <p class="eyebrow">Preview only</p>
       <h1>{city.name} {dayLabel} Itinerary Preview</h1>
       <p class="lead">
-        This page shows the outline and free boundary. The full {dayLabel.toLowerCase()} timeline, printable PDF,
-        booking reminders, food notes, and backup routes are part of the current paid pack.
+        This page shows the outline and free boundary. The complete {dayLabel.toLowerCase()} timeline, downloadable PDF,
+        booking reminders, food notes, and quick backup notes are part of the Arrival Pack.
       </p>
       <div class="trust-row">
-        <span class="pill"><LockKeyhole size={16} /> Full route locked</span>
+        <span class="pill"><LockKeyhole size={16} /> Complete route locked</span>
         <span class="pill"><CalendarDays size={16} /> {city.recommendedDays}</span>
-        <span class="pill"><Ticket size={16} /> Booking reminders included in paid pack</span>
+        <span class="pill"><Ticket size={16} /> Booking reminders included in Arrival Pack</span>
       </div>
       <div class="inline-actions">
-        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock all current packs - $9.90</a>
+        <a class="button button-primary" href={checkoutUrl} data-analytics-event="checkout_click">Unlock Arrival Pack - $9.90</a>
         <a class="button button-secondary" href={city.freeGuideHref}>Read the free 1-day guide</a>
       </div>
     </div>
@@ -78,11 +78,11 @@ const included = [
       <article class="content-card">
         <Route size={32} />
         <h2>What you can see for free</h2>
-        <p class="muted">A route outline, the city context, and a clear explanation of what is inside the full pack.</p>
+        <p class="muted">A route outline, the city context, and a clear explanation of what is inside the Arrival Pack.</p>
       </article>
       <article class="content-card">
         <CloudDownload size={32} />
-        <h2>What the full pack adds</h2>
+        <h2>What the Arrival Pack adds</h2>
         <ul class="clean-list">
           {included.map((item) => <li>{item}</li>)}
         </ul>
@@ -90,7 +90,7 @@ const included = [
       <article class="content-card">
         <LockKeyhole size={32} />
         <h2>Current pack boundary</h2>
-        <p class="muted">The paid pack includes the current files available at checkout. It is a one-time purchase, not a subscription.</p>
+        <p class="muted">The Arrival Pack includes the current files available at checkout. It is a one-time purchase, not a subscription.</p>
       </article>
     </div>
   </section>
@@ -101,7 +101,7 @@ const included = [
         <p class="eyebrow">Next step</p>
         <h2>Compare this preview with the free route.</h2>
         <p class="muted">
-          Start with the free 1-day guide if you are still evaluating the style. Unlock the current pack when you want the
+          Start with the free 1-day guide if you are still evaluating the style. Unlock the Arrival Pack when you want the
           complete multi-day PDFs and setup notes.
         </p>
       </div>
