@@ -1,0 +1,366 @@
+---
+import {
+  Briefcase,
+  Car,
+  ChevronRight,
+  CircleCheck,
+  ClipboardCheck,
+  CloudSun,
+  FileText,
+  Globe,
+  Image,
+  KeyRound,
+  Languages,
+  LockKeyhole,
+  Luggage,
+  MapPinned,
+  MessageCircle,
+  ShieldCheck,
+  Smartphone,
+  UserCheck,
+} from "@lucide/astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const arrivalPackHref = "/unlock/";
+
+const quickSetup = [
+  { text: "Install essential apps", Icon: ClipboardCheck },
+  { text: "Test translation and maps", Icon: Languages },
+  { text: "Open all travel orders", Icon: FileText },
+  { text: "Log in to key apps", Icon: UserCheck },
+  { text: "Verification codes or backup login ready", Icon: KeyRound },
+  { text: "Important screenshots saved to your phone photo album", Icon: Image },
+];
+
+const beforeYouGo = [
+  {
+    title: "Map app installed",
+    text: "Ready to search hotels and attractions",
+    Icon: MapPinned,
+  },
+  {
+    title: "Translation app tested",
+    text: "Text, photo, and voice translation checked",
+    Icon: Languages,
+  },
+  {
+    title: "Travel orders open",
+    text: "Hotel / flight / train / attraction orders ready",
+    Icon: Briefcase,
+  },
+  {
+    title: "Key apps logged in",
+    text: "Don’t wait until arrival to register",
+    Icon: UserCheck,
+  },
+  {
+    title: "Verification ready",
+    text: "SMS codes or backup login prepared",
+    Icon: KeyRound,
+  },
+  {
+    title: "Screenshots saved",
+    text: "Important info saved to your phone album",
+    Icon: Image,
+  },
+];
+
+const appTypes = [
+  {
+    title: "Maps & Navigation Apps",
+    Icon: MapPinned,
+    bestFor: ["Getting around in cities", "Public transit and walking", "Finding hotels and attractions"],
+    tip: "Amap is often useful in China. Keep Baidu Maps or Apple Maps as backup.",
+  },
+  {
+    title: "Translation Apps",
+    Icon: Languages,
+    bestFor: ["Menus and signs", "Asking for directions", "Chat and text translation"],
+    tip: "Download the offline Chinese language pack before you go.",
+  },
+  {
+    title: "Communication Apps",
+    Icon: MessageCircle,
+    bestFor: ["Contacting hotels and hosts", "Messaging and voice calls", "SMS verification for logins"],
+    tip: "WeChat is most common. Also keep email and SMS ready.",
+  },
+  {
+    title: "Ride-Hailing & Transfer Access",
+    Icon: Car,
+    bestFor: ["Taxis and private rides (e.g. DiDi)", "Airport and station transfers", "Late-night and group travel"],
+    tip: "Set pick-up points clearly. Screenshot locations when unsure.",
+  },
+  {
+    title: "Orders & Booking Apps",
+    Icon: Briefcase,
+    bestFor: ["Hotels, flights, trains", "Attractions and activities", "Itineraries and e-tickets"],
+    tip: "Keep all booking apps open, and save key QR codes, order numbers, and details as screenshots.",
+  },
+  {
+    title: "Food, Weather & Daily Tools",
+    Icon: CloudSun,
+    bestFor: ["Restaurant discovery", "Weather forecasts", "Tools: calendar, notes, alarms"],
+    tip: "Dianping / Meituan language, login, and some features may vary. Use them as references, not your only source.",
+  },
+];
+
+const dayUse = [
+  {
+    title: "Before Leaving the Hotel",
+    items: ["Confirm today’s plan", "Check map and route", "Save key addresses", "Screenshot bookings"],
+  },
+  {
+    title: "Before a Station or Attraction",
+    items: ["Check route and time", "Confirm tickets and QR codes", "Confirm entry rules", "Download offline maps"],
+  },
+  {
+    title: "During the Day",
+    items: ["Use maps and translation", "Communicate as needed", "Keep orders handy", "Save useful info"],
+  },
+  {
+    title: "Back at Night",
+    items: ["Confirm return route", "Check next day plan", "Save new screenshots", "Charge devices"],
+  },
+];
+
+const commonProblems = [
+  {
+    question: "Cannot log in after arrival?",
+    answer: "Check SMS signal. Use email login or a known device if available. Avoid registering important apps for the first time after landing.",
+  },
+  {
+    question: "English address cannot be found?",
+    answer: "Search in Chinese. Use the hotel Chinese name, district, or landmark. Keep screenshots of Chinese addresses.",
+  },
+  {
+    question: "Translation app does not work offline?",
+    answer: "Download the offline Chinese language pack before you go. Save common phrases and address screenshots.",
+  },
+  {
+    question: "Order cannot be found?",
+    answer: "Check all booking apps and email. Search by name or date. Keep QR codes and order numbers as screenshots.",
+  },
+  {
+    question: "Too many apps to manage?",
+    answer: "Keep only essential apps in a “China Trip” folder on your phone.",
+  },
+];
+
+const finalChecklist = [
+  "Map app installed and working",
+  "Translation app tested offline",
+  "Communication apps ready",
+  "Ride-hailing app ready, if needed",
+  "All booking and ticket orders open",
+  "Chinese hotel names and addresses saved",
+  "Screenshots saved to your phone album",
+  "Key apps logged in",
+  "Login verification method ready",
+  "Offline Chinese language pack downloaded",
+  "Phone and power bank charged",
+  "Core apps placed in a “China Trip” folder",
+];
+
+const relatedGuides = [
+  { title: "Arrival Checklist", href: "/arrival-checklist/", Icon: ClipboardCheck },
+  { title: "Payment & Internet", href: "/travel-prep/payment-internet/", Icon: Smartphone },
+  { title: "Transport & Tickets", href: "/travel-prep/transport-tickets/", Icon: Car },
+  { title: "Emergency Help", href: "/china-travel-checklist/#emergency", Icon: ShieldCheck },
+  { title: "Offline PDF Pack", href: arrivalPackHref, Icon: FileText },
+];
+---
+
+<BaseLayout
+  title="Travel Apps"
+  description="Get your map, translation, booking, and contact tools ready before you land in China."
+  headerCtaLabel="Unlock Pack - $9.90"
+  headerCtaHref={arrivalPackHref}
+>
+  <div class="travel-apps-page">
+    <section class="ta-hero">
+      <div class="container ta-hero__grid">
+        <div class="ta-hero__copy">
+          <p class="ta-eyebrow">TRAVEL PREP</p>
+          <h1>Travel Apps</h1>
+          <p class="ta-lead">Get your map, translation, booking, and contact tools ready before you land in China.</p>
+          <p class="ta-body">
+            This page focuses on travel apps only. For payment setup, see <a href="/travel-prep/payment-internet/">Payment &amp; Internet</a>. For train tickets and attraction booking, see <a href="/travel-prep/transport-tickets/">Transport &amp; Tickets</a>.
+          </p>
+        </div>
+
+        <div class="ta-hero-art" aria-label="Phone with travel app icons, checklist, globe, and luggage illustration">
+          <div class="ta-globe" aria-hidden="true">
+            <Globe size={110} stroke-width={1.4} />
+            <span><MapPinned size={30} stroke-width={2.1} /></span>
+          </div>
+          <div class="ta-note ta-note--small" aria-hidden="true"><CircleCheck size={18} /><span></span><span></span></div>
+          <div class="ta-phone" aria-hidden="true">
+            <span class="ta-phone__speaker"></span>
+            <div class="ta-app-grid">
+              <span class="ta-app ta-app--map"><MapPinned size={34} /></span>
+              <span class="ta-app ta-app--translate"><Languages size={34} /></span>
+              <span class="ta-app ta-app--wechat"><MessageCircle size={34} /></span>
+              <span class="ta-app ta-app--orders"><Briefcase size={34} /></span>
+              <span class="ta-app ta-app--favorite"><CircleCheck size={34} /></span>
+              <span class="ta-app ta-app--bag"><Luggage size={34} /></span>
+            </div>
+          </div>
+          <div class="ta-note ta-note--checklist" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="ta-suitcase" aria-hidden="true">
+            <span></span>
+          </div>
+        </div>
+
+        <aside class="ta-side-card ta-quick-card" aria-label="Quick app setup">
+          <h2>6 Things to Check Before You Go</h2>
+          <p>6 things to confirm before you depart.</p>
+          <ul>
+            {quickSetup.map((item) => {
+              const Icon = item.Icon;
+              return (
+                <li>
+                  <Icon size={22} stroke-width={2.1} aria-hidden="true" />
+                  <span>{item.text}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <main class="ta-main">
+      <div class="container ta-layout">
+        <div class="ta-content">
+          <section class="ta-section">
+            <h2>1. Before You Go — Confirm These 6 Things</h2>
+            <div class="ta-before-grid">
+              {beforeYouGo.map((card) => {
+                const Icon = card.Icon;
+                return (
+                  <article class="ta-mini-card">
+                    <Icon size={38} stroke-width={2.1} aria-hidden="true" />
+                    <h3>{card.title}</h3>
+                    <p>{card.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section class="ta-section">
+            <h2>2. What Each App Type Helps With</h2>
+            <div class="ta-app-type-grid">
+              {appTypes.map((card) => {
+                const Icon = card.Icon;
+                return (
+                  <article class="ta-info-card">
+                    <header>
+                      <Icon size={34} stroke-width={2.1} aria-hidden="true" />
+                      <h3>{card.title}</h3>
+                    </header>
+                    <p><strong>Best for:</strong></p>
+                    <ul>
+                      {card.bestFor.map((item) => <li>{item}</li>)}
+                    </ul>
+                    <p class="ta-tip"><strong>Tip:</strong> {card.tip}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section class="ta-section">
+            <h2>3. A Day of Use</h2>
+            <div class="ta-day-timeline">
+              {dayUse.map((step, index) => (
+                <article class="ta-day-step">
+                  <span>{index + 1}</span>
+                  <h3>{step.title}</h3>
+                  <ul>
+                    {step.items.map((item) => <li>{item}</li>)}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section class="ta-section">
+            <h2>4. Common Problems</h2>
+            <div class="ta-accordion">
+              {commonProblems.map((item, index) => (
+                <details class="ta-accordion-item" open={index === 0}>
+                  <summary>
+                    <span>{item.question}</span>
+                    <ChevronRight size={18} stroke-width={2.4} aria-hidden="true" />
+                  </summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        <aside class="ta-sidebar">
+          <section class="ta-side-card ta-final-checklist">
+            <h2>5. Final Travel Apps Checklist</h2>
+            <div class="ta-checklist">
+              {finalChecklist.map((item) => (
+                <label>
+                  <input type="checkbox" />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </div>
+            <p class="ta-tip-box">Tip: Screenshots in your phone photo album are often faster to open than email or cloud storage — especially when internet is weak.</p>
+          </section>
+
+          <section class="ta-side-card ta-related">
+            <h2>6. Related Travel Prep Guides</h2>
+            <nav aria-label="Related travel prep guides">
+              {relatedGuides.map((guide) => {
+                const Icon = guide.Icon;
+                return (
+                  <a href={guide.href}>
+                    <Icon size={24} stroke-width={2.1} aria-hidden="true" />
+                    <span>{guide.title}</span>
+                    <ChevronRight size={18} stroke-width={2.4} aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </nav>
+          </section>
+        </aside>
+      </div>
+
+      <section class="ta-bottom-section">
+        <div class="container">
+          <div class="ta-bottom-cta">
+            <div class="ta-pack-art" aria-hidden="true">
+              <div class="ta-pack-bag"><Luggage size={68} stroke-width={1.8} /></div>
+              <div class="ta-pack-passport"><span>PASSPORT</span></div>
+              <div class="ta-pack-map"><MapPinned size={36} stroke-width={2.1} /></div>
+            </div>
+            <div class="ta-bottom-cta__copy">
+              <h2>Want your routes, addresses, and key checklists offline?</h2>
+              <p>Unlock the Arrival Pack to get 1 / 2 / 3-day routes, hotel address notes in Chinese, ticket reminders, backup plans, travel checklists, and printable PDFs.</p>
+            </div>
+            <div class="ta-bottom-cta__action">
+              <a class="button button-primary" href={arrivalPackHref} data-analytics-event="unlock_click">
+                <LockKeyhole size={18} stroke-width={2.2} aria-hidden="true" />
+                Unlock Arrival Pack - $9.90
+              </a>
+              <small>
+                <span>Instant access</span>
+                <span>Printable PDFs</span>
+                <span>Works offline</span>
+              </small>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>

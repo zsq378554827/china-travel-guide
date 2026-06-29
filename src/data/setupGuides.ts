@@ -54,7 +54,7 @@ export const setupGuides: SetupGuide[] = [
     freeChecklist: ["Install wallet app", "Add card", "Confirm identity steps", "Check fee threshold in app", "Carry small cash", "Save bank support contact"],
     paidPreview: ["Alipay setup flow", "WeChat Pay backup flow", "Card failure troubleshooting", "Cash and ATM backup notes", "Offline payment emergency card"],
     related: [
-      { label: "China Travel Apps", href: "/china-travel-apps/" },
+      { label: "Travel Apps", href: "/travel-prep/apps/" },
       { label: "China Travel Checklist", href: "/china-travel-checklist/" },
       { label: "Unlock the full setup pack", href: "/unlock/" },
     ],
@@ -196,7 +196,7 @@ export const setupGuides: SetupGuide[] = [
     paidPreview: ["Rail booking checklist", "Station transfer templates", "Passport-name troubleshooting", "Missed train backup plan", "First China rail day timeline"],
     related: [
       { label: "Public Transport Guide", href: "/china-public-transport-guide/" },
-      { label: "China Travel Apps", href: "/china-travel-apps/" },
+      { label: "Travel Apps", href: "/travel-prep/apps/" },
       { label: "Unlock the full setup pack", href: "/unlock/" },
     ],
     officialSources: [
@@ -247,9 +247,9 @@ export const setupGuides: SetupGuide[] = [
   },
   {
     slug: "china-travel-apps",
-    href: "/china-travel-apps/",
-    title: "China Travel Apps",
-    h1: "China Travel Apps to Set Up Before Your First Trip",
+    href: "/travel-prep/apps/",
+    title: "Travel Apps",
+    h1: "Travel Apps to Set Up Before Your First Trip",
     eyebrow: "Apps",
     description:
       "A simple China travel apps checklist for first-time visitors covering payment, messaging, maps, translation, booking, and offline backups.",
@@ -305,7 +305,7 @@ export const setupGuides: SetupGuide[] = [
     freeChecklist: ["Unlocked phone", "eSIM support checked", "Roaming cost checked", "Offline maps", "Hotel address card", "Backup contact method"],
     paidPreview: ["Arrival connectivity checklist", "eSIM vs SIM decision table", "Offline backup card", "Airport setup plan", "App access risk notes"],
     related: [
-      { label: "China Travel Apps", href: "/china-travel-apps/" },
+      { label: "Travel Apps", href: "/travel-prep/apps/" },
       { label: "China VPN and internet access guide", href: "/china-vpn-internet-access-guide/" },
       { label: "Unlock the full setup pack", href: "/unlock/" },
     ],
@@ -344,7 +344,7 @@ export const setupGuides: SetupGuide[] = [
     paidPreview: ["Internet risk checklist", "Offline address cards", "App backup matrix", "Arrival-day connection plan", "Emergency no-data workflow"],
     related: [
       { label: "China eSIM and SIM Card Guide", href: "/china-esim-sim-card-guide/" },
-      { label: "China Travel Apps", href: "/china-travel-apps/" },
+      { label: "Travel Apps", href: "/travel-prep/apps/" },
       { label: "Unlock the full setup pack", href: "/unlock/" },
     ],
     officialSources: [
